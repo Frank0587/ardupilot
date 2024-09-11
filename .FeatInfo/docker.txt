@@ -1,0 +1,92 @@
+docker
+
+----------------------------------------------------
+Beim Anlegen des Docker-Images mit 
+   > docker build . -t ardupilot
+kommt es zu Fehlern (Docker-Desktop>Builds..):
+   + echo source /mnt/c/Users/david/Desktop/ardupilot/Tools/completion/completion.bash
+   + eval source /mnt/c/Users/david/Desktop/ardupilot/Tools/completion/completion.bash
+   ++ source /mnt/c/Users/david/Desktop/ardupilot/Tools/completion/completion.bash
+   +++ $'\r'
+   /mnt/c/Users/david/Desktop/ardupilot/Tools/completion/completion.bash: line 2: $'\r': command not found
+
+Ursache sind die \r\n Zeilenende von Windows, satt Unix \r
+Abhilfe 1 (Vorschlag von ArduPilot): den Git-Cone Befehl aus dem Docker-image (Unix) aufrufen.
+Abhilfe 2: 
+   - für Editor: in VSCode die Standard-Endung auf LF setzen (settings > file.eol)
+   - für Files von git:
+      > git config core.autocrlf false    # gilt nur für aktuellen clone
+      > git rm --cached -r .              # Don’t forget the dot at the end
+      > git reset --hard
+
+---------------------------------------------------
+
+von "https://discuss.ardupilot.org/t/ardupilot-and-docker-part-1/90532"
+
+to setup the docker image..
+   >docker build . -t ardupilot
+
+start a bash (to use waf inside container direct)
+   >docker run --rm -it -v v:/git/ardupilot:/ardupilot ardupilot:latest bash
+
+or over docker
+   >docker run --rm -it -v v:/git/ardupilot:/ardupilot ardupilot ./waf list_boards
+
+
+
+   >./waf list_boards
+configure board
+   >./waf configure --board=SpeedyBeeF405WING
+build the plane-firmware
+   >./waf plane
+
+
+---------------------------------------------------
+
+in VSC-Remote: 
+start a container with mounted clone
+   >docker run --rm -it -v v:/git/ardupilot:/ardupilot ardupilot:latest
+
+start the remote VSC (by [><] button > to running conteiner)
+
+open directory, select something like ..\..\ardupilot
+ab nun im Terminal (=bash):
+
+enable git by (rebuild index)
+   >git config --global --add safe.directory /ardupilot
+   >git config --add safe.directory /ardupilot              # reicht vielleicht auch...
+   >git status
+
+configure board
+   >./waf configure --board=SpeedyBeeF405WING   
+
+build SW
+   >.\waf plane
+
+gibt Fehler:
+   Command ['/usr/bin/git', 'rev-parse', '--short=8', 'HEAD'] returned 128
+Abhilfe (https://discuss.ardupilot.org/t/git-required-for-build/32471/9):
+   edit "edit Tools/ardupilotwaf/git_submodule.py":
+
+         def _git_head_hash(ctx, path, short=False):
+      #    cmd = [ctx.env.get_flat('GIT'), 'rev-parse']
+      #    if short:
+      #        cmd.append('--short=8')
+      #    cmd.append('HEAD')
+      #    out = ctx.cmd_and_log(cmd, quiet=Context.BOTH, cwd=path)
+      #    return out.strip()
+         return "deadc0de"
+
+build SW
+   >.\waf plane
+   # braucht sehr, sehr lange
+
+------------------------------
+Wichtige Punkte:
+- Verzeichnis v:\Git\ArduPilot ist in Docker gemountet, nicht kopiert
+- Files müssen UNIX-LineEnd haben (\n statt \r\n)
+- Git geht innerhalb von Docker auch (ist aber eigene Instanz, außerhalb besser)
+- generierte Files sind direkt im clone sichtbar
+- Container nicht löschen !! Installation von VSC geht sonst verloren.
+
+
