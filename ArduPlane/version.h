@@ -6,8 +6,8 @@
 
 #include "ap_version.h"
 
-// it is used for DG1000 with KTW
-#define THISFIRMWARE "ArduPlane V4.5.6-DG"
+// SP-branch
+#define THISFIRMWARE "ArduPlane V4.5.6-SP-v8"
 
 // the following line is parsed by the autotest scripts
 #define FIRMWARE_VERSION 4,5,6,FIRMWARE_VERSION_TYPE_OFFICIAL

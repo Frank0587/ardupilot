@@ -1266,6 +1266,105 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     AP_SUBGROUPINFO(precland, "PLND_", 35, ParametersG2, AC_PrecLand),
 #endif
 
+    // @Param: FLHS_FLP_IN_D
+    // @DisplayName: Full house glider flaps inner down weight
+    // @Description: This is amount of down deflection applied to the two inner surfaces for flap function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_FLP_IN_D", 36, ParametersG2, fullhs_flap_weight_inner_dn, 100),
+
+    // @Param: FLHS_FLP_OUT_U
+    // @DisplayName: Full house glider flaps outer up weight
+    // @Description: This is amount of up deflection applied to the two outer surfaces for flap function (crow). It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_FLP_OUT_U", 37, ParametersG2, fullhs_flap_weight_outer_up, 85),
+
+    // @Param: FLHS_CMB_IN_D
+    // @DisplayName: Full house glider camber inner down weight
+    // @Description: This is amount of down deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_IN_D", 38, ParametersG2, fullhs_camb_weight_inner_dn, 15),
+
+    // @Param: FLHS_CMB_IN_U
+    // @DisplayName: Full house glider camber inner up weight
+    // @Description: This is amount of up deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_IN_U", 39, ParametersG2, fullhs_camb_weight_inner_up, 15),
+
+    // @Param: FLHS_CMB_OUT_D
+    // @DisplayName: Full house glider camber outer down weight
+    // @Description: This is amount of down deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_OUT_D", 40, ParametersG2, fullhs_camb_weight_outer_dn, 10),
+
+    // @Param: FLHS_CMB_OUT_U
+    // @DisplayName: Full house glider camber outer up weight
+    // @Description: This is amount of up deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_OUT_U", 41, ParametersG2, fullhs_camb_weight_outer_up, 10),
+
+    // @Param: FLHS_AIL_IN_D
+    // @DisplayName: Full house glider aileron inner down weight
+    // @Description: This is amount of down deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_IN_D", 42, ParametersG2, fullhs_ail_weight_inner_dn, 0),
+
+    // @Param: FLHS_AIL_IN_U
+    // @DisplayName: Full house glider aileron inner up weight
+    // @Description: This is amount of up deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_IN_U", 43, ParametersG2, fullhs_ail_weight_inner_up, 40),
+
+    // @Param: FLHS_AIL_OUT_D
+    // @DisplayName: Full house glider aileron outer down weight
+    // @Description: This is amount of down deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_OUT_D", 44, ParametersG2, fullhs_ail_weight_outer_dn, 45),
+
+    // @Param: FLHS_AIL_OUT_U
+    // @DisplayName: Full house glider aileron outer up weight
+    // @Description: This is amount of up deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_OUT_U", 45, ParametersG2, fullhs_ail_weight_outer_up, 63),
+
+    // @Param: FLHS_ENABLE
+    // @DisplayName: Full house glider (FLSH) configuration instead of Differencial Spoiler (DSPOILER)
+    // @Description: if set to 1, use the FLSH parameter to control a full house glider (4 surfaces, Aileron, camber, Flap/crow)
+    // @Range: 0 1
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_ENABLE", 46, ParametersG2, fullhs_enable, 1),
+
+
     AP_GROUPEND
 };
 

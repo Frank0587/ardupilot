@@ -545,6 +545,21 @@ public:
     AP_Int8 crow_flap_options;
     AP_Int8 crow_flap_aileron_matching;
 
+    // Full house weighting
+    AP_Int8 fullhs_enable;
+    AP_Int8 fullhs_ail_weight_inner_up;
+    AP_Int8 fullhs_ail_weight_inner_dn;
+    AP_Int8 fullhs_ail_weight_outer_up;
+    AP_Int8 fullhs_ail_weight_outer_dn;
+
+    AP_Int8 fullhs_flap_weight_inner_dn;
+    AP_Int8 fullhs_flap_weight_outer_up;
+
+    AP_Int8 fullhs_camb_weight_inner_up;
+    AP_Int8 fullhs_camb_weight_inner_dn;
+    AP_Int8 fullhs_camb_weight_outer_up;
+    AP_Int8 fullhs_camb_weight_outer_dn;
+
     // Forward throttle battery voltage compensation
     class FWD_BATT_CMP {
     public:

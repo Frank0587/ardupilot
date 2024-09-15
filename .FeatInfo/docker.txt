@@ -1,5 +1,30 @@
 docker
 
+--------------- Kurzfassung ------
+// Image erzeugen (nur einmal nötig)
+   >docker build . -t ardupilot
+// Container starten
+   >docker run --rm -it -v v:/git/ardupilot:/ardupilot ardupilot:latest
+// Remote-VSC aus VSC starten und bash nutzen
+   start the remote VSC out of VSC (by [><] button > to running container) -> darin bash:
+// git im container initialisieren / Index aufbauen
+   $git config --global --add safe.directory /ardupilot
+   $git status
+// ArduPilot konfigurieren
+   $./waf configure --board=SpeedyBeeF405WING
+// ArduPilot bauen
+   $.\waf plane
+
+------------------------------
+Wichtige Punkte:
+- Verzeichnis v:\Git\ArduPilot ist in Docker gemountet, nicht kopiert
+- Files müssen UNIX-LineEnd haben (\n statt \r\n)
+- Git geht innerhalb von Docker auch (ist aber eigene Instanz, außerhalb besser)
+- generierte Files sind direkt im clone sichtbar
+- Container nicht löschen !! Installation von VSC geht sonst verloren.
+
+------------------------------
+
 ----------------------------------------------------
 Beim Anlegen des Docker-Images mit 
    > docker build . -t ardupilot
@@ -47,21 +72,20 @@ in VSC-Remote:
 start a container with mounted clone
    >docker run --rm -it -v v:/git/ardupilot:/ardupilot ardupilot:latest
 
-start the remote VSC (by [><] button > to running conteiner)
+start the remote VSC out of VSC (by [><] button > to running container) -> darin bash:
 
 open directory, select something like ..\..\ardupilot
 ab nun im Terminal (=bash):
 
 enable git by (rebuild index)
-   >git config --global --add safe.directory /ardupilot
-   >git config --add safe.directory /ardupilot              # reicht vielleicht auch...
-   >git status
+   $git config --global --add safe.directory /ardupilot
+   $git status
 
 configure board
-   >./waf configure --board=SpeedyBeeF405WING   
+   $./waf configure --board=SpeedyBeeF405WING   
 
 build SW
-   >.\waf plane
+   $.\waf plane
 
 gibt Fehler:
    Command ['/usr/bin/git', 'rev-parse', '--short=8', 'HEAD'] returned 128
@@ -80,13 +104,4 @@ Abhilfe (https://discuss.ardupilot.org/t/git-required-for-build/32471/9):
 build SW
    >.\waf plane
    # braucht sehr, sehr lange
-
-------------------------------
-Wichtige Punkte:
-- Verzeichnis v:\Git\ArduPilot ist in Docker gemountet, nicht kopiert
-- Files müssen UNIX-LineEnd haben (\n statt \r\n)
-- Git geht innerhalb von Docker auch (ist aber eigene Instanz, außerhalb besser)
-- generierte Files sind direkt im clone sichtbar
-- Container nicht löschen !! Installation von VSC geht sonst verloren.
-
 

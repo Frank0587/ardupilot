@@ -197,6 +197,8 @@ private:
     RC_Channel *channel_rudder;
     RC_Channel *channel_flap;
     RC_Channel *channel_airbrake;
+    RC_Channel *channel_ktw;        // SCRIPTING_1
+    RC_Channel *channel_camber;     // SCRIPTING_2    
 
 #if HAL_LOGGING_ENABLED
     AP_Logger logger;
@@ -1113,6 +1115,7 @@ private:
     void set_servos_flaps(void);
     void set_landing_gear(void);
     void dspoiler_update(void);
+    void fullhouse_update(void);
     void airbrake_update(void);
     void landing_neutral_control_surface_servos(void);
     void servos_output(void);
