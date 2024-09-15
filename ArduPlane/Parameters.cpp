@@ -986,6 +986,10 @@ const AP_Param::Info Plane::var_info[] = {
     // @Path: Parameters.cpp
     GOBJECT(g2, "",  ParametersG2),
     
+    // @Group: 
+    // @Path: Parameters.cpp
+    GOBJECT(sp, "",  ParametersSP),
+
     // @Group: LAND_
     // @Path: ../libraries/AP_Landing/AP_Landing.cpp
     GOBJECT(landing, "LAND_", AP_Landing),
@@ -1280,6 +1284,147 @@ ParametersG2::ParametersG2(void) :
 {
     AP_Param::setup_object_defaults(this, var_info);
 }
+
+/*
+  3rd group of parameters SP
+ */
+const AP_Param::GroupInfo ParametersSP::var_info[] = {
+
+   
+    // @Param: FLHS_ENABLE
+    // @DisplayName: Full house glider (FLSH) configuration instead of Differencial Spoiler (DSPOILER)
+    // @Description: if set to 1, use the FLSH parameter to control a full house glider (4 surfaces, Aileron, camber, Flap/crow)
+    // @Range: 0 1
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_ENABLE", 1, ParametersSP, fullhs_enable, 1),
+
+    // @Param: FLHS_FLP_IN_D
+    // @DisplayName: Full house glider flaps inner down weight
+    // @Description: This is amount of down deflection applied to the two inner surfaces for flap function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_FLP_IN_D", 2, ParametersSP, fullhs_flap_weight_inner_dn, 100),
+
+    // @Param: FLHS_FLP_OUT_U
+    // @DisplayName: Full house glider flaps outer up weight
+    // @Description: This is amount of up deflection applied to the two outer surfaces for flap function (crow). It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_FLP_OUT_U", 3, ParametersSP, fullhs_flap_weight_outer_up, 85),
+
+    // @Param: FLHS_CMB_IN_D
+    // @DisplayName: Full house glider camber inner down weight
+    // @Description: This is amount of down deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_IN_D", 4, ParametersSP, fullhs_camb_weight_inner_dn, 15),
+
+    // @Param: FLHS_CMB_IN_U
+    // @DisplayName: Full house glider camber inner up weight
+    // @Description: This is amount of up deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_IN_U", 5, ParametersSP, fullhs_camb_weight_inner_up, 15),
+
+    // @Param: FLHS_CMB_OUT_D
+    // @DisplayName: Full house glider camber outer down weight
+    // @Description: This is amount of down deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_OUT_D", 6, ParametersSP, fullhs_camb_weight_outer_dn, 10),
+
+    // @Param: FLHS_CMB_OUT_U
+    // @DisplayName: Full house glider camber outer up weight
+    // @Description: This is amount of up deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_CMB_OUT_U", 7, ParametersSP, fullhs_camb_weight_outer_up, 10),
+
+    // @Param: FLHS_AIL_IN_D
+    // @DisplayName: Full house glider aileron inner down weight
+    // @Description: This is amount of down deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_IN_D", 8, ParametersSP, fullhs_ail_weight_inner_dn, 0),
+
+    // @Param: FLHS_AIL_IN_U
+    // @DisplayName: Full house glider aileron inner up weight
+    // @Description: This is amount of up deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_IN_U", 9, ParametersSP, fullhs_ail_weight_inner_up, 40),
+
+    // @Param: FLHS_AIL_OUT_D
+    // @DisplayName: Full house glider aileron outer down weight
+    // @Description: This is amount of down deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_OUT_D", 10, ParametersSP, fullhs_ail_weight_outer_dn, 45),
+
+    // @Param: FLHS_AIL_OUT_U
+    // @DisplayName: Full house glider aileron outer up weight
+    // @Description: This is amount of up deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_AIL_OUT_U", 11, ParametersSP, fullhs_ail_weight_outer_up, 63),
+
+    // @Param: KTW_POS_UP
+    // @DisplayName: upper position of KTW for automaic throttle
+    // @Description: This is the position of the KTW servo for activating the motor. (servo movement +/-100)
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("KTW_POS_UP", 12, ParametersSP, ktw_position_up, 80),
+
+    // @Param: KTW_POS_FREE
+    // @DisplayName: lowest position of KTW for free running motor
+    // @Description: This is the lowest position of the KTW servo, that the motor is enabled. (servo movement +/-100)
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("KTW_POS_FREE", 13, ParametersSP, ktw_position_free, 70),
+
+    // @Param: KTW_SLEW
+    // @DisplayName: slew rate of the KTW servo
+    // @Description: this is the (maximum) speed of the KTW servo (%/sec for the full movement)
+    // @Range: 0 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("KTW_SLEW", 14, ParametersSP, ktw_slewrate, 70),
+
+    AP_GROUPEND
+};
+
+ParametersSP::ParametersSP(void) :
+    unused_integer{1}
+{
+    AP_Param::setup_object_defaults(this, var_info);
+}
+
 
 /*
   This is a conversion table from old parameter values to new
