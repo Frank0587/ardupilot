@@ -78,6 +78,8 @@ private:
         TUNING_PIT_FF =                       57,
 
         TUNING_Q_FWD_THR =                    58,
+        TUNING_STAB_PITCH_DOWN =              59,
+        TUNING_PITCH_TRIM =                   60,
     };
 
     /*

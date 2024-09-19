@@ -42,7 +42,7 @@ const AP_Param::GroupInfo AP_Tuning::var_info[] = {
     
     // @Param: RANGE
     // @DisplayName: Transmitter tuning range
-    // @Description: This sets the range over which tuning will change a parameter. A value of 2 means the tuning parameter will go from 0.5 times the start value to 2x the start value over the range of the tuning channel
+    // @Description: This sets the range over which tuning will change a parameter. A value of 2 means the tuning parameter will go from 0.5 times the start value to 2x the start value over the range of the tuning channel. When negative, it will add/substract this amount every time the CHAN will goes over/under 50%)
     // @User: Standard
     AP_GROUPINFO("RANGE", 5, AP_Tuning, range, 2.0f),
 
@@ -160,8 +160,11 @@ void AP_Tuning::check_input(uint8_t flightmode)
         return;
     }
 
+    /* tuning method direct setting by factor  instead of add/sub*/
+    bool meth_set = (range > 0.0); 
+
     // check for invalid range
-    if (range < 1.1f) {
+    if (meth_set && range < 1.1f) {
         range.set(1.1f);
     }
 
@@ -195,8 +198,9 @@ void AP_Tuning::check_input(uint8_t flightmode)
         last_channel_value = chan_value;
     }
 
-    if (fabsf(chan_value - last_channel_value) < 0.01) {
-        // ignore changes of less than 1%
+    if (fabsf(chan_value - last_channel_value) < (meth_set ? 0.01 : 0.50)) {
+        // ignore changes of less than 1% (dicect setting)
+        // change of more han 50% needed for trigger
         return;
     }
 
@@ -213,16 +217,36 @@ void AP_Tuning::check_input(uint8_t flightmode)
         }
         // starting tuning
         mid_point_wait = false;
-        GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: mid-point %s", get_tuning_name(current_parm));
+        if(meth_set){    // parameter set to input
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: mid-point %s", get_tuning_name(current_parm));
+        }
         AP_Notify::events.tune_started = 1;
     }
     last_channel_value = chan_value;
 
-    float new_value;
-    if (chan_value > 0) {
-        new_value = linear_interpolate(center_value, range*center_value, chan_value, 0, 1);
-    } else {
-        new_value = linear_interpolate(center_value/range, center_value, chan_value, -1, 0);
+    float new_value = 0.0;
+    if(meth_set){    // parameter set to input
+        if (chan_value > 0.0) {
+            new_value = linear_interpolate(center_value, range*center_value, chan_value, 0, 1);
+        } else {
+            new_value = linear_interpolate(center_value/range, center_value, chan_value, -1, 0);
+        }
+    } else{
+        if (chan_value > 0.7) {
+            new_value = -range;      // pos value will added
+        } else if (chan_value < -0.7){
+            new_value =  range;      // neg value will added
+        } else {
+            return;
+        }
+        AP_Float *f = get_param_pointer(current_parm);
+        if (f != nullptr) {
+            new_value += f->get();
+            mid_point_wait = true;
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: %s = %.2f", get_tuning_name(current_parm), new_value);
+        } else {
+            return;
+        }
     }
     changed = true;
     need_revert |= (1U << current_parm_index);

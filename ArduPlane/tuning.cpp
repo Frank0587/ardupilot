@@ -95,6 +95,10 @@ const AP_Tuning_Plane::tuning_name AP_Tuning_Plane::tuning_names[] = {
     { TUNING_PIT_D,        "PitchD" },
     { TUNING_PIT_FF,       "PitchFF" },
     { TUNING_Q_FWD_THR,    "QModeFwdThr" },
+    { TUNING_STAB_PITCH_DOWN, "stab_pitch_down" },
+    { TUNING_PITCH_TRIM,    "pitch_trim" },
+
+
     { TUNING_NONE, nullptr }
 };
 
@@ -220,6 +224,13 @@ AP_Float *AP_Tuning_Plane::get_param_pointer(uint8_t parm)
 
     case TUNING_PIT_FF:
         return &plane.pitchController.kFF();
+
+    case TUNING_STAB_PITCH_DOWN:
+        return &plane.g.ptr_stab_pitch_down();
+
+    case TUNING_PITCH_TRIM:
+        return &plane.g.ptr_pitch_trim();
+
     }
     return nullptr;
 }
