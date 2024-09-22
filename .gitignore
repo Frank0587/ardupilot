@@ -80,7 +80,10 @@ LASTLOG.TXT
 Make.dep
 Thumbs.db
 autotest.lck
-build
+build/*
+!build/SpeedyBeeF405WING
+build/SpeedyBeeF405WING/*
+!build/SpeedyBeeF405WING/hwdef.h
 cmake_install.cmake
 cscope.in.out
 cscope.out
