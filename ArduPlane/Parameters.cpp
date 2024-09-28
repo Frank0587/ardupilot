@@ -1425,6 +1425,15 @@ const AP_Param::GroupInfo ParametersSP::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("FLHS_FLP_EL_MX", 15, ParametersSP, fullhs_flap_elev_mix, 0),
 
+    // @Param: LGR_SLEW
+    // @DisplayName: Landing gear retract/deploy slew rate
+    // @Description: define the servo speed to retract or deploy landing gear
+    // @Units: %/s
+    // @Range: 0 2000
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("LGR_SLEW", 16, ParametersSP, lgr_slewrate, 80),
+
     AP_GROUPEND
 };
 

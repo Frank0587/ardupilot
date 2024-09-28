@@ -85,6 +85,10 @@ public:
     void retract_after_takeoff();
     void deploy_for_landing();
 
+    static constexpr float    SRV_RETRACT = 0.0;     // srv scaled position for retracted gear   
+    static constexpr float    SRV_DEPLOY  = 100.0;   // srv scaled position for deployed gear
+    static constexpr uint16_t SRV_RANGE   = 100;     // srv scaled range
+
 private:
     // Parameters
     AP_Int8     _enable;

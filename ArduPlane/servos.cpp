@@ -849,6 +849,16 @@ void Plane::set_landing_gear(void)
         }
     }
     gear.last_flight_stage = flight_stage;
+
+    if(sp.lgr_slewrate > 0) {    /* for slew function cyclic output setting is needed */
+        SRV_Channels::set_slew_rate(SRV_Channel::k_landing_gear_control, sp.lgr_slewrate, AP_LandingGear::SRV_RANGE, G_Dt);
+        
+        AP_LandingGear::LG_LandingGear_State s = g2.landing_gear.get_state();
+        if(s !=AP_LandingGear::LG_UNKNOWN){
+            float target = ((s==AP_LandingGear::LG_RETRACTED || s==AP_LandingGear::LG_RETRACTING) ? AP_LandingGear::SRV_RETRACT : AP_LandingGear::SRV_DEPLOY );
+            SRV_Channels::set_output_scaled(SRV_Channel::k_landing_gear_control, target);
+        }
+    }
 }
 #endif // AP_LANDINGGEAR_ENABLED
 
