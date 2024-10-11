@@ -6,7 +6,7 @@
                 "${default}",
                 "${workspaceFolder}/libraries",
                 "${workspaceFolder}/build/SpeedyBeeF405WING",
-                "${workspaceFolder}/build/SpeedyBeeF405WING/libraries/GCS_MAVLink"
+                "${workspaceFolder}/.FeatGit/build/SpeedyBeeF405WING/libraries/GCS_MAVLink"
             ],
             "defines": [
                 "APM_BUILD_DIRECTORY=APM_BUILD_ArduPlane"
