@@ -311,7 +311,7 @@ void Plane::fullhouse_update(void)
 {
 
     const float aileron = SRV_Channels::get_output_scaled(SRV_Channel::k_aileron);
-    const float flap_add = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_flap_auto) *45; 
+    const float flap    = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_flap_auto) *45; 
 
     float dspoiler_outer_left  = 0.0f;
     float dspoiler_inner_left  = 0.0f;
@@ -320,9 +320,9 @@ void Plane::fullhouse_update(void)
     float inner_add = 0.0f;
     float outer_add = 0.0f;
 
-    float camber_add = 0.0f;
+    float camber = 0.0f;
     if (channel_camber != nullptr) {
-        camber_add = channel_camber->norm_input() * 4500.0f;
+        camber = channel_camber->norm_input() * 4500.0f;
     }
 
     int16_t weight_a_i_u = sp.fullhs_ail_weight_inner_up.get();
@@ -335,6 +335,7 @@ void Plane::fullhouse_update(void)
     int16_t weight_c_o_d = sp.fullhs_camb_weight_outer_dn.get();
     int16_t weight_c_o_u = sp.fullhs_camb_weight_outer_up.get();
     int16_t weight_f_o_u = sp.fullhs_flap_weight_outer_up.get();
+    int16_t weight_f_e_m = sp.fullhs_flap_elev_mix.get();
 
     if(aileron > 0.0f){
         dspoiler_outer_left  -= aileron * weight_a_o_d / 100;
@@ -348,16 +349,22 @@ void Plane::fullhouse_update(void)
         dspoiler_inner_right += aileron * weight_a_i_d / 100;
     }
 
-    if(camber_add > 0.0f){
-        inner_add = camber_add * weight_c_i_u / 100;
-        outer_add = camber_add * weight_c_o_u / 100;
+    if(camber > 0.0f){
+        inner_add = camber * weight_c_i_u / 100;
+        outer_add = camber * weight_c_o_u / 100;
     } else {
-        inner_add = camber_add * weight_c_i_d / 100;
-        outer_add = camber_add * weight_c_o_d / 100;
+        inner_add = camber * weight_c_i_d / 100;
+        outer_add = camber * weight_c_o_d / 100;
     }
-    if(flap_add > 0.0f){
-        inner_add -= flap_add * weight_f_i_d / 100;
-        outer_add += flap_add * weight_f_o_u / 100;
+    if(flap > 0.0f){
+        inner_add -= flap * weight_f_i_d / 100;
+        outer_add += flap * weight_f_o_u / 100;
+
+        // add to elevator
+        float elevator = SRV_Channels::get_output_scaled(SRV_Channel::k_elevator);
+        elevator  += flap * weight_f_e_m / 100;
+        elevator   = constrain_float(elevator, -4500, 4500);
+        SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, elevator);
     }
 
     dspoiler_outer_left  = constrain_float(dspoiler_outer_left  + outer_add, -4500, 4500);
