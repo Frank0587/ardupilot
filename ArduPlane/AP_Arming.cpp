@@ -300,7 +300,14 @@ void AP_Arming_Plane::change_arm_state(void)
 
 bool AP_Arming_Plane::arm(const AP_Arming::Method method, const bool do_arming_checks)
 {
-    if (!AP_Arming::arm(method, do_arming_checks)) {
+    bool do_checks = do_arming_checks;
+    const int16_t rudder_in = plane.channel_rudder->get_control_in();
+
+    if ((AP_Arming::Method::AUXSWITCH == method) && (rudder_in > 4000)){
+        do_checks = false;    
+    }
+
+    if (!AP_Arming::arm(method, do_checks)) {
         return false;
     }
 
