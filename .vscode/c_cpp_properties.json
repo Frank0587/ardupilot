@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/libraries",
+                "${workspaceFolder}/libraries/ap_common/missing",
+                "${workspaceFolder}/build/SpeedyBeeF405WING",
+                "${workspaceFolder}/.FeatGit/build/SpeedyBeeF405WING/libraries/GCS_MAVLink"
+            ],
+            "defines": [
+                "APM_BUILD_DIRECTORY=APM_BUILD_ArduPlane",
+                "AP_CUSTOMCONTROL_ENABLED=0",
+                "AP_DDS_ENABLED=0",
+                "AP_SCRIPTING_CHECKS=1",
+                "AP_SIM_ENABLED=0",
+                "CANARD_ENABLE_TAO_OPTION=1",
+                "CONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS",
+                "ENABLE_HEAP=1",
+                "ENABLE_ONVIF=0",
+                "HAVE_STD_NULLPTR_T=0",
+                "LUA_32BITS=1",
+                "USE_LIBC_REALLOC=0",
+                "__AP_LINE__=17"
+            ],
+            "browse": {
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            },
+            "compileCommands": "${workspaceFolder}/build/SpeedyBeeF405WING/compile_commands.json"
+        }
+    ],
+    "version": 4
+}
