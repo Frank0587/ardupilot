@@ -98,6 +98,7 @@ public:
     ControlType get_type(void) const { return type_in; }
 
     AP_Int16    option; // e.g. activate EPM gripper / enable fence
+    AP_Int16    option2; // e.g. activate EPM gripper / enable fence for negated switch input
 
     // auxiliary switch support
     void init_aux();
