@@ -136,6 +136,7 @@ public:
         k_cam_focus             = 92,
         k_cam_shutter_speed     = 93,
         k_scripting1            = 94,           ///< Scripting related outputs
+        k_ktw                   = k_scripting1,     ///< special use for KTW
         k_scripting2            = 95,
         k_scripting3            = 96,
         k_scripting4            = 97,
