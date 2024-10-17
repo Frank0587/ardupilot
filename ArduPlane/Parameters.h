@@ -626,6 +626,9 @@ public:
     AP_Int8 ktw_position_free;
     AP_Int8 ktw_slewrate;
 
+    // extension for landing gear
+    AP_Int16 lgr_slewrate;
+
     // just to make compilation easier when all things are compiled out...
     uint8_t unused_integer;
 
