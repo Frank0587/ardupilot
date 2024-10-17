@@ -37,6 +37,7 @@ const uint8_t AP_Tuning_Plane::tuning_set_az[] =               { TUNING_AZ_P, TU
 const uint8_t AP_Tuning_Plane::tuning_set_rate_pitchDP[]=      { TUNING_RATE_PITCH_D, TUNING_RATE_PITCH_P };
 const uint8_t AP_Tuning_Plane::tuning_set_rate_rollDP[]=       { TUNING_RATE_ROLL_D, TUNING_RATE_ROLL_P };
 const uint8_t AP_Tuning_Plane::tuning_set_rate_yawDP[]=        { TUNING_RATE_YAW_D, TUNING_RATE_YAW_P };
+const uint8_t AP_Tuning_Plane::tuning_set_pitch_level[]=       { TUNING_PITCH_TRIM, TUNING_STAB_PITCH_DOWN };
 
 // macro to prevent getting the array length wrong
 #define TUNING_ARRAY(v) ARRAY_SIZE(v), v
@@ -53,6 +54,7 @@ const AP_Tuning_Plane::tuning_set AP_Tuning_Plane::tuning_sets[] = {
     { TUNING_SET_RATE_PITCHDP,          TUNING_ARRAY(tuning_set_rate_pitchDP) },
     { TUNING_SET_RATE_ROLLDP,           TUNING_ARRAY(tuning_set_rate_rollDP) },
     { TUNING_SET_RATE_YAWDP,            TUNING_ARRAY(tuning_set_rate_yawDP) },
+    { TUNING_SET_PITCH_LEVEL,           TUNING_ARRAY(tuning_set_pitch_level) },
     { 0, 0, nullptr }
 };
 
@@ -95,6 +97,8 @@ const AP_Tuning_Plane::tuning_name AP_Tuning_Plane::tuning_names[] = {
     { TUNING_PIT_D,        "PitchD" },
     { TUNING_PIT_FF,       "PitchFF" },
     { TUNING_Q_FWD_THR,    "QModeFwdThr" },
+    { TUNING_STAB_PITCH_DOWN, "stab_pitch_down" },
+    { TUNING_PITCH_TRIM,    "pitch_trim" },
     { TUNING_NONE, nullptr }
 };
 
@@ -220,6 +224,12 @@ AP_Float *AP_Tuning_Plane::get_param_pointer(uint8_t parm)
 
     case TUNING_PIT_FF:
         return &plane.pitchController.kFF();
+
+    case TUNING_STAB_PITCH_DOWN:
+        return &plane.g.ptr_stab_pitch_down();
+
+    case TUNING_PITCH_TRIM:
+        return &plane.g.ptr_pitch_trim();
     }
     return nullptr;
 }
