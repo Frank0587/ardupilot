@@ -310,6 +310,103 @@ void Plane::dspoiler_update(void)
 }
 
 /*
+ FullHouse Glider setup
+ */
+void Plane::fullhouse_update(void)
+{
+
+    const float aileron = SRV_Channels::get_output_scaled(SRV_Channel::k_aileron);
+    const float flap_add = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_flap_auto) *45; 
+
+    float dspoiler_outer_left  = 0.0f;
+    float dspoiler_inner_left  = 0.0f;
+    float dspoiler_outer_right = 0.0f;
+    float dspoiler_inner_right = 0.0f;
+    float inner_add = 0.0f;
+    float outer_add = 0.0f;
+
+    float camber_add = 0.0f;
+    if (channel_camber != nullptr) {
+        camber_add = channel_camber->norm_input() * 4500.0f;
+    }
+
+    int16_t weight_a_i_u = sp.fullhs_ail_weight_inner_up.get();
+    int16_t weight_a_i_d = sp.fullhs_ail_weight_inner_dn.get();
+    int16_t weight_c_i_u = sp.fullhs_camb_weight_inner_up.get();
+    int16_t weight_c_i_d = sp.fullhs_camb_weight_inner_dn.get();
+    int16_t weight_f_i_d = sp.fullhs_flap_weight_inner_dn.get();
+    int16_t weight_a_o_d = sp.fullhs_ail_weight_outer_dn.get();
+    int16_t weight_a_o_u = sp.fullhs_ail_weight_outer_up.get();
+    int16_t weight_c_o_d = sp.fullhs_camb_weight_outer_dn.get();
+    int16_t weight_c_o_u = sp.fullhs_camb_weight_outer_up.get();
+    int16_t weight_f_o_u = sp.fullhs_flap_weight_outer_up.get();
+
+    if(aileron > 0.0f){
+        dspoiler_outer_left  -= aileron * weight_a_o_d / 100;
+        dspoiler_inner_left  -= aileron * weight_a_i_d / 100;
+        dspoiler_outer_right += aileron * weight_a_o_u / 100;
+        dspoiler_inner_right += aileron * weight_a_i_u / 100;
+    } else {
+        dspoiler_outer_left  -= aileron * weight_a_o_u / 100;
+        dspoiler_inner_left  -= aileron * weight_a_i_u / 100;
+        dspoiler_outer_right += aileron * weight_a_o_d / 100;
+        dspoiler_inner_right += aileron * weight_a_i_d / 100;
+    }
+
+    if(camber_add > 0.0f){
+        inner_add = camber_add * weight_c_i_u / 100;
+        outer_add = camber_add * weight_c_o_u / 100;
+    } else {
+        inner_add = camber_add * weight_c_i_d / 100;
+        outer_add = camber_add * weight_c_o_d / 100;
+    }
+    if(flap_add > 0.0f){
+        inner_add -= flap_add * weight_f_i_d / 100;
+        outer_add += flap_add * weight_f_o_u / 100;
+    }
+
+    dspoiler_outer_left  = constrain_float(dspoiler_outer_left  + outer_add, -4500, 4500);
+    dspoiler_inner_left  = constrain_float(dspoiler_inner_left  + inner_add, -4500, 4500);
+    dspoiler_outer_right = constrain_float(dspoiler_outer_right + outer_add, -4500, 4500);
+    dspoiler_inner_right = constrain_float(dspoiler_inner_right + inner_add, -4500, 4500);
+
+    SRV_Channels::set_output_scaled(SRV_Channel::k_dspoilerLeft1,  dspoiler_outer_left);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_dspoilerLeft2,  dspoiler_inner_left);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_dspoilerRight1, dspoiler_outer_right);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_dspoilerRight2, dspoiler_inner_right);
+}
+
+/*
+    special control for the KTW in a DG1000
+*/
+void Plane::ktw_update(void)
+{
+    // Input:   RC-Option set to SCRIPTING_1
+    // Output:  Servo-Option set to k_scripting1
+
+    float ktw_position  = sp.ktw_position_up.get()   *45.0f;  // UP position as default
+    float ktw_limit     = sp.ktw_position_free.get() *45.0f;
+    float ktw_slew      = sp.ktw_slewrate.get();
+    
+    // set KTW position... overwrite the RC input with UP if auto-throttle active
+    if ( !arming.is_armed() || !control_mode->does_auto_throttle()) {   
+        // use RC input, when not armed or no auto throttle    
+        if (channel_ktw != nullptr) {
+            ktw_position = channel_ktw->norm_input() * 4500.0f;        // +/- 1.0f * 4500
+        }
+    }
+    SRV_Channels::set_slew_rate(SRV_Channel::k_scripting1, ktw_slew, 9000, G_Dt);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_scripting1, ktw_position);        // +/- 4500
+
+    // get KTW position... // suppress throttle if KTW is not UP
+    ktw_position = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_scripting1);   // get actual position
+    if (ktw_position < ktw_limit){
+        SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0.0);
+        throttle_suppressed = true;
+    }
+}
+
+/*
  set airbrakes based on reverse thrust and/or manual input RC channel
  */
 void Plane::airbrake_update(void)
@@ -1030,8 +1127,19 @@ void Plane::servos_output(void)
     // support forced flare option
     force_flare();
 
-    // implement differential spoilers
-    dspoiler_update();
+    if( sp.fullhs_enable.get()){
+        // implement Full house glider
+        fullhouse_update();
+    } else{
+        // implement differential spoilers
+        dspoiler_update();
+    }
+
+    if( SRV_Channels::function_assigned(SRV_Channel::k_scripting1)){
+        // a servo is used for KTW: implement KTW control in a DG1000
+        ktw_update();
+    }
+
 
     //  set control surface servos to neutral
     landing_neutral_control_surface_servos();
@@ -1045,9 +1153,6 @@ void Plane::servos_output(void)
     if (g2.manual_rc_mask.get() != 0 && control_mode == &mode_manual) {
         SRV_Channels::copy_radio_in_out_mask(uint32_t(g2.manual_rc_mask.get()));
     }
-
-    // individual script code
-    servos_script();
 
     SRV_Channels::calc_pwm();
 
@@ -1065,50 +1170,6 @@ void Plane::update_throttle_hover() {
 #if HAL_QUADPLANE_ENABLED
     quadplane.update_throttle_hover();
 #endif
-}
-
-
-/*
-    individual code as scripting replacement
-    using mainly
-    RC channels SCRIPTING_1..8 as input and 
-    Servo channels k_scripting1..16 as Output
-*/
-void Plane::servos_script(void)
-{
-
-    { // SCRIPT#1: KTW support at DG1000
-        // Input:   RC-Option set to SCRIPTING_1
-        // Output:  Servo-Option set to k_scripting1
-
-        if( SRV_Channels::function_assigned(SRV_Channel::k_scripting1)){
-            // a servo is used for KTW
-
-            float ktw_position = KTW_UPPOS;  // UP Position as default
-
-            // set KTW position... overwrite the RC input with UP if auto-throttle active
-            if ( !arming.is_armed() || !control_mode->does_auto_throttle()) {   
-                // use sRC input, when not armed or no auto throttle    
-                RC_Channel *c = rc().find_channel_for_option(RC_Channel::AUX_FUNC::SCRIPTING_1);
-                if (c != nullptr) {
-                    ktw_position = c->norm_input() * 4500.0f;        // +/- 1.0f * 4500
-                }
-            }
-            SRV_Channels::set_slew_rate(SRV_Channel::k_scripting1, 70.0, 9000, G_Dt);        // 70%/sec for full movement
-            SRV_Channels::set_output_scaled(SRV_Channel::k_scripting1, ktw_position);        // +/- 4500
-
-            // get KTW position... // suppress throttle if KTW is not UP
-            ktw_position = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_scripting1);   // get actual position
-            if (ktw_position < KTW_LIMITPOS){
-                SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0.0);
-                throttle_suppressed = true;
-            }
-        }
-    }
-
-    { // SCRIPT#2: 
-    
-    }
 }
 
 
