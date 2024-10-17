@@ -609,6 +609,7 @@ public:
 
     AP_Int8 fullhs_flap_weight_inner_dn;
     AP_Int8 fullhs_flap_weight_outer_up;
+    AP_Int8 fullhs_flap_elev_mix;
 
     AP_Int8 fullhs_camb_weight_inner_up;
     AP_Int8 fullhs_camb_weight_inner_dn;
