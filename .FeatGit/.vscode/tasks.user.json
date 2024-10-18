@@ -1,0 +1,31 @@
+{
+   // open with: <F1> "Tasks: Open User Tasks"
+   // C:\Users\sp\AppData\Roaming\Code\User\tasks.json
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "Git: Subrepros update",
+         "type": "shell",
+         "command": "git submodule update --init --recursive",
+         "problemMatcher": []
+      },
+      {
+         "label": "Git: Subrepros sync",
+         "type": "shell",
+         "command": "git submodule sync --recursive",
+         "problemMatcher": []
+      },
+      {
+         "label": "Git: abort rebase",
+         "type": "shell",
+         "command": "git rebase --abort",
+         "problemMatcher": []
+      },
+      {
+         "label": "Git: fetch all tags",
+         "type": "shell",
+         "command": "git fetch --tags --force --all",
+         "problemMatcher": []
+      }
+   ]
+}
