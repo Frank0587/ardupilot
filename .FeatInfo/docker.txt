@@ -24,6 +24,7 @@ Wichtige Punkte:
 - Git geht innerhalb von Docker auch (ist aber eigene Instanz, außerhalb besser)
 - generierte Files sind direkt im clone sichtbar
 - Container nicht löschen !! Installation von VSC geht sonst verloren.
+- die Build Umgebung scannt [.vscode\c_cpp_properties.json] : es dürfen keine Kommentare drin sein !!
 
 ------------------------------
 
