@@ -334,7 +334,7 @@ void AP_OSD_ParamSetting::guess_ranges(bool force)
     }
 
     // nothing statically configured so guess some appropriate values
-    float min = -1, max = 127, incr = 1;
+    float min = -127, max = 127, incr = 1;
 
     if (_param != nullptr) {
         switch (_param_type) {
@@ -342,53 +342,48 @@ void AP_OSD_ParamSetting::guess_ranges(bool force)
             break;
         case AP_PARAM_INT16: {
             AP_Int16* p = (AP_Int16*)_param;
-            min = -1;
             uint8_t digits = 0;
-            for (int16_t int16p = p->get(); int16p > 0; int16p /= 10) {
+            for (int16_t int16p = abs(p->get())*2; int16p > 0; int16p /= 10) {
                 digits++;
             }
             incr = MAX(1, powf(10, digits - 2));
             max = powf(10, digits + 1);
+            min = -max;
             debug("Guessing range for value %d as %f -> %f, %f\n", p->get(), min, max, incr);
             break;
         }
         case AP_PARAM_INT32: {
             AP_Int32* p = (AP_Int32*)_param;
-            min = -1;
             uint8_t digits = 0;
-            for (int32_t int32p = p->get(); int32p > 0; int32p /= 10) {
+            for (int32_t int32p = abs(p->get())*2; int32p > 0; int32p /= 10) {
                 digits++;
             }
             incr = MAX(1, powf(10, digits - 2));
             max = powf(10, digits + 1);
+            min = -max;
             debug("Guessing range for value %d as %f -> %f, %f\n", int(p->get()), min, max, incr);
             break;
         }
         case AP_PARAM_FLOAT: {
             AP_Float* p = (AP_Float*)_param;
 
-            uint8_t digits = 0;
-            for (float floatp = p->get(); floatp > 1.0f; floatp /= 10) {
-                digits++;
-            }
-            float floatp = p->get();
-            if (digits < 1) {
-                if (!is_zero(floatp)) {
-                    incr = floatp * 0.01f; // move in 1% increments
-                } else {
-                    incr = 0.01f; // move in absolute 1% increments
+            int8_t digits = 0;
+            float floatp = fabsf(p->get())*2;
+            if (floatp > 1.0f) {
+                while(floatp > 1.0f) {
+                    digits++;
+                    floatp /= 10;
                 }
-                max = 1.0;
-                min = 0.0f;
-            } else {
-                if (!is_zero(floatp)) {
-                    incr = floatp * 0.01f; // move in 1% increments
-                } else {
-                    incr = MAX(1, powf(10, digits - 2));
+            } else if (floatp > 0.0f) {
+                while(floatp < 1.0f) {
+                    digits--;
+                    floatp *= 10;
                 }
-                max = powf(10, digits + 1);
-                min = 0.0f;
-            }
+            } 
+            incr = powf(10, digits - 2);
+            max  = powf(10, digits + 1);
+            min  = -max;
+
             debug("Guessing range for value %f as %f -> %f, %f\n", p->get(), min, max, incr);
             break;
         }
