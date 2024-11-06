@@ -388,8 +388,8 @@ void Plane::fullhouse_update(void)
 */
 void Plane::ktw_update(void)
 {
-    // Input:   RC-Option set to SCRIPTING_1
-    // Output:  Servo-Option set to k_scripting1
+    // Input:   RC-Option set to KTW = SCRIPTING_1
+    // Output:  Servo-Option set to k_ktw = k_scripting1
 
     float ktw_position  = sp.ktw_position_up.get()   *45.0f;  // UP position as default
     float ktw_limit     = sp.ktw_position_free.get() *45.0f;
@@ -402,11 +402,11 @@ void Plane::ktw_update(void)
             ktw_position = channel_ktw->norm_input() * 4500.0f;        // +/- 1.0f * 4500
         }
     }
-    SRV_Channels::set_slew_rate(SRV_Channel::k_scripting1, ktw_slew, 9000, G_Dt);
-    SRV_Channels::set_output_scaled(SRV_Channel::k_scripting1, ktw_position);        // +/- 4500
+    SRV_Channels::set_slew_rate(SRV_Channel::k_ktw, ktw_slew, 9000, G_Dt);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_ktw, ktw_position);        // +/- 4500
 
     // get KTW position... // suppress throttle if KTW is not UP
-    ktw_position = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_scripting1);   // get actual position
+    ktw_position = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_ktw);   // get actual position
     if (ktw_position < ktw_limit){
         SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0.0);
         throttle_suppressed = true;
@@ -1142,7 +1142,7 @@ void Plane::servos_output(void)
         dspoiler_update();
     }
 
-    if( SRV_Channels::function_assigned(SRV_Channel::k_scripting1)){
+    if( SRV_Channels::function_assigned(SRV_Channel::k_ktw)){
         // a servo is used for KTW: implement KTW control in a DG1000
         ktw_update();
     }
