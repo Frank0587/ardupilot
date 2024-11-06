@@ -1046,6 +1046,9 @@ void Plane::servos_output(void)
         SRV_Channels::copy_radio_in_out_mask(uint32_t(g2.manual_rc_mask.get()));
     }
 
+    // individual script code
+    servos_script();
+
     SRV_Channels::calc_pwm();
 
     SRV_Channels::output_ch_all();
@@ -1063,6 +1066,51 @@ void Plane::update_throttle_hover() {
     quadplane.update_throttle_hover();
 #endif
 }
+
+
+/*
+    individual code as scripting replacement
+    using mainly
+    RC channels SCRIPTING_1..8 as input and 
+    Servo channels k_scripting1..16 as Output
+*/
+void Plane::servos_script(void)
+{
+
+    { // SCRIPT#1: KTW support at DG1000
+        // Input:   RC-Option set to SCRIPTING_1
+        // Output:  Servo-Option set to k_scripting1
+
+        if( SRV_Channels::function_assigned(SRV_Channel::k_scripting1)){
+            // a servo is used for KTW
+
+            float ktw_position = KTW_UPPOS;  // UP Position as default
+
+            // set KTW position... overwrite the RC input with UP if auto-throttle active
+            if ( !arming.is_armed() || !control_mode->does_auto_throttle()) {   
+                // use sRC input, when not armed or no auto throttle    
+                RC_Channel *c = rc().find_channel_for_option(RC_Channel::AUX_FUNC::SCRIPTING_1);
+                if (c != nullptr) {
+                    ktw_position = c->norm_input() * 4500.0f;        // +/- 1.0f * 4500
+                }
+            }
+            SRV_Channels::set_slew_rate(SRV_Channel::k_scripting1, 70.0, 9000, G_Dt);        // 70%/sec for full movement
+            SRV_Channels::set_output_scaled(SRV_Channel::k_scripting1, ktw_position);        // +/- 4500
+
+            // get KTW position... // suppress throttle if KTW is not UP
+            ktw_position = SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_scripting1);   // get actual position
+            if (ktw_position < KTW_LIMITPOS){
+                SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0.0);
+                throttle_suppressed = true;
+            }
+        }
+    }
+
+    { // SCRIPT#2: 
+    
+    }
+}
+
 
 /*
   implement automatic persistent trim of control surfaces with
