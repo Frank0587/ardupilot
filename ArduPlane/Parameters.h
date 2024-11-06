@@ -42,7 +42,7 @@ public:
         //
         k_param_format_version = 0,
         k_param_software_type, // unused;
-        k_param_num_resets, // unused
+        k_param_sp,            // replace the unused k_param_num_resets
         k_param_NavEKF2,
         k_param_g2,
         k_param_avoidance_adsb,
@@ -586,6 +586,41 @@ public:
     // orientation of rangefinder to use for landing
     AP_Int8 rangefinder_land_orient;
 #endif
+};
+
+/*
+  3rd block of parameters, for SP improvements
+ */
+class ParametersSP {
+public:
+    ParametersSP(void);
+
+    // var_info for holding Parameter information
+    static const struct AP_Param::GroupInfo var_info[];
+
+    // Full house weighting
+    AP_Int8 fullhs_enable;
+    AP_Int8 fullhs_ail_weight_inner_up;
+    AP_Int8 fullhs_ail_weight_inner_dn;
+    AP_Int8 fullhs_ail_weight_outer_up;
+    AP_Int8 fullhs_ail_weight_outer_dn;
+
+    AP_Int8 fullhs_flap_weight_inner_dn;
+    AP_Int8 fullhs_flap_weight_outer_up;
+
+    AP_Int8 fullhs_camb_weight_inner_up;
+    AP_Int8 fullhs_camb_weight_inner_dn;
+    AP_Int8 fullhs_camb_weight_outer_up;
+    AP_Int8 fullhs_camb_weight_outer_dn;
+
+    // KTW control
+    AP_Int8 ktw_position_up;
+    AP_Int8 ktw_position_free;
+    AP_Int8 ktw_slewrate;
+
+    // just to make compilation easier when all things are compiled out...
+    uint8_t unused_integer;
+
 };
 
 extern const AP_Param::Info var_info[];
