@@ -383,6 +383,8 @@ public:
     AP_Float ground_steer_alt;
     AP_Int16 ground_steer_dps;
     AP_Float stab_pitch_down;
+    AP_Float &ptr_stab_pitch_down(void) { return stab_pitch_down; }
+    AP_Float &ptr_pitch_trim(void) { return pitch_trim; }
 
     // speed used for speed scaling
     AP_Float scaling_speed;
