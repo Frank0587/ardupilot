@@ -1439,6 +1439,15 @@ const AP_Param::GroupInfo ParametersSP::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("KTW_SLEW", 14, ParametersSP, ktw_slewrate, 70),
 
+    // @Param: FLHS_FLP_EL_MX
+    // @DisplayName: Full house glider flaps-elevator mix
+    // @Description: This is amount of elevator deflection when flaps are applied. It is a percentage -100 to 100.
+    // @Range: -100 100
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("FLHS_FLP_EL_MX", 15, ParametersSP, fullhs_flap_elev_mix, 0),
+
     AP_GROUPEND
 };
 
