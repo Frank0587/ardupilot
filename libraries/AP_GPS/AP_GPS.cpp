@@ -1381,6 +1381,17 @@ void AP_GPS::send_mavlink_gps_raw(mavlink_channel_t chan)
     horizontal_accuracy(0, hacc);
     vertical_accuracy(0, vacc);
     speed_accuracy(0, sacc);
+
+    // occupie not used placeholder
+    const GPS_timing &tim = timing[primary_instance];
+    uint32_t tim_info = 0;
+    // cc0aaa0ddd
+    tim_info += MIN(40, tim.delayed_count);
+    tim_info *= 10000; // shift left in dec visualization
+    tim_info += (uint32_t)(tim.average_delta_ms+0.5f);
+    tim_info *= 10000; // shift left in dec visualization
+    tim_info += tim.delta_time_ms;
+
     mavlink_msg_gps_raw_int_send(
         chan,
         last_fix_time_ms(0)*(uint64_t)1000,
@@ -1397,7 +1408,8 @@ void AP_GPS::send_mavlink_gps_raw(mavlink_channel_t chan)
         hacc * 1000,          // one-sigma standard deviation in mm
         vacc * 1000,          // one-sigma standard deviation in mm
         sacc * 1000,          // one-sigma standard deviation in mm/s
-        0,                    // TODO one-sigma heading accuracy standard deviation
+        //0,                  // TODO one-sigma heading accuracy standard deviation (uint32_t hdg_acc)
+        tim_info,             // "hdg_acc" replaced by a combined delta timing
         gps_yaw_cdeg(0));
 }
 
