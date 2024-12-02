@@ -1,0 +1,228 @@
+Got COMMAND_ACK: PREFLIGHT_REBOOT_SHUTDOWN: ACCEPTED
+Device COM5 is dead
+Device COM5 reopened OK
+QMC5883L found on bus 0 id 855297 address 0x0D
+Mode INITIALISING
+Init GyroAP: Ground start
+AP: Beginning INS calibration. Do not move plane
+**
+AP: Calibrating barometer
+Mode MANUAL
+AP: Barometer 1 calibration complete
+AP: No airspeed sensor
+AP: ArduPilot Ready
+AP: AHRS: DCM active
+Time has wrapped
+Time has wrapped 3404 152106
+AP: RCOut: PWM:1-10 NeoP:11-12
+_request_next_config:267: Unconfigured: 0x001FFF, Current step: 0
+_request_next_config:275: waiting for GPS driver...
+AP: GPS 1: probing for u-blox at 230400 baud
+_request_next_config:267: Unconfigured: 0x001FFF, Current step: 0
+AP: u-blox configuration started.. (0x001FFF)
+AP: GPS 1: detected u-blox
+_request_next_config:267: Unconfigured: 0x001FF7, Current step: 1
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x001FF7, Current step: 2
+_parse_gps:1146: doit: class=0x0A, msg=0x04
+_parse_gps:1489: u-blox: MSG_MON_VER found HW: 0x82
+AP: u-blox 1 HW: 000A0000 SW: ROM SPG 5.10 (7b202e)
+_request_next_config:267: Unconfigured: 0x0805F7, Current step: 3
+_parse_gps:1146: doit: class=0x06, msg=0x00
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x00
+_request_next_config:267: Unconfigured: 0x0805F7, Current step: 3
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x07
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x0805F7, Current step: 4
+_parse_gps:1146: doit: class=0x06, msg=0x08
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x08
+_request_next_config:267: Unconfigured: 0x0805F6, Current step: 5
+_request_next_config:267: Unconfigured: 0x0805F6, Current step: 6
+_parse_gps:1146: doit: class=0x06, msg=0x00
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x00
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x0805F6, Current step: 7
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x03
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x0805F2, Current step: 8
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x02
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x0805F0, Current step: 9
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x12
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x0805E0, Current step: 10
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x20
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x0805E0, Current step: 11
+_request_next_config:267: Unconfigured: 0x0805E0, Current step: 12
+_parse_gps:1146: doit: class=0x06, msg=0x24
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x24
+_request_next_config:267: Unconfigured: 0x0801E0, Current step: 13
+AP: u-blox gnss update: 0x00 -> 0x6F
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x0801E0, Current step: 14
+_request_next_config:267: Unconfigured: 0x0801E0, Current step: 15
+_request_next_config:267: Unconfigured: 0x0801E0, Current step: 16
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x04
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x0801C0, Current step: 17
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x0A, id=0x09
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x080180, Current step: 18
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x0A, id=0x0B
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x080100, Current step: 19
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x080000, Current step: 20
+_request_next_config:267: Unconfigured: 0x080000, Current step: 21
+_request_next_config:267: Unconfigured: 0x080000, Current step: 22
+_request_next_config:267: Unconfigured: 0x080000, Current step: 23
+_request_next_config:466: Sending F9/M10 settings, GNSS=0x6F
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x8A
+_request_next_config:267: Unconfigured: 0x080000, Current step: 24
+_request_next_config:500: Validating F9/M10 settings, GNSS=0x6F
+AP: u-blox F9/M10: GNSS chk 0x6F (@14)
+_parse_gps:1146: doit: class=0x06, msg=0x8B
+_parse_gps:1368: valset(0x1031001F): 1
+_parse_gps:1381: done 0 mask=0x0001 all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310001): 1
+_parse_gps:1381: done 1 mask=0x0003 all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310020): 1
+_parse_gps:1381: done 2 mask=0x0007 all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310005): 1
+_parse_gps:1381: done 3 mask=0x000F all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310021): 1
+_parse_gps:1381: done 4 mask=0x001F all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310007): 1
+_parse_gps:1381: done 5 mask=0x003F all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310022): 1
+_parse_gps:1381: done 6 mask=0x007F all_mask=0x3FFF
+_parse_gps:1368: valset(0x1031000D): 0
+_parse_gps:1381: done 7 mask=0x00FF all_mask=0x3FFF
+_parse_gps:1368: valset(0x1031000F): 1
+_parse_gps:1381: done 8 mask=0x01FF all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310024): 1
+_parse_gps:1381: done 9 mask=0x03FF all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310012): 1
+_parse_gps:1381: done 10 mask=0x07FF all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310014): 1
+_parse_gps:1381: done 11 mask=0x0FFF all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310025): 1
+_parse_gps:1381: done 12 mask=0x1FFF all_mask=0x3FFF
+_parse_gps:1368: valset(0x10310018): 1
+_parse_gps:1381: done 13 mask=0x3FFF all_mask=0x3FFF
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x8B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 25
+AP: u-blox configuration finished (0x000000)
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 26
+_request_next_config:267: Unconfigured: 0x000000, Current step: 0
+_request_next_config:267: Unconfigured: 0x000000, Current step: 1
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 2
+_request_next_config:267: Unconfigured: 0x000000, Current step: 3
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x07
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 4
+_parse_gps:1146: doit: class=0x06, msg=0x08
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x08
+_request_next_config:267: Unconfigured: 0x000000, Current step: 5
+_request_next_config:267: Unconfigured: 0x000000, Current step: 6
+_parse_gps:1146: doit: class=0x06, msg=0x00
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x00
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 7
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x03
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x000000, Current step: 8
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x02
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 9
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x12
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x000000, Current step: 10
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x20
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x000000, Current step: 11
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 12
+_parse_gps:1146: doit: class=0x06, msg=0x24
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x24
+_request_next_config:267: Unconfigured: 0x000000, Current step: 13
+_parse_gps:1146: doit: class=0x06, msg=0x3E
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x3E
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 14
+_request_next_config:267: Unconfigured: 0x000000, Current step: 15
+_request_next_config:267: Unconfigured: 0x000000, Current step: 16
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x04
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x000000, Current step: 17
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x0A, id=0x09
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_request_next_config:267: Unconfigured: 0x000000, Current step: 18
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x0A, id=0x0B
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 19
+_request_next_config:267: Unconfigured: 0x000000, Current step: 20
+_request_next_config:267: Unconfigured: 0x000000, Current step: 21
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 22
+_request_next_config:267: Unconfigured: 0x000000, Current step: 23
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 24
+_request_next_config:267: Unconfigured: 0x000000, Current step: 25
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 26
+_request_next_config:267: Unconfigured: 0x000000, Current step: 0
+_request_next_config:267: Unconfigured: 0x000000, Current step: 1
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 2
+_request_next_config:267: Unconfigured: 0x000000, Current step: 3
+_request_message_rate:1947: MSG_CFG_MSG (get rate): class=0x01, id=0x07
+_parse_gps:1146: doit: class=0x06, msg=0x01
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x01
+_parse_gps:1146: doit: class=0x0A, msg=0x09
+_parse_gps:1146: doit: class=0x0A, msg=0x0B
+_request_next_config:267: Unconfigured: 0x000000, Current step: 4
+_parse_gps:1146: doit: class=0x06, msg=0x08
+_parse_gps:1048: ACK:  clsID=0x06, msgID=0x08
+_request_next_config:267: Unconfigured: 0x000000, Current step: 5
+MANUAL>
