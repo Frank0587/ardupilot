@@ -11,8 +11,6 @@
 #define TAKEOFF_RUDDER_WARNING_TIMEOUT 3000 //ms that GCS warning about not returning arming rudder to neutral repeats
 
 #define GPS_GND_CRS_MIN_SPD 5 // m/s, used to set when intial_direction.heading is captured in NAV_TAKEOFF and Mode TAKEOFF
-#define KTW_UPPOS       (0.80f * 4500)    // 80% [of +/-100%] set to raise the KTW in case of auto throttle
-#define KTW_LIMITPOS    (0.70f * 4500)    // 70% [of +/-100%] under this limit prevent Motor
 
 // failsafe
 // ----------------------
