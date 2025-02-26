@@ -121,5 +121,15 @@
 			<Increment>1</Increment>
 			<User>Advanced</User>
 		</KTW_SLEW>
+
+		<LGR_SLEW>
+			<DisplayName>Landing gear retract/deploy slew rate</DisplayName>
+			<Description>define the servo speed to retract or deploy landing gear</Description>
+			<Range>0 2000</Range>
+			<Units>%/s</Units>
+			<Increment>1</Increment>
+			<User>Standard</User>
+		</LGR_SLEW>
+
 	</ArduPlane>
 </Params>
