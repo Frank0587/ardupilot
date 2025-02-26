@@ -981,13 +981,13 @@ bool RC_Channel::read_aux()
     if( _option2 != AUX_FUNC::DO_NOTHING) {
         switch (new_position) {
             case AuxSwitchPos::HIGH:
-                run_aux_function(_option2, AuxSwitchPos::LOW, AuxFuncTrigger::Source::RC); 
+                run_aux_function(_option2, AuxSwitchPos::LOW, AuxFuncTriggerSource::RC); 
                 break;
             case AuxSwitchPos::LOW:
-                run_aux_function(_option2, AuxSwitchPos::HIGH, AuxFuncTrigger::Source::RC); 
+                run_aux_function(_option2, AuxSwitchPos::HIGH, AuxFuncTriggerSource::RC); 
                 break;
             default:
-                run_aux_function(_option2, new_position, AuxFuncTrigger::Source::RC); 
+                run_aux_function(_option2, new_position, AuxFuncTriggerSource::RC); 
                 break;
         }
     }
