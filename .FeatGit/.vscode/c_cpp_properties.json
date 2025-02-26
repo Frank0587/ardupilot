@@ -12,7 +12,7 @@
             "defines": [
                 "APM_BUILD_DIRECTORY=APM_BUILD_ArduPlane",
                 "AP_CUSTOMCONTROL_ENABLED=0",
-                "AP_DDS_ENABLED=0", 
+                "AP_DDS_ENABLED=0",
                 "AP_SCRIPTING_CHECKS=1",
                 "AP_SIM_ENABLED=0",
                 "CANARD_ENABLE_TAO_OPTION=1",
