@@ -128,6 +128,8 @@ void AP_LandingGear::init()
         log_wow_state(wow_state_current);
     }
 
+    SRV_Channels::set_range(SRV_Channel::k_landing_gear_control, SRV_RANGE);
+
     switch ((enum LandingGearStartupBehaviour)_startup_behaviour.get()) {
         default:
         case LandingGear_Startup_WaitForPilotInput:
@@ -163,7 +165,7 @@ void AP_LandingGear::deploy()
     }
 
     // set servo PWM to deployed position
-    SRV_Channels::set_output_limit(SRV_Channel::k_landing_gear_control, SRV_Channel::Limit::MAX);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_landing_gear_control, SRV_DEPLOY);
 
     // send message only if output has been configured
     if (!_deployed &&
@@ -185,7 +187,7 @@ void AP_LandingGear::retract()
     }
 
     // set servo PWM to retracted position
-    SRV_Channels::set_output_limit(SRV_Channel::k_landing_gear_control, SRV_Channel::Limit::MIN);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_landing_gear_control, SRV_RETRACT);
 
     // reset deployed flag
     _deployed = false;
@@ -256,7 +258,7 @@ void AP_LandingGear::update(float height_above_ground_m)
         last_gear_event_ms = 0;
 
         // If there was no pilot input and state is still unknown - leave it as it is
-        if (gear_state_current != LG_UNKNOWN) {
+        if (gear_state_current != LG_UNKNOWN || _have_changed) {
             gear_state_current = (_deployed == true ? LG_DEPLOYED : LG_RETRACTED);
         }
     } else {
