@@ -101,13 +101,15 @@
 #define CONFIG_TMODE_MODE    (1<<16)
 #define CONFIG_RTK_MOVBASE   (1<<17)
 #define CONFIG_TIM_TM2       (1<<18)
-#define CONFIG_F9            (1<<19)
-#define CONFIG_M10           (1<<20)
-#define CONFIG_L5            (1<<21)
-#define CONFIG_LAST          (1<<22) // this must always be the last bit
+#define CONFIG_F9_M10        (1<<19)
+#define CONFIG_L5            (1<<20)
+#define CONFIG_LAST          (1<<21) // this must always be the last bit
 
+// = 0x000017
 #define CONFIG_REQUIRED_INITIAL (CONFIG_RATE_NAV | CONFIG_RATE_POSLLH | CONFIG_RATE_STATUS | CONFIG_RATE_VELNED)
 
+
+// = 0x001FFF
 #define CONFIG_ALL (CONFIG_RATE_NAV | CONFIG_RATE_POSLLH | CONFIG_RATE_STATUS | CONFIG_RATE_SOL | CONFIG_RATE_VELNED \
                     | CONFIG_RATE_DOP | CONFIG_RATE_MON_HW | CONFIG_RATE_MON_HW2 | CONFIG_RATE_RAW | CONFIG_VERSION \
                     | CONFIG_NAV_SETTINGS | CONFIG_GNSS | CONFIG_SBAS)
@@ -729,7 +731,10 @@ private:
     };
 
     enum config_step {
-        STEP_PVT = 0,
+        STEP_START = 0, // init, wait for driver
+        STEP_POLL_SVINFO, // poll svinfo
+        STEP_VERSION,   
+        STEP_PVT,
         STEP_NAV_RATE, // poll NAV rate
         STEP_SOL,
         STEP_PORT,
@@ -737,7 +742,6 @@ private:
         STEP_POSLLH,
         STEP_VELNED,
         STEP_TIMEGPS,
-        STEP_POLL_SVINFO, // poll svinfo
         STEP_POLL_SBAS, // poll SBAS
         STEP_POLL_NAV, // poll NAV settings
         STEP_POLL_GNSS, // poll GNSS
@@ -748,12 +752,10 @@ private:
         STEP_MON_HW2,
         STEP_RAW,
         STEP_RAWX,
-        STEP_VERSION,
         STEP_RTK_MOVBASE, // setup moving baseline
         STEP_TIM_TM2,
-        STEP_F9,
-        STEP_F9_VALIDATE,
-        STEP_M10,
+        STEP_F9_M10,
+        STEP_F9_M10_VALIDATE,
         STEP_L5,
         STEP_LAST
     };
@@ -778,7 +780,7 @@ private:
     uint32_t        _last_config_time;
     uint32_t        _f9_config_time;
     uint16_t        _delay_time;
-    uint8_t         _next_message { STEP_PVT };
+    uint8_t         _next_message { STEP_START };
     uint8_t         _ublox_port { 255 };
     bool            _have_version;
     struct ubx_mon_ver _version;
@@ -871,6 +873,9 @@ private:
     uint8_t populate_F9_gnss(void);
     uint8_t last_configured_gnss;
 
+    // populate config_GNSS with M10 configuration
+    uint8_t populate_M10_gnss(void);
+
     uint8_t _pps_freq = 1;
 #ifdef HAL_GPIO_PPS
     void pps_interrupt(uint8_t pin, bool high, uint32_t timestamp_us);
@@ -902,7 +907,6 @@ private:
 #endif // GPS_MOVING_BASELINE
 
     bool supports_l5;
-    static const config_list config_M10[];
     static const config_list config_L5_ovrd_ena[];
     static const config_list config_L5_ovrd_dis[];
     // scratch space for GNSS config

@@ -236,23 +236,6 @@ const AP_GPS_UBLOX::config_list AP_GPS_UBLOX::config_MB_Rover_uart2[] {
 #endif // GPS_MOVING_BASELINE
 
 /*
-  config changes for M10
-  we need to use B1C not B1 signal for Beidou on M10 to allow solid 5Hz,
-  and also disable Glonass and enable QZSS
- */
-const AP_GPS_UBLOX::config_list AP_GPS_UBLOX::config_M10[] {
- { ConfigKey::CFG_SIGNAL_BDS_ENA, 1},
- { ConfigKey::CFG_SIGNAL_BDS_B1_ENA, 0},
- { ConfigKey::CFG_SIGNAL_BDS_B1C_ENA, 1},
- { ConfigKey::CFG_SIGNAL_GLO_ENA, 0},
- { ConfigKey::CFG_SIGNAL_QZSS_ENA, 1},
- { ConfigKey::CFG_SIGNAL_QZSS_L1CA_ENA, 1},
- { ConfigKey::CFG_SIGNAL_QZSS_L1S_ENA, 1},
- { ConfigKey::CFG_NAVSPG_DYNMODEL, 8}, // Air < 4g
-};
-
-
-/*
   config changes for L5 modules
 */
 const AP_GPS_UBLOX::config_list AP_GPS_UBLOX::config_L5_ovrd_ena[] {
@@ -278,19 +261,19 @@ AP_GPS_UBLOX::_request_next_config(void)
         return;
     }
 
-    if (_unconfigured_messages == CONFIG_RATE_SOL && havePvtMsg) {
-        /*
-          we don't need SOL if we have PVT and TIMEGPS. This is needed
-          as F9P doesn't support the SOL message
-         */
-        _unconfigured_messages &= ~CONFIG_RATE_SOL;
-    }
-
-    Debug("Unconfigured messages: 0x%x Current message: %u\n", (unsigned)_unconfigured_messages, (unsigned)_next_message);
+    CFG_Debug("Unconfigured: 0x%06x, Current step: %u", (unsigned)_unconfigured_messages, (unsigned)_next_message);
 
     // check AP_GPS_UBLOX.h for the enum that controls the order.
     // This switch statement isn't maintained against the enum in order to reduce code churn
     switch (_next_message++) {
+
+    case STEP_START:    // init value, and wait min 3sec for driver
+        if (state.status == AP_GPS::GPS_Status::NO_GPS){
+            CFG_Debug("waiting for GPS driver...");
+            _next_message--;
+        }
+        break;
+
     case STEP_PVT:
         if(!_request_message_rate(CLASS_NAV, MSG_PVT)) {
             _next_message--;
@@ -306,7 +289,7 @@ AP_GPS_UBLOX::_request_next_config(void)
         break;
     case STEP_POLL_SVINFO:
         // not required once we know what generation we are on
-        if(_hardware_generation == UBLOX_UNKNOWN_HARDWARE_GENERATION) {
+        if (_unconfigured_messages & CONFIG_VERSION){
             if (!_send_message(CLASS_NAV, MSG_NAV_SVINFO, 0, 0)) {
                 _next_message--;
             }
@@ -325,11 +308,14 @@ AP_GPS_UBLOX::_request_next_config(void)
         }
         break;
     case STEP_POLL_GNSS:
-        if (supports_F9_config()) {
-            if (last_configured_gnss != params.gnss_mode) {
-                _unconfigured_messages |= CONFIG_F9;
+        if (last_configured_gnss != params.gnss_mode) {
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "u-blox gnss update: 0x%02x -> 0x%02x", uint(last_configured_gnss), uint(params.gnss_mode));
+            if (supports_F9_config()) {
+                _unconfigured_messages |= CONFIG_F9_M10;
+                break;
+            } else {
+                _unconfigured_messages |= CONFIG_GNSS;
             }
-            break;
         }
         if (!_send_message(CLASS_CFG, MSG_CFG_GNSS, nullptr, 0)) {
             _next_message--;
@@ -358,8 +344,11 @@ AP_GPS_UBLOX::_request_next_config(void)
         }
         break;
     case STEP_SOL:
-        if(!_request_message_rate(CLASS_NAV, MSG_SOL)) {
-            _next_message--;
+        if(!supports_F9_config()){
+            // not supported at F9/M10
+            if(!_request_message_rate(CLASS_NAV, MSG_SOL)) {
+                _next_message--;
+            }
         }
         break;
     case STEP_VELNED:
@@ -405,14 +394,15 @@ AP_GPS_UBLOX::_request_next_config(void)
 #endif
         break;
     case STEP_VERSION:
-        if(!_have_version && !hal.util->get_soft_armed()) {
-            _request_version();
-        } else {
-            _unconfigured_messages &= ~CONFIG_VERSION;
+        if (_unconfigured_messages & CONFIG_VERSION){
+            if(!hal.util->get_soft_armed()) {
+                _request_version();
+            }
         }
         break;
     case STEP_TMODE:
-        if (supports_F9_config()) {
+        // available only at F9
+        if (_hardware_generation == UBLOX_F9) {
             if (!_configure_valget(ConfigKey::TMODE_MODE)) {
                 _next_message--;
             }
@@ -452,52 +442,65 @@ AP_GPS_UBLOX::_request_next_config(void)
 #endif
         break;
 
-    case STEP_F9: {
-        if (_hardware_generation == UBLOX_F9) {
-            uint8_t cfg_count = populate_F9_gnss();
-            // special handling of F9 config
-            if (cfg_count > 0) {
-                CFG_Debug("Sending F9 settings, GNSS=%u", params.gnss_mode);
+    case STEP_F9_M10: {
+        uint8_t cfg_count=0;
 
-                if (!_configure_list_valset(config_GNSS, cfg_count, UBX_VALSET_LAYER_RAM | UBX_VALSET_LAYER_BBR)) {
-                    _next_message--;
-                    break;
-                }
-                _f9_config_time = AP_HAL::millis();
-            }
+        if (!(_unconfigured_messages & CONFIG_F9_M10)) {
+            break;
+        }else if (params.gnss_mode == 0) {
+            _unconfigured_messages &= ~CONFIG_F9_M10;
+            last_configured_gnss = params.gnss_mode;
+            break;
+        }else if (_hardware_generation == UBLOX_F9) {
+            cfg_count = populate_F9_gnss();
+        }else if (_hardware_generation == UBLOX_M10) {
+            cfg_count = populate_M10_gnss();
+        } else {
+            break;
         }
-        break;
-    }
-
-    case STEP_F9_VALIDATE: {
-        if (_hardware_generation == UBLOX_F9) {
-            // GNSS takes 0.5s to reset
-            if (AP_HAL::millis() - _f9_config_time < 500) {
+        // special handling of F9/M10 config
+        if (cfg_count > 0) {
+            CFG_Debug("Sending F9/M10 settings, GNSS=0x%02x", uint8_t(params.gnss_mode));
+            if (!_configure_list_valset(config_GNSS, cfg_count, UBX_VALSET_LAYER_RAM | UBX_VALSET_LAYER_BBR)) {
                 _next_message--;
                 break;
             }
-            _f9_config_time = 0;
-            uint8_t cfg_count = populate_F9_gnss();
-            // special handling of F9 config
-            if (cfg_count > 0) {
-                CFG_Debug("Validating F9 settings, GNSS=%u", params.gnss_mode);
-                // now validate all of the settings, this is a no-op if the first call succeeded
-                if (!_configure_config_set(config_GNSS, cfg_count, CONFIG_F9, UBX_VALSET_LAYER_RAM | UBX_VALSET_LAYER_BBR)) {
-                    _next_message--;
-                }
-            }
+            _f9_config_time = AP_HAL::millis();
         }
         break;
     }
-    case STEP_M10: {
-        if (_hardware_generation == UBLOX_M10) {
-            // special handling of M10 config
-            const config_list *list = config_M10;
-            const uint8_t list_length = ARRAY_SIZE(config_M10);
-            Debug("Sending M10 settings");
-            if (!_configure_config_set(list, list_length, CONFIG_M10, UBX_VALSET_LAYER_RAM | UBX_VALSET_LAYER_BBR)) {
+
+    case STEP_F9_M10_VALIDATE: {
+        uint8_t cfg_count=0;
+
+        if (!(_unconfigured_messages & CONFIG_F9_M10)) {
+            break;
+        }else if (params.gnss_mode == 0) {
+            _unconfigured_messages &= ~CONFIG_F9_M10;
+            last_configured_gnss = params.gnss_mode;
+            break;
+        }else if (_hardware_generation == UBLOX_F9) {
+            cfg_count = populate_F9_gnss();
+        }else if (_hardware_generation == UBLOX_M10) {
+            cfg_count = populate_M10_gnss();
+        } else {
+            break;
+        }
+        // GNSS takes 0.5s to reset
+        if (AP_HAL::millis() - _f9_config_time < 500) {
+            _next_message--;
+            break;
+        }
+        _f9_config_time = 0;
+        // special handling of F9/M10 config
+        if (cfg_count > 0) {
+            CFG_Debug("Validating F9/M10 settings, GNSS=0x%02x", uint8_t(params.gnss_mode));
+            // now validate all of the settings, this is a no-op if the first call succeeded
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "u-blox F9/M10: GNSS chk 0x%02x (@%u)", uint8_t(params.gnss_mode), cfg_count);
+            if (!_configure_config_set(config_GNSS, cfg_count, CONFIG_F9_M10, UBX_VALSET_LAYER_RAM | UBX_VALSET_LAYER_BBR)) {
                 _next_message--;
             }
+            last_configured_gnss = params.gnss_mode;
         }
         break;
     }
@@ -521,7 +524,7 @@ AP_GPS_UBLOX::_request_next_config(void)
 
     default:
         // this case should never be reached, do a full reset if it is hit
-        _next_message = STEP_PVT;
+        _next_message = STEP_START;
         break;
     }
 }
@@ -649,6 +652,14 @@ AP_GPS_UBLOX::read(void)
 
     // walk through the gps configuration at 1 message per second
     if (millis_now - _last_config_time >= _delay_time) {
+
+        static uint8_t config_running = 99;
+        uint8_t r = (_unconfigured_messages !=0);
+        if (config_running != r ){
+            config_running = r;
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "u-blox configuration %s (0x%06x)", r ? "started.." : "finished", (unsigned) _unconfigured_messages);
+        }
+
         _request_next_config();
         _last_config_time = millis_now;
         if (_unconfigured_messages) { // send the updates faster until fully configured
@@ -1031,6 +1042,7 @@ AP_GPS_UBLOX::_parse_gps(void)
         Debug("ACK %u", (unsigned)_msg_id);
 
         if(_msg_id == MSG_ACK_ACK) {
+            CFG_Debug("ACK:  clsID=0x%02x, msgID=0x%02x", (unsigned)_buffer.ack.clsID, (unsigned)_buffer.ack.msgID);
             switch(_buffer.ack.clsID) {
             case CLASS_CFG:
                 switch(_buffer.ack.msgID) {
@@ -1039,6 +1051,7 @@ AP_GPS_UBLOX::_parse_gps(void)
                     _cfg_needs_save = false;
                     break;
                 case MSG_CFG_GNSS:
+                    last_configured_gnss = params.gnss_mode;
                     _unconfigured_messages &= ~CONFIG_GNSS;
                     break;
                 case MSG_CFG_MSG:
@@ -1076,6 +1089,8 @@ AP_GPS_UBLOX::_parse_gps(void)
             }
         }
         if(_msg_id == MSG_ACK_NACK) {
+            CFG_Debug("NACK: clsID=0x%02x, msgID=0x%02x", (unsigned)_buffer.nack.clsID, (unsigned)_buffer.nack.msgID);
+
             switch(_buffer.nack.clsID) {
             case CLASS_CFG:
                 switch(_buffer.nack.msgID) {
@@ -1092,13 +1107,15 @@ AP_GPS_UBLOX::_parse_gps(void)
                             // the device does not support the config key we asked for,
                             // consider the bit as done
                             active_config.done_mask |= (1U<<active_config.fetch_index);
-                            CFG_Debug("NACK %d 0x%x done=0x%x",
+                            CFG_Debug("NACK (#%d/%d) 0x%x done=0x%x",
                                      int(active_config.fetch_index),
+                                     int(active_config.count),
                                      unsigned(active_config.list[active_config.fetch_index].key),
                                      unsigned(active_config.done_mask));
                             if (active_config.done_mask == (1U<<active_config.count)-1) {
                                 // all done!
                                 _unconfigured_messages &= ~active_config.unconfig_bit;
+                                active_config.list = nullptr;
                             }
                             active_config.fetch_index++;
                         }
@@ -1108,7 +1125,7 @@ AP_GPS_UBLOX::_parse_gps(void)
                     }
                     break;
                 case MSG_CFG_VALSET:
-                    CFG_Debug("NACK VALSET 0x%x 0x%x", (unsigned)_buffer.nack.msgID,
+                    CFG_Debug("NACK VALSET 0x%02x 0x%02x", (unsigned)_buffer.nack.msgID,
                             unsigned(active_config.list[active_config.set_index].key));
                     if (is_gnss_key(active_config.list[active_config.set_index].key)) {
                         GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "GPS %u: unable to configure band 0x%02x",
@@ -1122,6 +1139,9 @@ AP_GPS_UBLOX::_parse_gps(void)
         return false;
     }
 
+    if (_class != CLASS_NAV) {    
+        CFG_Debug("doit: class=0x%02x, msg=0x%02x", (unsigned)_class, (unsigned)_msg_id);
+    }
     if (_class == CLASS_CFG) {
         switch(_msg_id) {
         case  MSG_CFG_NAV_SETTINGS:
@@ -1175,6 +1195,12 @@ AP_GPS_UBLOX::_parse_gps(void)
                     (unsigned)_buffer.gnss.configBlock[i].flags);
                 }
 #endif
+                uint8_t gnss_mode = params.gnss_mode;
+                if( (gnss_mode & 1U<<GNSS_BEIDOU) && (gnss_mode & 1U<<GNSS_GLONASS)) {
+                    gnss_mode &= ~(1U<<GNSS_BEIDOU);
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "u-blox M8: if GLONASS -> no BEIDOU (0x%02x)", (unsigned)gnss_mode );
+                    params.gnss_mode.set_and_save(gnss_mode);
+                }
 
                 for(int i = 0; i < UBLOX_MAX_GNSS_CONFIG_BLOCKS; i++) {
                     if((params.gnss_mode & (1 << i)) && i != GNSS_SBAS) {
@@ -1218,7 +1244,9 @@ AP_GPS_UBLOX::_parse_gps(void)
 #endif
 
         case MSG_CFG_SBAS:
-            if (gps._sbas_mode != AP_GPS::SBAS_Mode::DoNotChange) {
+            // F9/M10: CFG_SBAS not supported anymore, setting is included to STEP_F9_M10
+            // -> ignoring parameter GPS.SBAS, use GPSn_GNSS_MODE instead
+            if ((gps._sbas_mode != AP_GPS::SBAS_Mode::DoNotChange) && !supports_F9_config()) {
 	        Debug("Got SBAS settings %u %u %u 0x%x 0x%x\n", 
                       (unsigned)_buffer.sbas.mode,
                       (unsigned)_buffer.sbas.usage,
@@ -1259,9 +1287,9 @@ AP_GPS_UBLOX::_parse_gps(void)
            return false;
         case MSG_CFG_RATE:
             if(_buffer.nav_rate.measure_rate_ms != params.rate_ms ||
-               _buffer.nav_rate.nav_rate != 1 ||
-               _buffer.nav_rate.timeref != 0) {
-               _configure_rate();
+                _buffer.nav_rate.nav_rate != 1 ||
+                _buffer.nav_rate.timeref != 0) {
+                _configure_rate();
                 _unconfigured_messages |= CONFIG_RATE_NAV;
                 _cfg_needs_save = true;
             } else {
@@ -1347,13 +1375,14 @@ AP_GPS_UBLOX::_parse_gps(void)
                         _cfg_needs_save = true;
                     } else {
                         active_config.done_mask |= (1U << cfg_idx);
-                        CFG_Debug("done %u mask=0x%x all_mask=0x%x",
+                        CFG_Debug("done %u mask=0x%04x all_mask=0x%04x",
                                   unsigned(cfg_idx),
                                   unsigned(active_config.done_mask),
                                   (1U<<active_config.count)-1);
                         if (active_config.done_mask == (1U<<active_config.count)-1) {
                             // all done!
                             _unconfigured_messages &= ~active_config.unconfig_bit;
+                            active_config.list = nullptr;
                         }
                     }
                     if (active_config.fetch_index >= 0 &&
@@ -1413,6 +1442,7 @@ AP_GPS_UBLOX::_parse_gps(void)
             // check for F9 and M9. The F9 does not respond to SVINFO,
             // so we need to use MON_VER for hardware generation
             if (strncmp(_version.hwVersion, "00190000", 8) == 0) {
+                _unconfigured_messages &= ~CONFIG_VERSION;
                 if (strncmp(_version.swVersion, "EXT CORE 1", 10) == 0) {
                     // a F9
                     if (_hardware_generation != UBLOX_F9) {
@@ -1420,8 +1450,9 @@ AP_GPS_UBLOX::_parse_gps(void)
                         _unconfigured_messages |= CONFIG_TMODE_MODE;
                     }
                     _hardware_generation = UBLOX_F9;
-                    _unconfigured_messages |= CONFIG_F9;
+                    _unconfigured_messages |= CONFIG_F9_M10;
                     _unconfigured_messages &= ~CONFIG_GNSS;
+                    _unconfigured_messages &= ~CONFIG_SBAS;
                     if (strncmp(_module, "ZED-F9P", UBLOX_MODULE_LEN) == 0) {
                         _hardware_variant = UBLOX_F9_ZED;
                     } else if (strncmp(_module, "NEO-F9P", UBLOX_MODULE_LEN) == 0) {
@@ -1436,10 +1467,12 @@ AP_GPS_UBLOX::_parse_gps(void)
             }
             // check for M10
             if (strncmp(_version.hwVersion, "000A0000", 8) == 0) {
+                _unconfigured_messages &= ~CONFIG_VERSION;
                 _hardware_generation = UBLOX_M10;
-                _unconfigured_messages |= CONFIG_M10;
-                // M10 does not support CONFIG_GNSS
+                _unconfigured_messages |= CONFIG_F9_M10;
+                // M10 does not support CONFIG_GNSS and CONFIG_SBAS, using CONFIG_F9_M10 with UBX_VALSET_LAYER instead 
                 _unconfigured_messages &= ~CONFIG_GNSS;
+                _unconfigured_messages &= ~CONFIG_SBAS;
                 check_L1L5 = true;
             }
             if (check_L1L5) {
@@ -1450,6 +1483,7 @@ AP_GPS_UBLOX::_parse_gps(void)
                     _unconfigured_messages |= CONFIG_L5;
                 }
             }
+            CFG_Debug("u-blox: MSG_MON_VER found HW: 0x%02x", uint8_t(_hardware_generation));
             break;
         }
         default:
@@ -1645,6 +1679,12 @@ AP_GPS_UBLOX::_parse_gps(void)
         Debug("MSG_PVT");
 
         havePvtMsg = true;
+        /*
+          we don't need SOL if we have PVT and TIMEGPS. This is needed
+          as F9P doesn't support the SOL message
+         */
+        _unconfigured_messages &= ~CONFIG_RATE_SOL;
+
         // position
         _check_new_itow(_buffer.pvt.itow);
         _last_pvt_itow = _buffer.pvt.itow;
@@ -1788,6 +1828,7 @@ AP_GPS_UBLOX::_parse_gps(void)
         _unconfigured_messages &= ~CONFIG_VERSION;
         /* We don't need that anymore */
         _configure_message_rate(CLASS_NAV, MSG_NAV_SVINFO, 0);
+        CFG_Debug("u-blox: MSG_NAV_SVINFO found HW: 0x%02x", _hardware_generation);
         break;
         }
     default:
@@ -1900,6 +1941,7 @@ AP_GPS_UBLOX::_request_message_rate(uint8_t msg_class, uint8_t msg_id)
         struct ubx_cfg_msg msg;
         msg.msg_class = msg_class;
         msg.msg_id    = msg_id;
+        CFG_Debug("MSG_CFG_MSG (get rate): class=0x%02x, id=0x%02x", unsigned(msg_class), unsigned(msg_id));
         return _send_message(CLASS_CFG, MSG_CFG_MSG, &msg, sizeof(msg));
     }
 }
@@ -1919,6 +1961,7 @@ AP_GPS_UBLOX::_configure_message_rate(uint8_t msg_class, uint8_t msg_id, uint8_t
     msg.msg_class = msg_class;
     msg.msg_id    = msg_id;
     msg.rate      = rate;
+    CFG_Debug("MSG_CFG_MSG (set rate): class=0x%02x, id=0x%02x, rate=%u", unsigned(msg_class), unsigned(msg_id), unsigned(rate));
     return _send_message(CLASS_CFG, MSG_CFG_MSG, &msg, sizeof(msg));
 }
 
@@ -1967,6 +2010,7 @@ AP_GPS_UBLOX::_configure_valget(ConfigKey key)
     msg.msg.version = 0;
     msg.msg.layers = 0; // ram
     msg.key = key;
+    CFG_Debug("MSG_CFG_VALGET: 0x%08x", unsigned(key));
     return _send_message(CLASS_CFG, MSG_CFG_VALGET, &msg, sizeof(msg));
 }
 
@@ -2165,8 +2209,7 @@ static const char *reasons[] = {"navigation rate",
                                 "Time mode settings",
                                 "RTK MB",
                                 "TIM TM2",
-                                "F9",
-                                "M10",
+                                "GNSS F9/M10",
                                 "L5 Enable Disable"};
 
 static_assert((1 << ARRAY_SIZE(reasons)) == CONFIG_LAST, "UBLOX: Missing configuration description");
@@ -2295,81 +2338,137 @@ uint8_t AP_GPS_UBLOX::populate_F9_gnss(void)
 {
     uint8_t cfg_count = 0;
 
-    if (params.gnss_mode == 0) {
-        _unconfigured_messages &= ~CONFIG_F9;
-        last_configured_gnss = params.gnss_mode;
+    // ZED-F9P defaults are
+    // GPS L1C/A+L2C(ZED)
+    // SBAS L1C/A
+    // GALILEO E1+E5B(ZED)+E5A(NEO)
+    // BEIDOU B1+B2(ZED)+B2A(NEO)
+    // QZSS L1C/A+L2C(ZED)+L5(NEO)
+    // GLONASS L1+L2(ZED)
+    // IMES not supported
+    // GPS and QZSS should be enabled/disabled together, but we will leave them alone
+    // QZSS and SBAS can only be enabled if GPS is enabled
+
+    if (config_GNSS == nullptr) {
+        config_GNSS = (config_list*)calloc(UBLOX_MAX_GNSS_CONFIG_BLOCKS*3, sizeof(config_list));
+    }
+
+    if (config_GNSS == nullptr) {
         return 0;
     }
 
-    if ((_unconfigured_messages & CONFIG_F9) != 0) {
-        // ZED-F9P defaults are
-        // GPS L1C/A+L2C(ZED)
-        // SBAS L1C/A
-        // GALILEO E1+E5B(ZED)+E5A(NEO)
-        // BEIDOU B1+B2(ZED)+B2A(NEO)
-        // QZSS L1C/A+L2C(ZED)+L5(NEO)
-        // GLONASS L1+L2(ZED)
-        // IMES not supported
-        // GPS and QZSS should be enabled/disabled together, but we will leave them alone
-        // QZSS and SBAS can only be enabled if GPS is enabled
+    uint8_t gnss_mode = params.gnss_mode;
+    gnss_mode |= 1U<<GNSS_GPS;
+    gnss_mode |= 1U<<GNSS_QZSS;
+    gnss_mode &= ~(1U<<GNSS_IMES);
+    params.gnss_mode.set_and_save(gnss_mode);
 
-        if (config_GNSS == nullptr) {
-            config_GNSS = (config_list*)calloc(UBLOX_MAX_GNSS_CONFIG_BLOCKS*3, sizeof(config_list));
-        }
-
-        if (config_GNSS == nullptr) {
-            return 0;
-        }
-
-        uint8_t gnss_mode = params.gnss_mode;
-        gnss_mode |= 1U<<GNSS_GPS;
-        gnss_mode |= 1U<<GNSS_QZSS;
-        gnss_mode &= ~(1U<<GNSS_IMES);
-        params.gnss_mode.set_and_save(gnss_mode);
-
-        for(int i = 0; i < UBLOX_MAX_GNSS_CONFIG_BLOCKS; i++) {
-            bool ena = gnss_mode & (1U<<i);
-            switch (i) {
-            case GNSS_SBAS:
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_SBAS_ENA, ena };
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_SBAS_L1CA_ENA, ena };
-                break;
-            case GNSS_GALILEO:
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_ENA, ena };
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E1_ENA, ena };
-                if (_hardware_variant == UBLOX_F9_ZED) {
-                    config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E5B_ENA, ena };
-                } else {
-                    config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E5A_ENA, ena };
-                }
-                break;
-            case GNSS_BEIDOU:
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_ENA, ena };
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B1_ENA, ena };
-                if (_hardware_variant == UBLOX_F9_ZED) {
-                    config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B2_ENA, ena };
-                } else {
-                    config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B2A_ENA, ena };
-                }
-                break;
-            case GNSS_GLONASS:
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_ENA, ena };
-                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_L1_ENA, ena };
-                if (_hardware_variant == UBLOX_F9_ZED) {
-                    config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_L2_ENA, ena };
-                }
-                break;
-            // not supported or leave alone
-            case GNSS_IMES:
-            case GNSS_QZSS:
-            case GNSS_GPS:
-                break;
+    for(int i = 0; i < UBLOX_MAX_GNSS_CONFIG_BLOCKS; i++) {
+        bool ena = gnss_mode & (1U<<i);
+        switch (i) {
+        case GNSS_SBAS:
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_SBAS_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_SBAS_L1CA_ENA, ena };
+            break;
+        case GNSS_GALILEO:
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E1_ENA, ena };
+            if (_hardware_variant == UBLOX_F9_ZED) {
+                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E5B_ENA, ena };
+            } else {
+                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E5A_ENA, ena };
             }
+            break;
+        case GNSS_BEIDOU:
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B1_ENA, ena };
+            if (_hardware_variant == UBLOX_F9_ZED) {
+                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B2_ENA, ena };
+            } else {
+                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B2A_ENA, ena };
+            }
+            break;
+        case GNSS_GLONASS:
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_L1_ENA, ena };
+            if (_hardware_variant == UBLOX_F9_ZED) {
+                config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_L2_ENA, ena };
+            }
+            break;
+        // not supported or leave alone
+        case GNSS_IMES:
+        case GNSS_QZSS:
+        case GNSS_GPS:
+            break;
         }
     }
+    return cfg_count;
+}
 
-    last_configured_gnss = params.gnss_mode;
+/*
+  populate config_GNSS with M10 configuration
+  we need to use B1C not B1 signal for Beidou on M10 to allow solid 5Hz,
+  and also disable Glonass and enable QZSS
 
+    orginal struct
+    { ConfigKey::CFG_SIGNAL_BDS_ENA, 1},
+    { ConfigKey::CFG_SIGNAL_BDS_B1_ENA, 0},
+    { ConfigKey::CFG_SIGNAL_BDS_B1C_ENA, 1},
+    { ConfigKey::CFG_SIGNAL_GLO_ENA, 0},
+    { ConfigKey::CFG_SIGNAL_QZSS_ENA, 1},
+    { ConfigKey::CFG_SIGNAL_QZSS_L1CA_ENA, 1},
+    { ConfigKey::CFG_SIGNAL_QZSS_L1S_ENA, 1},
+    { ConfigKey::CFG_NAVSPG_DYNMODEL, 8}, // Air < 4g
+*/ 
+
+uint8_t AP_GPS_UBLOX::populate_M10_gnss(void)
+{
+    uint8_t cfg_count = 0;
+
+    if (config_GNSS == nullptr) {
+        config_GNSS = (config_list*)calloc(UBLOX_MAX_GNSS_CONFIG_BLOCKS*3+1, sizeof(config_list));
+    }
+
+    if (config_GNSS == nullptr) {
+        return 0;
+    }
+
+    uint8_t gnss_mode = params.gnss_mode;
+
+    for(int i = 0; i < UBLOX_MAX_GNSS_CONFIG_BLOCKS; i++) {
+        bool ena = gnss_mode & (1U<<i);
+        switch (i) {
+        case GNSS_GPS:              // org: not set/touched
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GPS_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GPS_L1CA_ENA, ena };
+            break;
+        case GNSS_QZSS:             // org: ena = 1
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_QZSS_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_QZSS_L1CA_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_QZSS_L1S_ENA, ena };
+            break;
+        case GNSS_SBAS:             // org: not set/touched
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_SBAS_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_SBAS_L1CA_ENA, ena };
+            break;
+        case GNSS_GALILEO:          // org: not set/touched
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GAL_E1_ENA, ena };
+            break;
+        case GNSS_BEIDOU:           // org: ena = 1
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B1_ENA, false };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_BDS_B1C_ENA, ena };
+            break;
+        case GNSS_GLONASS:          // org: ena = 0
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_ENA, ena };
+            config_GNSS[cfg_count++] = { ConfigKey::CFG_SIGNAL_GLO_L1_ENA, ena };
+            break;
+        // not supported or leave alone
+        case GNSS_IMES:
+            break;
+        }
+    }
     return cfg_count;
 }
 
