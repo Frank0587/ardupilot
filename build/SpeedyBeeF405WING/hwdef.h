@@ -32,6 +32,9 @@
 // UART used for stdout (printf)
 // MMC via SPI available, enable POSIX filesystem support
 #define USE_POSIX
+#define HAL_USE_FATFS TRUE
+
+#define HAL_OS_POSIX_IO TRUE
 
 #define HAL_USE_MMC_SPI TRUE
 #define HAL_USE_SDC FALSE
@@ -116,6 +119,7 @@
 #define MODE_ZIGZAG_ENABLED 0
 #define AC_NAV_GUIDED 0
 #define AP_OAPATHPLANNER_ENABLED 0
+#define AP_FOLLOW_ENABLED 0
 #define MODE_FOLLOW_ENABLED 0
 #define MODE_GUIDED_NOGPS_ENABLED 0
 #define MODE_SYSTEMID_ENABLED 0
@@ -135,6 +139,7 @@
 #define AP_CAMERA_INFO_FROM_SCRIPT_ENABLED 0
 #define AP_MAVLINK_MSG_VIDEO_STREAM_INFORMATION_ENABLED 0
 #define AP_SERVO_TELEM_ENABLED 0
+#define AP_MAVLINK_MSG_FLIGHT_INFORMATION_ENABLED 0
 #define AP_OPTICALFLOW_ENABLED 0
 #define AP_GPS_NMEA_ENABLED 1
 #define AP_MOTORS_FRAME_DEFAULT_ENABLED 0
@@ -308,7 +313,9 @@
 #define HAL_GPIO_PIN_USART6_TX            PAL_LINE(GPIOC,6U)
 
 #define HAL_INS_PROBE1  ADD_BACKEND(AP_InertialSensor_Invensensev3::probe(*this,hal.spi->get_device("icm42605"),ROTATION_ROLL_180_YAW_270))
+#ifndef INS_MAX_INSTANCES
 #define INS_MAX_INSTANCES 1
+#endif
 #define HAL_INS_PROBE_LIST HAL_INS_PROBE1
 
 #define HAL_BARO_PROBE1  ADD_BACKEND(AP_Baro_SPL06::probe(*this,GET_I2C_DEVICE(0,0x76)))
@@ -1633,13 +1640,22 @@
 #endif
 
 // a similar define is present in AP_HAL_Boards.h:
+// needed to compile chibios
 #ifndef HAL_OS_FATFS_IO
 #define HAL_OS_FATFS_IO 0
 #endif
 
+#ifndef HAL_OS_LITTLEFS_IO
+#define HAL_OS_LITTLEFS_IO 0
+#endif
+
+#ifndef HAL_OS_POSIX_IO
+#define HAL_OS_POSIX_IO 0
+#endif
+
 #ifndef AP_TERRAIN_AVAILABLE
 // enable terrain only if there's an SD card available:
-#define AP_TERRAIN_AVAILABLE HAL_OS_FATFS_IO
+#define AP_TERRAIN_AVAILABLE (HAL_OS_FATFS_IO || (HAL_OS_LITTLEFS_IO && (BOARD_FLASH_SIZE>1024)))
 #endif
 
 #if AP_TERRAIN_AVAILABLE
