@@ -94,6 +94,15 @@ const AP_Param::GroupInfo AP_LandingGear::var_info[] = {
 
     // index 10 is enable, placed at the top of the table
 
+    // @Param: SLEWRATE
+    // @DisplayName: Landing gear retract/deploy slew rate
+    // @Description: define the servo speed to retract or deploy landing gear
+    // @Units: %/s
+    // @Range: 0 2000
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("SLEWRATE", 11, AP_LandingGear, _slewrate, 80),
+
     AP_GROUPEND
 };
 
@@ -129,6 +138,8 @@ void AP_LandingGear::init()
         log_wow_state(wow_state_current);
     }
 
+    SRV_Channels::set_range(SRV_Channel::k_landing_gear_control, SRV_RANGE);
+
     switch ((enum LandingGearStartupBehaviour)_startup_behaviour.get()) {
         default:
         case LandingGear_Startup_WaitForPilotInput:
@@ -148,10 +159,15 @@ void AP_LandingGear::set_position(LandingGearCommand cmd)
 {
     switch (cmd) {
         case LandingGear_Retract:
+            _automatic = false;
             retract();
             break;
         case LandingGear_Deploy:
+            _automatic = false;
             deploy();
+            break;
+        case LandingGear_Automatic:
+            _automatic = true;
             break;
     }
 }
@@ -164,7 +180,7 @@ void AP_LandingGear::deploy()
     }
 
     // set servo PWM to deployed position
-    SRV_Channels::set_output_limit(SRV_Channel::k_landing_gear_control, SRV_Channel::Limit::MAX);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_landing_gear_control, SRV_DEPLOY);
 
     // send message only if output has been configured
     if (!_deployed &&
@@ -186,7 +202,7 @@ void AP_LandingGear::retract()
     }
 
     // set servo PWM to retracted position
-    SRV_Channels::set_output_limit(SRV_Channel::k_landing_gear_control, SRV_Channel::Limit::MIN);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_landing_gear_control, SRV_RETRACT);
 
     // reset deployed flag
     _deployed = false;
@@ -236,6 +252,19 @@ uint32_t AP_LandingGear::get_wow_state_duration_ms() const
     return AP_HAL::millis() - last_wow_event_ms;
 }
 
+void AP_LandingGear::update_output(float dT)
+{
+   if(_slewrate > 0) {
+      SRV_Channels::set_slew_rate(SRV_Channel::k_landing_gear_control, _slewrate, SRV_RANGE, dT);
+      
+      LG_LandingGear_State s = get_state();
+      if(s !=LG_UNKNOWN){
+          float target = ((s == LG_RETRACTED || s == LG_RETRACTING) ? SRV_RETRACT : SRV_DEPLOY );
+          SRV_Channels::set_output_scaled(SRV_Channel::k_landing_gear_control, target);
+      }
+  }
+}
+
 void AP_LandingGear::update(float height_above_ground_m)
 {
     if (_pin_weight_on_wheels == -1) {
@@ -257,7 +286,7 @@ void AP_LandingGear::update(float height_above_ground_m)
         last_gear_event_ms = 0;
 
         // If there was no pilot input and state is still unknown - leave it as it is
-        if (gear_state_current != LG_UNKNOWN) {
+        if (gear_state_current != LG_UNKNOWN || _have_changed) {
             gear_state_current = (_deployed == true ? LG_DEPLOYED : LG_RETRACTED);
         }
     } else {
@@ -281,10 +310,10 @@ void AP_LandingGear::update(float height_above_ground_m)
 
     /*
       check for height based triggering
-     */
+    */
     int16_t alt_m = constrain_int16(height_above_ground_m, 0, INT16_MAX);
 
-    if (hal.util->get_soft_armed()) {
+    if (hal.util->get_soft_armed() && _automatic) {
         // only do height based triggering when armed
         if ((!_deployed || !_have_changed) &&
             _deploy_alt > 0 &&
