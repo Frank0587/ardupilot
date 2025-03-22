@@ -313,6 +313,10 @@ private:
     AP_Int8 reversed;
     AP_Enum16<Function> function;
 
+    // limits for autotrim function, will be set at first autotrim cycle 
+    uint16_t autotrim_min =0;
+    uint16_t autotrim_max =0;
+
     // a pending output value as PWM
     uint16_t output_pwm;
 

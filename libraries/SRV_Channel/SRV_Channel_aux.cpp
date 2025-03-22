@@ -715,10 +715,17 @@ void SRV_Channels::adjust_trim(SRV_Channel::Function function, float v)
         if (c.servo_max <= c.servo_min) {
             continue;
         }
-        float trim_scaled = float(c.servo_trim - c.servo_min) / (c.servo_max - c.servo_min);
-        if (change > 0 && trim_scaled < 0.6f) {
+        // compute the limits of autotrim at first call: 10% of full span
+        // ensure symetric autotrim range around origin trim value
+        if (c.autotrim_max == 0 || c.autotrim_min == 0){
+            // uint16_t steps = (uint16_t) (0.1 * (float)(c.servo_max - c.servo_min));  // 10% of channel span
+            uint16_t steps = 0.1 * (1900-1100);        // 10% of default span
+            c.autotrim_max = c.servo_trim + steps;
+            c.autotrim_min = c.servo_trim - steps;
+        }
+        if (change > 0 && new_trim < c.autotrim_max) {
             new_trim++;
-        } else if (change < 0 && trim_scaled > 0.4f) {
+        } else if (change < 0 && new_trim > c.autotrim_min) {
             new_trim--;
         } else {
             continue;
