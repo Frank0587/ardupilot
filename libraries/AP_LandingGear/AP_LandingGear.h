@@ -36,6 +36,7 @@ public:
     enum LandingGearCommand {
         LandingGear_Retract,
         LandingGear_Deploy,
+        LandingGear_Automatic,
     };
 
     // Gear command modes
@@ -79,11 +80,18 @@ public:
     
     void update(float height_above_ground_m);
     
+    /// for slew function cyclic output setting is needed
+    void update_output(float dT);
+    
     bool check_before_land(void);
 
     // retract after takeoff or deploy for landing depending on the OPTIONS parameter
     void retract_after_takeoff();
     void deploy_for_landing();
+
+    static constexpr float    SRV_RETRACT = 0.0;     // srv scaled position for retracted gear   
+    static constexpr float    SRV_DEPLOY  = 100.0;   // srv scaled position for deployed gear
+    static constexpr uint16_t SRV_RANGE   = 100;     // srv scaled range
 
 private:
     // Parameters
@@ -97,6 +105,7 @@ private:
     AP_Int16    _deploy_alt;
     AP_Int16    _retract_alt;
     AP_Int16    _options;
+    AP_Int16    _slewrate;
 
     // bitmask of options
     enum class Option : uint16_t {
@@ -107,6 +116,7 @@ private:
     // internal variables
     bool        _deployed;              // true if the landing gear has been deployed, initialized false
     bool        _have_changed;          // have we changed the servo state?
+    bool        _automatic = true;      // switch in middle position, use height based automatic 
 
     int16_t     _last_height_above_ground;
     
