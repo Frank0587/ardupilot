@@ -309,9 +309,14 @@ private:
     AP_Int16 servo_min;
     AP_Int16 servo_max;
     AP_Int16 servo_trim;
+    AP_Int16 trim_range;
     // reversal, following convention that 1 means reversed, 0 means normal
     AP_Int8 reversed;
     AP_Enum16<Function> function;
+
+    // limits for autotrim function, will be set at first autotrim cycle 
+    uint16_t autotrim_min =0;
+    uint16_t autotrim_max =0;
 
     // a pending output value as PWM
     uint16_t output_pwm;

@@ -1218,9 +1218,11 @@ void Plane::servos_auto_trim(void)
     // adjust trim on channels by a small amount according to I value
     float roll_I = rollController.get_pid_info().I;
     float pitch_I = pitchController.get_pid_info().I;
+    float yaw_I = yawController.get_pid_info().I;
 
     g2.servo_channels.adjust_trim(SRV_Channel::k_aileron, roll_I);
     g2.servo_channels.adjust_trim(SRV_Channel::k_elevator, pitch_I);
+    g2.servo_channels.adjust_trim(SRV_Channel::k_rudder, yaw_I);
 
     g2.servo_channels.adjust_trim(SRV_Channel::k_elevon_left,  pitch_I - roll_I);
     g2.servo_channels.adjust_trim(SRV_Channel::k_elevon_right, pitch_I + roll_I);
