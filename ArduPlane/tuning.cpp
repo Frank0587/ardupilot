@@ -37,6 +37,7 @@ const uint8_t AP_Tuning_Plane::tuning_set_az[] =               { TUNING_AZ_P, TU
 const uint8_t AP_Tuning_Plane::tuning_set_rate_pitchDP[]=      { TUNING_RATE_PITCH_D, TUNING_RATE_PITCH_P };
 const uint8_t AP_Tuning_Plane::tuning_set_rate_rollDP[]=       { TUNING_RATE_ROLL_D, TUNING_RATE_ROLL_P };
 const uint8_t AP_Tuning_Plane::tuning_set_rate_yawDP[]=        { TUNING_RATE_YAW_D, TUNING_RATE_YAW_P };
+const uint8_t AP_Tuning_Plane::tuning_set_pitch_level[]=       { TUNING_PITCH_TRIM, TUNING_STAB_PITCH_DOWN };
 const uint8_t AP_Tuning_Plane::tuning_set_dp_roll_pitch[] =    { TUNING_RLL_D, TUNING_RLL_P, TUNING_PIT_D, TUNING_PIT_P };
 const uint8_t AP_Tuning_Plane::tuning_set_pidff_roll[] =       { TUNING_RLL_P, TUNING_RLL_I, TUNING_RLL_D, TUNING_RLL_FF };
 const uint8_t AP_Tuning_Plane::tuning_set_pidff_pitch[] =      { TUNING_PIT_P, TUNING_PIT_I, TUNING_PIT_D, TUNING_PIT_FF };
@@ -56,6 +57,7 @@ const AP_Tuning_Plane::tuning_set AP_Tuning_Plane::tuning_sets[] = {
     { TUNING_SET_RATE_PITCHDP,          TUNING_ARRAY(tuning_set_rate_pitchDP) },
     { TUNING_SET_RATE_ROLLDP,           TUNING_ARRAY(tuning_set_rate_rollDP) },
     { TUNING_SET_RATE_YAWDP,            TUNING_ARRAY(tuning_set_rate_yawDP) },
+    { TUNING_SET_PITCH_LEVEL,           TUNING_ARRAY(tuning_set_pitch_level) },
     { TUNING_SET_DP_ROLL_PITCH,         TUNING_ARRAY(tuning_set_dp_roll_pitch) },
     { TUNING_SET_PIDFF_ROLL,            TUNING_ARRAY(tuning_set_pidff_roll) },
     { TUNING_SET_PIDFF_PITCH,           TUNING_ARRAY(tuning_set_pidff_pitch) },
@@ -101,6 +103,8 @@ const AP_Tuning_Plane::tuning_name AP_Tuning_Plane::tuning_names[] = {
     { TUNING_PIT_D,        "PitchD" },
     { TUNING_PIT_FF,       "PitchFF" },
     { TUNING_Q_FWD_THR,    "QModeFwdThr" },
+    { TUNING_STAB_PITCH_DOWN, "stab_pitch_down" },
+    { TUNING_PITCH_TRIM,    "pitch_trim" },
     { TUNING_NONE, nullptr }
 };
 
@@ -226,6 +230,12 @@ AP_Float *AP_Tuning_Plane::get_param_pointer(uint8_t parm)
 
     case TUNING_PIT_FF:
         return &plane.pitchController.kFF();
+
+    case TUNING_STAB_PITCH_DOWN:
+        return &plane.g.ptr_stab_pitch_down();
+
+    case TUNING_PITCH_TRIM:
+        return &plane.g.ptr_pitch_trim();
     }
     return nullptr;
 }
