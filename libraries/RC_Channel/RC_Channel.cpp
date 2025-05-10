@@ -261,6 +261,13 @@ const AP_Param::GroupInfo RC_Channel::var_info[] = {
     // @User: Standard
     AP_GROUPINFO("OPTION",  6, RC_Channel, option, 0),
 
+    // @Param: OPTION2
+    // @DisplayName: RC input option2, activated when Input switch set to low 
+    // @Description: 2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.
+    // @SortValues: AlphabeticalZeroAtTop
+    // @User: Standard
+    AP_GROUPINFO_FRAME("OPTION2",  7, RC_Channel, option2, 0, AP_PARAM_FRAME_COPTER|AP_PARAM_FRAME_ROVER|AP_PARAM_FRAME_PLANE|AP_PARAM_FRAME_BLIMP),
+
     AP_GROUPEND
 };
 
@@ -681,7 +688,7 @@ void RC_Channel::init_aux_function(const AUX_FUNC ch_option, const AuxSwitchPos 
 #if HAL_TORQEEDO_ENABLED
     case AUX_FUNC::TORQEEDO_CLEAR_ERR:
 #endif
-#if AP_SCRIPTING_ENABLED
+#if AP_SCRIPTING_ENABLED +1   // allow SCRIPTING Inputs for SP variants
     case AUX_FUNC::SCRIPTING_1:
     case AUX_FUNC::SCRIPTING_2:
     case AUX_FUNC::SCRIPTING_3:
@@ -941,6 +948,7 @@ const char *RC_Channel::string_for_aux_pos(AuxSwitchPos pos) const
 bool RC_Channel::read_aux()
 {
     const AUX_FUNC _option = (AUX_FUNC)option.get();
+    const AUX_FUNC _option2 = (AUX_FUNC)option2.get();
     if (_option == AUX_FUNC::DO_NOTHING) {
         // may wish to add special cases for other "AUXSW" things
         // here e.g. RCMAP_ROLL etc once they become options
@@ -983,6 +991,20 @@ bool RC_Channel::read_aux()
 
     // debounced; undertake the action:
     run_aux_function(_option, new_position, AuxFuncTrigger::Source::RC, ch_in);
+
+    if( _option2 != AUX_FUNC::DO_NOTHING) {
+        switch (new_position) {
+            case AuxSwitchPos::HIGH:
+                run_aux_function(_option2, AuxSwitchPos::LOW, AuxFuncTrigger::Source::RC, ch_in); 
+                break;
+            case AuxSwitchPos::LOW:
+                run_aux_function(_option2, AuxSwitchPos::HIGH, AuxFuncTrigger::Source::RC, ch_in); 
+                break;
+            default:
+                run_aux_function(_option2, new_position, AuxFuncTrigger::Source::RC, ch_in); 
+                break;
+        }
+    }
     return true;
 }
 
@@ -1881,7 +1903,7 @@ bool RC_Channel::do_aux_function(const AuxFuncTrigger &trigger)
     case AUX_FUNC::MOUNT2_PITCH:
     case AUX_FUNC::MOUNT2_YAW:
 #endif
-#if AP_SCRIPTING_ENABLED
+#if AP_SCRIPTING_ENABLED +1   // allow SCRIPTING Inputs for SP variants
     case AUX_FUNC::SCRIPTING_1:
     case AUX_FUNC::SCRIPTING_2:
     case AUX_FUNC::SCRIPTING_3:
