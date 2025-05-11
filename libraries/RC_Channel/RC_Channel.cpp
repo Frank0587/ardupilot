@@ -1557,7 +1557,7 @@ bool RC_Channel::do_aux_function(const AUX_FUNC ch_option, const AuxSwitchPos ch
             lg->set_position(AP_LandingGear::LandingGear_Deploy);
             break;
         case AuxSwitchPos::MIDDLE:
-            // nothing
+            lg->set_position(AP_LandingGear::LandingGear_Automatic);
             break;
         case AuxSwitchPos::HIGH:
             lg->set_position(AP_LandingGear::LandingGear_Retract);
