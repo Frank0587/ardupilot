@@ -160,6 +160,15 @@ const AP_Param::GroupInfo SRV_Channel::var_info[] = {
     // @RebootRequired: True
     AP_GROUPINFO("FUNCTION",  5, SRV_Channel, function, 0),
 
+    // @Param: TRIM_RNG
+    // @DisplayName: Auto Trim range
+    // @Description: maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).
+    // @Units: PWM
+    // @Range: 0 500
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("TRIM_RNG",  6, SRV_Channel, trim_range, 0),
+
     AP_GROUPEND
 };
 

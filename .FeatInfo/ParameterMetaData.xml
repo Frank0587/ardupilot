@@ -1,264 +1,388 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Params>
-	<ArduPlane>
-		<FLHS_ENABLE>
-			<DisplayName>Full house glider (FLSH) configuration instead of Differencial Spoiler (DSPOILER)</DisplayName>
-			<Description>if set to 1, use the FLSH parameter to control a full house glider (4 surfaces, Aileron, camber, Flap/crow)</Description>
-			<Range>0 1</Range>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_ENABLE>
-		<FLHS_FLP_IN_D>
-			<DisplayName>Full house glider flaps inner down weight</DisplayName>
-			<Description>This is amount of down deflection applied to the two inner surfaces for flap function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_FLP_IN_D>
-		<FLHS_FLP_OUT_U>
-			<DisplayName>Full house glider flaps outer up weight</DisplayName>
-			<Description>This is amount of up deflection applied to the two outer surfaces for flap function (crow). It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_FLP_OUT_U>
-		<FLHS_FLP_EL_MX>
-			<DisplayName>Full house glider flaps-elevator mix</DisplayName>
-			<Description>This is amount of elevator deflection when flaps are applied. It is a percentage -100 to 100.</Description>
-			<Range>-100 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_FLP_EL_MX>
-		<FLHS_CMB_IN_D>
-			<DisplayName>Full house glider camber inner down weight</DisplayName>
-			<Description>This is amount of down deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_CMB_IN_D>
-		<FLHS_CMB_IN_U>
-			<DisplayName>Full house glider camber inner up weight</DisplayName>
-			<Description>This is amount of up deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_CMB_IN_U>
-		<FLHS_CMB_OUT_D>
-			<DisplayName>Full house glider camber outer down weight</DisplayName>
-			<Description>This is amount of down deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_CMB_OUT_D>
-		<FLHS_CMB_OUT_U>
-			<DisplayName>Full house glider camber outer up weight</DisplayName>
-			<Description>This is amount of up deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_CMB_OUT_U>
-		<FLHS_AIL_IN_D>
-			<DisplayName>Full house glider aileron inner down weight</DisplayName>
-			<Description>This is amount of down deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_AIL_IN_D>
-		<FLHS_AIL_IN_U>
-			<DisplayName>Full house glider aileron inner up weight</DisplayName>
-			<Description>This is amount of up deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_AIL_IN_U>
-		<FLHS_AIL_OUT_D>
-			<DisplayName>Full house glider aileron outer down weight</DisplayName>
-			<Description>This is amount of down deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_AIL_OUT_D>
-		<FLHS_AIL_OUT_U>
-			<DisplayName>Full house glider aileron outer up weight</DisplayName>
-			<Description>This is amount of up deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</FLHS_AIL_OUT_U>
-
-		<KTW_POS_UP>
-			<DisplayName>upper position of KTW for automaic throttle</DisplayName>
-			<Description>This is the position of the KTW servo for activating the motor. (servo movement +/-100)</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</KTW_POS_UP>
-		<KTW_POS_FREE>
-			<DisplayName>lowest position of KTW for free running motor</DisplayName>
-			<Description>This is the lowest position of the KTW servo, that the motor is enabled. (servo movement +/-100)</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</KTW_POS_FREE>
-		<KTW_SLEW>
-			<DisplayName>slew rate of the KTW servo</DisplayName>
-			<Description>this is the (maximum) speed of the KTW servo (%/sec for the full movement)</Description>
-			<Range>0 100</Range>
-			<Units>%</Units>
-			<Increment>1</Increment>
-			<User>Advanced</User>
-		</KTW_SLEW>
-
-		<LGR_SLEWRATE>
-			<DisplayName>Landing gear retract/deploy slew rate</DisplayName>
-			<Description>define the servo speed to retract or deploy landing gear</Description>
-			<Range>0 2000</Range>
-			<Units>%/s</Units>
-			<Increment>1</Increment>
-			<User>Standard</User>
-		</LGR_SLEWRATE>
-
-		<RC1_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC1_OPTION2>
-		<RC2_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC2_OPTION2>
-		<RC3_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC3_OPTION2>
-		<RC4_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC4_OPTION2>
-		<RC5_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC5_OPTION2>
-		<RC6_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC6_OPTION2>
-		<RC7_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC7_OPTION2>
-		<RC8_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC8_OPTION2>
-		<RC9_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC9_OPTION2>
-		<RC10_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC10_OPTION2>
-		<RC11_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC11_OPTION2>
-		<RC12_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC12_OPTION2>
-		<RC13_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC13_OPTION2>
-		<RC14_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC14_OPTION2>
-		<RC15_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC15_OPTION2>
-		<RC16_OPTION2>
-			<DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
-			<Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
-			<Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
-			<User>Standard</User>
-			<LoggerMessage>AUXF2</LoggerMessage>
-			<Field>TimeUS: Time since system startup</Field>
-		</RC16_OPTION2>
-
-	</ArduPlane>
+  <ArduPlane>
+    <FLHS_ENABLE>
+      <DisplayName>Full house glider (FLSH) configuration instead of Differencial Spoiler (DSPOILER)</DisplayName>
+      <Description>if set to 1, use the FLSH parameter to control a full house glider (4 surfaces, Aileron, camber, Flap/crow)</Description>
+      <Range>0 1</Range>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_ENABLE>
+    <FLHS_FLP_IN_D>
+      <DisplayName>Full house glider flaps inner down weight</DisplayName>
+      <Description>This is amount of down deflection applied to the two inner surfaces for flap function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_FLP_IN_D>
+    <FLHS_FLP_OUT_U>
+      <DisplayName>Full house glider flaps outer up weight</DisplayName>
+      <Description>This is amount of up deflection applied to the two outer surfaces for flap function (crow). It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_FLP_OUT_U>
+    <FLHS_FLP_EL_MX>
+      <DisplayName>Full house glider flaps-elevator mix</DisplayName>
+      <Description>This is amount of elevator deflection when flaps are applied. It is a percentage -100 to 100.</Description>
+      <Range>-100 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_FLP_EL_MX>
+    <FLHS_CMB_IN_D>
+      <DisplayName>Full house glider camber inner down weight</DisplayName>
+      <Description>This is amount of down deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_CMB_IN_D>
+    <FLHS_CMB_IN_U>
+      <DisplayName>Full house glider camber inner up weight</DisplayName>
+      <Description>This is amount of up deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_CMB_IN_U>
+    <FLHS_CMB_OUT_D>
+      <DisplayName>Full house glider camber outer down weight</DisplayName>
+      <Description>This is amount of down deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_CMB_OUT_D>
+    <FLHS_CMB_OUT_U>
+      <DisplayName>Full house glider camber outer up weight</DisplayName>
+      <Description>This is amount of up deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_CMB_OUT_U>
+    <FLHS_AIL_IN_D>
+      <DisplayName>Full house glider aileron inner down weight</DisplayName>
+      <Description>This is amount of down deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_AIL_IN_D>
+    <FLHS_AIL_IN_U>
+      <DisplayName>Full house glider aileron inner up weight</DisplayName>
+      <Description>This is amount of up deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_AIL_IN_U>
+    <FLHS_AIL_OUT_D>
+      <DisplayName>Full house glider aileron outer down weight</DisplayName>
+      <Description>This is amount of down deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_AIL_OUT_D>
+    <FLHS_AIL_OUT_U>
+      <DisplayName>Full house glider aileron outer up weight</DisplayName>
+      <Description>This is amount of up deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </FLHS_AIL_OUT_U>
+    <KTW_POS_UP>
+      <DisplayName>upper position of KTW for automaic throttle</DisplayName>
+      <Description>This is the position of the KTW servo for activating the motor. (servo movement +/-100)</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </KTW_POS_UP>
+    <KTW_POS_FREE>
+      <DisplayName>lowest position of KTW for free running motor</DisplayName>
+      <Description>This is the lowest position of the KTW servo, that the motor is enabled. (servo movement +/-100)</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </KTW_POS_FREE>
+    <KTW_SLEW>
+      <DisplayName>slew rate of the KTW servo</DisplayName>
+      <Description>this is the (maximum) speed of the KTW servo (%/sec for the full movement)</Description>
+      <Range>0 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Advanced</User>
+    </KTW_SLEW>
+    <LGR_SLEWRATE>
+      <DisplayName>Landing gear retract/deploy slew rate</DisplayName>
+      <Description>define the servo speed to retract or deploy landing gear</Description>
+      <Range>0 2000</Range>
+      <Units>%/s</Units>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </LGR_SLEWRATE>
+    <RC1_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC1_OPTION2>
+    <RC2_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC2_OPTION2>
+    <RC3_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC3_OPTION2>
+    <RC4_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC4_OPTION2>
+    <RC5_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC5_OPTION2>
+    <RC6_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC6_OPTION2>
+    <RC7_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC7_OPTION2>
+    <RC8_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC8_OPTION2>
+    <RC9_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC9_OPTION2>
+    <RC10_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC10_OPTION2>
+    <RC11_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC11_OPTION2>
+    <RC12_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC12_OPTION2>
+    <RC13_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC13_OPTION2>
+    <RC14_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC14_OPTION2>
+    <RC15_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC15_OPTION2>
+    <RC16_OPTION2>
+      <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
+      <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>
+      <Values>0:Do Nothing, 4:ModeRTL, 9:Camera Trigger, 11:Fence, 16:ModeAuto, 22:Parachute Release, 24:Auto Mission Reset, 27:Retract Mount, 28:Relay On/Off, 29:Landing Gear, 30:Lost Plane Sound, 31:Motor Emergency Stop, 34:Relay2 On/Off, 35:Relay3 On/Off, 36:Relay4 On/Off, 38:ADSB Avoidance En, 41:ArmDisarm (4.1 and lower), 43:InvertedFlight, 46:RC Override Enable, 51:ModeManual, 52: ModeACRO, 55:ModeGuided, 56:ModeLoiter, 58:Clear Waypoints, 62:Compass Learn, 64:Reverse Throttle, 65:GPS Disable, 66:Relay5 On/Off, 67:Relay6 On/Off, 72:ModeCircle, 77:ModeTakeoff, 78:RunCam Control, 79:RunCam OSD Control, 81:Disarm, 82:QAssist 3pos, 84:Air Mode, 85:Generator, 86: Non Auto Terrain Follow Disable, 87:Crow Select, 88:Soaring Enable, 89:Landing Flare, 90:EKF Pos Source, 91:Airspeed Ratio Calibration, 92:FBWA, 94:VTX Power, 95:FBWA taildragger takeoff mode, 96:trigger re-reading of mode switch, 98: ModeTraining, 100:KillIMU1, 101:KillIMU2, 102:Camera Mode Toggle, 105:GPS Disable Yaw, 106:Disable Airspeed Use, 107: EnableFixedWingAutotune, 108: ModeQRTL, 150: CRUISE, 153:ArmDisarm (4.2 and higher), 154:ArmDisarm with Quadplane AirMode (4.2 and higher), 155: set roll pitch and yaw trim to current servo and RC, 157: Force FS Action to FBWA, 158:Optflow Calibration, 160:Weathervane Enable, 208:Flap, 209: Forward Throttle, 300:Scripting1, 301:Scripting2, 302:Scripting3, 303:Scripting4, 304:Scripting5, 305:Scripting6, 306:Scripting7, 307:Scripting8</Values>
+      <User>Standard</User>
+      <LoggerMessage>AUXF2</LoggerMessage>
+      <Field>TimeUS: Time since system startup</Field>
+    </RC16_OPTION2>
+    <SERVO1_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO1_TRIM_RNG>
+    <SERVO2_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO2_TRIM_RNG>
+    <SERVO3_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO3_TRIM_RNG>
+    <SERVO4_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO4_TRIM_RNG>
+    <SERVO5_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO5_TRIM_RNG>
+    <SERVO6_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO6_TRIM_RNG>
+    <SERVO7_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO7_TRIM_RNG>
+    <SERVO8_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO8_TRIM_RNG>
+    <SERVO9_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO9_TRIM_RNG>
+    <SERVO10_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO10_TRIM_RNG>
+    <SERVO11_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO11_TRIM_RNG>
+    <SERVO12_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO12_TRIM_RNG>
+    <SERVO13_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO13_TRIM_RNG>
+    <SERVO14_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO14_TRIM_RNG>
+    <SERVO15_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO15_TRIM_RNG>
+    <SERVO16_TRIM_RNG>
+      <DisplayName>Auto Trim range</DisplayName>
+      <Description>maximum range (+/-) of auto trim for this channel. 0:No autotrim, 80:Default for elevator, rudder or aileron surfaces (= +/-10% of normal span).</Description>
+      <Units>PWM</Units>
+      <Range>0 500</Range>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </SERVO16_TRIM_RNG>
+  </ArduPlane>
 </Params>
