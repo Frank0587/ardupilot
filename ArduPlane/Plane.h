@@ -203,8 +203,8 @@ private:
     RC_Channel *channel_rudder;
     RC_Channel *channel_flap;
     RC_Channel *channel_airbrake;
-    RC_Channel *channel_ktw;        // SCRIPTING_1
-    RC_Channel *channel_camber;     // SCRIPTING_2    
+    RC_Channel *channel_ktw;        // KTW = SCRIPTING_1
+    RC_Channel *channel_camber;     // CAMBER = SCRIPTING_2    
 
     // scaled roll limit based on pitch
     int32_t roll_limit_cd;
