@@ -234,6 +234,10 @@ struct PACKED log_AETR {
     float flap;
     float steering;
     float speed_scaler;
+    uint16_t trim3;
+    uint16_t trim4;
+    uint16_t trim5;
+    uint16_t trim6;
 };
 
 void Plane::Log_Write_AETR()
@@ -247,7 +251,11 @@ void Plane::Log_Write_AETR()
         ,rudder   : SRV_Channels::get_output_scaled(SRV_Channel::k_rudder)
         ,flap     : SRV_Channels::get_slew_limited_output_scaled(SRV_Channel::k_flap_auto)
         ,steering : SRV_Channels::get_output_scaled(SRV_Channel::k_steering)
-        ,speed_scaler : get_speed_scaler(),
+        ,speed_scaler : get_speed_scaler()
+        ,trim3    : SRV_Channels::srv_channel(3-1)->get_trim()
+        ,trim4    : SRV_Channels::srv_channel(4-1)->get_trim()
+        ,trim5    : SRV_Channels::srv_channel(5-1)->get_trim()
+        ,trim6    : SRV_Channels::srv_channel(6-1)->get_trim()
         };
 
     logger.WriteBlock(&pkt, sizeof(pkt));
@@ -482,8 +490,13 @@ const struct LogStructure Plane::log_structure[] = {
 // @Field: Flap: Pre-mixer value for flaps output (between 0 and 100)
 // @Field: Steer: Pre-mixer value for steering output (between -4500 and 4500)
 // @Field: SS: Surface movement / airspeed scaling value
+// @Field: trimC3: Servo 3 trim value
+// @Field: trimC4: Servo 4 trim value
+// @Field: trimC5: Servo 5 trim value
+// @Field: trimC6: Servo 6 trim value
+
     { LOG_AETR_MSG, sizeof(log_AETR),
-      "AETR", "Qfffffff",  "TimeUS,Ail,Elev,Thr,Rudd,Flap,Steer,SS", "s-------", "F-------" , true },
+      "AETR", "Qfffffffhhhh",  "TimeUS,Ail,Elev,Thr,Rudd,Flap,Steer,SS,trim3,trim4,trim5,trim6", "s-----------", "F-----------" , true },
 
 #if AP_PLANE_OFFBOARD_GUIDED_SLEW_ENABLED
 // @LoggerMessage: OFG
