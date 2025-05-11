@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_STORM32.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_STORM32_XML_HASH 2862314593535184899
+#define MAVLINK_STORM32_XML_HASH 5564520544933965289
 
 #ifdef __cplusplus
 extern "C" {
@@ -121,8 +121,7 @@ typedef enum MAV_STORM32_GIMBAL_DEVICE_FLAGS
    MAV_STORM32_GIMBAL_DEVICE_FLAGS_YAW_ABSOLUTE=512, /* Yaw angle is absolute (is only accepted if CAN_ACCEPT_YAW_ABSOLUTE is set). If this flag is set, the quaternion is in the Earth frame with the x-axis pointing North (yaw absolute), else it is in the Earth frame rotated so that the x-axis is pointing forward (yaw relative to vehicle). | */
    MAV_STORM32_GIMBAL_DEVICE_FLAGS_RC_EXCLUSIVE=1024, /* RC control. The RC input signal fed to the gimbal device exclusively controls the gimbal's orientation. Overrides RC_MIXED flag if that is also set. | */
    MAV_STORM32_GIMBAL_DEVICE_FLAGS_RC_MIXED=2048, /* RC control. The RC input signal fed to the gimbal device is mixed into the gimbal's orientation. Is overriden by RC_EXCLUSIVE flag if that is also set. | */
-   MAV_STORM32_GIMBAL_DEVICE_FLAGS_NONE=65535, /* UINT16_MAX = ignore. | */
-   MAV_STORM32_GIMBAL_DEVICE_FLAGS_ENUM_END=65536, /*  | */
+   MAV_STORM32_GIMBAL_DEVICE_FLAGS_ENUM_END=2049, /*  | */
 } MAV_STORM32_GIMBAL_DEVICE_FLAGS;
 #endif
 
@@ -161,7 +160,6 @@ typedef enum MAV_STORM32_GIMBAL_MANAGER_CAP_FLAGS
 #define HAVE_ENUM_MAV_STORM32_GIMBAL_MANAGER_FLAGS
 typedef enum MAV_STORM32_GIMBAL_MANAGER_FLAGS
 {
-   MAV_STORM32_GIMBAL_MANAGER_FLAGS_NONE=0, /* 0 = ignore. | */
    MAV_STORM32_GIMBAL_MANAGER_FLAGS_RC_ACTIVE=1, /* Request to set RC input to active, or report RC input is active. Implies RC mixed. RC exclusive is achieved by setting all clients to inactive. | */
    MAV_STORM32_GIMBAL_MANAGER_FLAGS_CLIENT_ONBOARD_ACTIVE=2, /* Request to set onboard/companion computer client to active, or report this client is active. | */
    MAV_STORM32_GIMBAL_MANAGER_FLAGS_CLIENT_AUTOPILOT_ACTIVE=4, /* Request to set autopliot client to active, or report this client is active. | */

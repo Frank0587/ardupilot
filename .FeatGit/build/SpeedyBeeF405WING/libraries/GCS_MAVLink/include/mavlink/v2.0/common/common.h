@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_COMMON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_COMMON_XML_HASH 8262574351097194130
+#define MAVLINK_COMMON_XML_HASH -8515185391567088943
 
 #ifdef __cplusplus
 extern "C" {
@@ -208,20 +208,6 @@ typedef enum MAVLINK_DATA_STREAM_TYPE
 #endif
 
 /** @brief  */
-#ifndef HAVE_ENUM_FENCE_ACTION
-#define HAVE_ENUM_FENCE_ACTION
-typedef enum FENCE_ACTION
-{
-   FENCE_ACTION_NONE=0, /* Disable fenced mode | */
-   FENCE_ACTION_GUIDED=1, /* Switched to guided mode to return point (fence point 0) | */
-   FENCE_ACTION_REPORT=2, /* Report fence breach, but don't take action | */
-   FENCE_ACTION_GUIDED_THR_PASS=3, /* Switched to guided mode to return point (fence point 0) with manual throttle control | */
-   FENCE_ACTION_RTL=4, /* Switch to RTL (return to launch) mode and head for the return point. | */
-   FENCE_ACTION_ENUM_END=5, /*  | */
-} FENCE_ACTION;
-#endif
-
-/** @brief  */
 #ifndef HAVE_ENUM_FENCE_BREACH
 #define HAVE_ENUM_FENCE_BREACH
 typedef enum FENCE_BREACH
@@ -246,12 +232,11 @@ typedef enum FENCE_MITIGATE
 } FENCE_MITIGATE;
 #endif
 
-/** @brief  */
+/** @brief Fence types to enable or disable as a bitmask. Used in MAV_CMD_DO_FENCE_ENABLE. */
 #ifndef HAVE_ENUM_FENCE_TYPE
 #define HAVE_ENUM_FENCE_TYPE
 typedef enum FENCE_TYPE
 {
-   FENCE_TYPE_ALL=0, /* All fence types | */
    FENCE_TYPE_ALT_MAX=1, /* Maximum altitude fence | */
    FENCE_TYPE_CIRCLE=2, /* Circle fence | */
    FENCE_TYPE_POLYGON=4, /* Polygon fence | */
@@ -481,12 +466,12 @@ typedef enum STORAGE_USAGE_FLAG
 } STORAGE_USAGE_FLAG;
 #endif
 
-/** @brief Enable axes that will be tuned via autotuning. Used in MAV_CMD_DO_AUTOTUNE_ENABLE. */
+/** @brief Axes that will be autotuned by MAV_CMD_DO_AUTOTUNE_ENABLE.
+        Note that at least one flag must be set in MAV_CMD_DO_AUTOTUNE_ENABLE.param2: if none are set, the flight stack will tune its default set of axes. */
 #ifndef HAVE_ENUM_AUTOTUNE_AXIS
 #define HAVE_ENUM_AUTOTUNE_AXIS
 typedef enum AUTOTUNE_AXIS
 {
-   AUTOTUNE_AXIS_DEFAULT=0, /* Flight stack tunes axis according to its default settings. | */
    AUTOTUNE_AXIS_ROLL=1, /* Autotune roll axis. | */
    AUTOTUNE_AXIS_PITCH=2, /* Autotune pitch axis. | */
    AUTOTUNE_AXIS_YAW=4, /* Autotune yaw axis. | */
@@ -1270,7 +1255,6 @@ typedef enum CAMERA_TRACKING_MODE
 #define HAVE_ENUM_CAMERA_TRACKING_TARGET_DATA
 typedef enum CAMERA_TRACKING_TARGET_DATA
 {
-   CAMERA_TRACKING_TARGET_DATA_NONE=0, /* No target data | */
    CAMERA_TRACKING_TARGET_DATA_EMBEDDED=1, /* Target data embedded in image data (proprietary) | */
    CAMERA_TRACKING_TARGET_DATA_RENDERED=2, /* Target data rendered in image | */
    CAMERA_TRACKING_TARGET_DATA_IN_STATUS=4, /* Target data within status message (Point or Rectangle) | */
