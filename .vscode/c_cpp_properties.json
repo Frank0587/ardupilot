@@ -7,7 +7,8 @@
                 "${workspaceFolder}/libraries",
                 "${workspaceFolder}/libraries/ap_common/missing",
                 "${workspaceFolder}/build/SpeedyBeeF405W-SP1",
-                "${workspaceFolder}/../../Embedded/arm-linux-gnueabihf/include",
+                "${workspaceFolder}/.FeatGit/gcc-arm-include",
+                "${workspaceFolder}/.FeatGit/gcc-arm-include/c++/10.2.1/**",
                 "${workspaceFolder}/.FeatGit/build/SpeedyBeeF405W-SP1/libraries/GCS_MAVLink"
             ],
             "defines": [

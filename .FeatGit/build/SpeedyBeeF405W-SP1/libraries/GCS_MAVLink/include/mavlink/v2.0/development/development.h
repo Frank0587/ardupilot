@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_DEVELOPMENT.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_DEVELOPMENT_XML_HASH 5738154369859501024
+#define MAVLINK_DEVELOPMENT_XML_HASH -3017586699382691433
 
 #ifdef __cplusplus
 extern "C" {
@@ -233,7 +233,7 @@ typedef enum GPS_RAIM_STATE
 #include "./mavlink_msg_gnss_integrity.h"
 
 // base include
-#include "../standard/standard.h"
+#include "../common/common.h"
 
 
 #if MAVLINK_DEVELOPMENT_XML_HASH == MAVLINK_PRIMARY_XML_HASH
