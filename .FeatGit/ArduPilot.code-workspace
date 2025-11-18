@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"Rover": true,
+			"Blimp": true,
+			"ArduSub": true,
+			"AntennaTracker": true,
+			"ArduCopter": true,
+			"modules": true,
+			"build": true,
+			"build_*": true,
+			"**/.github": true
+		},
+        "explorerExclude.backup": {},
+        "files.associations": {
+			"*.cpp": "cpp",
+			"cmath": "cpp",
+			"complex": "cpp",
+			"*.tcc": "cpp"
+		}
+	}
+}
