@@ -42,7 +42,7 @@ const AP_Param::GroupInfo AP_Tuning::var_info[] = {
     
     // @Param: RANGE
     // @DisplayName: Transmitter tuning range
-    // @Description: This sets the range over which tuning will change a parameter. A value of 2 means the tuning parameter will go from 0.5 times the start value to 2x the start value over the range of the tuning channel
+    // @Description: This sets the range over which tuning will change a parameter. A value of 2 means the tuning parameter will go from 0.5 times the start value to 2x the start value over the range of the tuning channel. When negative, it will add/substract this amount every time the CHAN will goes over/under 50%)
     // @User: Standard
     AP_GROUPINFO("RANGE", 5, AP_Tuning, range, 2.0f),
 
@@ -76,41 +76,60 @@ void AP_Tuning::check_selector_switch(void)
         selector_start_ms = 0;
         return;
     }
-    RC_Channel *selchan = rc().channel(selector-1);
+    RC_Channel *selchan = rc().channel((selector%100)-1);
     if (selchan == nullptr) {
         return;
     }
     uint16_t selector_in = selchan->get_radio_in();
-    if (selector_in >= RC_Channel::AUX_PWM_TRIGGER_HIGH) {
-        // high selector
-        if (selector_start_ms == 0) {
-            selector_start_ms = AP_HAL::millis();
-        }
-        uint32_t hold_time = AP_HAL::millis() - selector_start_ms;
-        if (hold_time > 5000 && changed) {
-            // save tune
-            save_parameters();
-            re_center();
-            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: Saved");
-            AP_Notify::events.tune_save = 1;
-            changed = false;
-            need_revert = 0;
-        }
-    } else if (selector_in <= RC_Channel::AUX_PWM_TRIGGER_LOW) {
-        // low selector
-        if (selector_start_ms != 0) {
-            uint32_t hold_time = AP_HAL::millis() - selector_start_ms;
-            if (hold_time < 200) {
-                // debounce!
-            } else if (hold_time < 2000) {
-                // re-center the value
-                re_center();
-                GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: recentered %s", get_tuning_name(current_parm));
-            } else if (hold_time < 5000) {
-                // change parameter
-                next_parameter();
+
+    if(selector < 100){
+        if (selector_in >= RC_Channel::AUX_PWM_TRIGGER_HIGH) {
+            // high selector
+            if (selector_start_ms == 0) {
+                selector_start_ms = AP_HAL::millis();
             }
-            selector_start_ms = 0;
+            uint32_t hold_time = AP_HAL::millis() - selector_start_ms;
+            if (hold_time > 5000 && changed) {
+                // save tune
+                save_parameters();
+                re_center();
+                GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: Saved");
+                AP_Notify::events.tune_save = 1;
+                changed = false;
+                need_revert = 0;
+            }
+        } else if (selector_in <= RC_Channel::AUX_PWM_TRIGGER_LOW) {
+            // low selector
+            if (selector_start_ms != 0) {
+                uint32_t hold_time = AP_HAL::millis() - selector_start_ms;
+                if (hold_time < 200) {
+                    // debounce!
+                } else if (hold_time < 2000) {
+                    // re-center the value
+                    re_center();
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: recentered %s", get_tuning_name(current_parm));
+                } else if (hold_time < 5000) {
+                    // change parameter
+                    next_parameter();
+                }
+                selector_start_ms = 0;
+            }
+        }
+    } else {
+        if (selector_in >= RC_Channel::AUX_PWM_TRIGGER_HIGH) {
+            if(current_parm == 0){
+                current_parm_index = 0;
+                current_parm = 1;
+                next_parameter();
+            }    
+        } else if (selector_in <= RC_Channel::AUX_PWM_TRIGGER_LOW) {
+            if(current_parm == 0){
+                current_parm_index = 1;
+                current_parm = 1;
+                next_parameter();
+            }    
+        } else {
+            current_parm = 0;
         }
     }
 }
@@ -160,12 +179,17 @@ void AP_Tuning::check_input(uint8_t flightmode)
         return;
     }
 
-    // check for invalid range
-    if (range < 1.1f) {
+    // check for invalid range, but allow sign jump
+    if (range > 0.0f && range < 0.5f) {
         range.set(1.1f);
+    }else if (range < 1.1f && range > 0.5f) {
+        range.set(0.0f);
     }
 
-    if (current_parm == 0) {
+    /* tuning method direct setting by factor, instead of add/sub*/
+    bool meth_set = (range > 0.0f); 
+
+    if (selector < 100 && current_parm == 0) {
         next_parameter();
     }
 
@@ -174,7 +198,7 @@ void AP_Tuning::check_input(uint8_t flightmode)
         re_center();
     }
     current_set = parmset;
-    
+
     check_selector_switch();
 
     if (selector_start_ms) {
@@ -195,8 +219,9 @@ void AP_Tuning::check_input(uint8_t flightmode)
         last_channel_value = chan_value;
     }
 
-    if (fabsf(chan_value - last_channel_value) < 0.01) {
-        // ignore changes of less than 1%
+    if (fabsf(chan_value - last_channel_value) < (meth_set ? 0.01 : 0.50)) {
+        // ignore changes of less than 1% (direct setting)
+        // change of more han 50% needed for trigger
         return;
     }
 
@@ -213,16 +238,36 @@ void AP_Tuning::check_input(uint8_t flightmode)
         }
         // starting tuning
         mid_point_wait = false;
-        GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: mid-point %s", get_tuning_name(current_parm));
+        if(meth_set){    // parameter set to input
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: mid-point %s", get_tuning_name(current_parm));
+        }
         AP_Notify::events.tune_started = 1;
     }
     last_channel_value = chan_value;
 
-    float new_value;
-    if (chan_value > 0) {
-        new_value = linear_interpolate(center_value, range*center_value, chan_value, 0, 1);
-    } else {
-        new_value = linear_interpolate(center_value/range, center_value, chan_value, -1, 0);
+    float new_value = 0.0;
+    if(meth_set){    // parameter set to input
+        if (chan_value > 0.0) {
+            new_value = linear_interpolate(center_value, range*center_value, chan_value, 0, 1);
+        } else {
+            new_value = linear_interpolate(center_value/range, center_value, chan_value, -1, 0);
+        }
+    } else{
+        if (chan_value > 0.7) {
+            new_value = -range;      // pos value will added
+        } else if (chan_value < -0.7){
+            new_value =  range;      // neg value will added
+        } else {
+            return;
+        }
+        AP_Float *f = get_param_pointer(current_parm);
+        if (f != nullptr) {
+            new_value += f->get();
+            mid_point_wait = true;
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: %s = %.2f", get_tuning_name(current_parm), new_value);
+        } else {
+            return;
+        }
     }
     changed = true;
     need_revert |= (1U << current_parm_index);
@@ -324,7 +369,13 @@ void AP_Tuning::next_parameter(void)
             }
             current_parm = tuning_sets[i].parms[current_parm_index];
             re_center();
-            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: started %s", get_tuning_name(current_parm));
+
+            AP_Float *f = get_param_pointer(current_parm);
+            float val = 0.0;
+            if (f != nullptr) {
+                val = f->get();
+            }
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Tuning: started %s = %.2f", get_tuning_name(current_parm), val);
             AP_Notify::events.tune_next = current_parm_index+1;
             break;
         }
