@@ -45,6 +45,10 @@ void Plane::set_control_channels(void)
     channel_flap     = rc().find_channel_for_option(RC_Channel::AUX_FUNC::FLAP);
     channel_airbrake = rc().find_channel_for_option(RC_Channel::AUX_FUNC::AIRBRAKE);
 
+    // update SP extensions channel assignment
+    channel_ktw     = rc().find_channel_for_option(RC_Channel::AUX_FUNC::SCRIPTING_1);
+    channel_camber  = rc().find_channel_for_option(RC_Channel::AUX_FUNC::SCRIPTING_2);
+
 #if HAL_QUADPLANE_ENABLED
     // update manual forward throttle channel assignment
     quadplane.rc_fwd_thr_ch = rc().find_channel_for_option(RC_Channel::AUX_FUNC::FWD_THR);
