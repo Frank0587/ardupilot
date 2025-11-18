@@ -980,6 +980,11 @@ void Plane::set_servos(void)
     // setup flap outputs
     set_servos_flaps();
 
+#if AP_LANDINGGEAR_ENABLED
+    // update landing gear for slew output
+    g2.landing_gear.update_output(G_Dt);
+#endif
+
     // set airbrake outputs
     airbrake_update();
 
