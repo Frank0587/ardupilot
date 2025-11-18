@@ -7,6 +7,7 @@
 	"settings": {
 		"files.exclude": {
 			"**/.git": true,
+			"**/.github": true,
 			"**/.svn": true,
 			"**/.hg": true,
 			"**/CVS": true,
@@ -20,14 +21,16 @@
 			"modules": true,
 			"build": true,
 			"build_*": true,
-			"**/.github": true
+			"tests": true,
+			"benchmarks": true
 		},
         "explorerExclude.backup": {},
         "files.associations": {
 			"*.cpp": "cpp",
 			"cmath": "cpp",
 			"complex": "cpp",
-			"*.tcc": "cpp"
+			"*.tcc": "cpp",
+			"type_traits": "cpp"
 		}
 	}
 }

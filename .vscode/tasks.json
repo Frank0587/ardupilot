@@ -1,20 +1,29 @@
 {
+   // see also:  C:\Users\sp\AppData\Roaming\Code\User\tasks.json
+    
    "version": "2.0.0",
    "tasks": [
-       {
-           "type": "ardupilot",
-           "configure": "SpeedyBeeF405WING",
-           "target": "plane",
-           "configureOptions": "--debug",
-           "buildOptions": "--upload",
-           "problemMatcher": [
-               "$apgcc"
-           ],
-           "label": "ardupilot: Speedy-plane",
-           "group": {
-               "kind": "build",
-               "isDefault": true
-           }
-       }
+      {
+         "label": "ArduPilot: clean",
+         "type": "shell",
+         "command": "./waf clean",
+         "problemMatcher": []
+      },
+      {
+         "label": "ArduPilot: config",
+         "type": "shell",
+         "command": "./waf configure --board=SpeedyBeeF405WING",
+         "problemMatcher": []
+      },
+      {
+         "label": "ArduPilot: build plane",
+         "type": "shell",
+         "command": "./waf plane",
+         "problemMatcher": [],
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         }
+      }
    ]
 }
