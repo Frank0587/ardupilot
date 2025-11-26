@@ -36,6 +36,12 @@
             "kind": "build",
             "isDefault": true
          }
+      },
+      {
+         "label": "ArduPilot: build/start SITL",
+         "type": "shell",
+         "command": "cd ./ArduPlane \n ../Tools/autotest/sim_vehicle.py --map --console",
+         "problemMatcher": []
       }
    ]
 }
