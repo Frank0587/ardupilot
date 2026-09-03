@@ -33,7 +33,7 @@ AP_FW_Controller::AP_FW_Controller(const AP_FixedWing &parms, const AC_PID::Defa
 /*
   AC_PID based rate controller
 */
-float AP_FW_Controller::_get_rate_out(float desired_rate, float scaler, bool disable_integrator, float aspeed, bool ground_mode)
+float AP_FW_Controller::_get_rate_out(float desired_rate, float scaler, bool disable_integrator, bool freeze_integrator, float aspeed, bool ground_mode)
 {
     const float dt = AP::scheduler().get_loop_period_s();
 
@@ -42,8 +42,8 @@ float AP_FW_Controller::_get_rate_out(float desired_rate, float scaler, bool dis
     const float rate = get_measured_rate();
     const float old_I = rate_pid.get_i();
 
-    const bool underspeed = is_underspeed(aspeed);
-    if (underspeed) {
+    const bool freeze_i = is_underspeed(aspeed) || freeze_integrator;
+    if (freeze_i) {
         limit_I = true;
     }
 
@@ -54,7 +54,7 @@ float AP_FW_Controller::_get_rate_out(float desired_rate, float scaler, bool dis
     // range for IMAX in AC_PID applies (usually an IMAX value less than 1.0)
     rate_pid.update_all(radians(desired_rate) * scaler * scaler, rate * scaler * scaler, dt, limit_I);
 
-    if (underspeed) {
+    if (freeze_i) {
         // when underspeed we lock the integrator
         rate_pid.set_integrator(old_I);
     }
@@ -109,7 +109,7 @@ float AP_FW_Controller::_get_rate_out(float desired_rate, float scaler, bool dis
 */
 float AP_FW_Controller::get_rate_out(float desired_rate, float scaler)
 {
-    return _get_rate_out(desired_rate, scaler, false, get_airspeed(), false);
+    return _get_rate_out(desired_rate, scaler, false, false, get_airspeed(), false);
 }
 
 void AP_FW_Controller::reset_I()
