@@ -53,7 +53,7 @@ bool AP_FW_Controller::should_apply_input_shaping() const
 }
 
 // Run angle controller
-float AP_FW_Controller::run_angle_control(int32_t desired_angle_cd, float scaler, bool disable_integrator, bool ground_mode)
+float AP_FW_Controller::run_angle_control(int32_t desired_angle_cd, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode)
 {
     // Ensure tau is valid
     if (gains.tau < 0.05f) {
@@ -78,7 +78,7 @@ float AP_FW_Controller::run_angle_control(int32_t desired_angle_cd, float scaler
         }
 
         // Run rate controller
-        return run_axis_rate_control(desired_rate_degs, scaler, disable_integrator, ground_mode);
+        return run_axis_rate_control(desired_rate_degs, scaler, disable_integrator, freeze_integrator, ground_mode);
     }
 
     // Apply input shaping to desired angle
@@ -123,13 +123,13 @@ float AP_FW_Controller::run_angle_control(int32_t desired_angle_cd, float scaler
     desired_rate_degs = rate_limit_degs(desired_rate_degs + rate_target_degs + get_rate_target_offset_degs());
 
     // Run rate controller
-    return run_axis_rate_control(desired_rate_degs, scaler, disable_integrator, ground_mode);
+    return run_axis_rate_control(desired_rate_degs, scaler, disable_integrator, freeze_integrator, ground_mode);
 }
 
 /*
   AC_PID based rate controller
 */
-float AP_FW_Controller::run_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool ground_mode)
+float AP_FW_Controller::run_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode)
 {
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     // Check that the controller is called once per loop and no more
@@ -152,8 +152,8 @@ float AP_FW_Controller::run_rate_control(float desired_rate_degs, float scaler, 
     const float rate_rads = get_measured_rate_rads();
     const float old_I = rate_pid.get_i();
 
-    const bool underspeed = is_underspeed();
-    if (underspeed) {
+    const bool freeze_i = is_underspeed() || freeze_integrator;
+    if (freeze_i) {
         limit_I = true;
     }
 
@@ -164,7 +164,7 @@ float AP_FW_Controller::run_rate_control(float desired_rate_degs, float scaler, 
     // range for IMAX in AC_PID applies (usually an IMAX value less than 1.0)
     rate_pid.update_all(radians(desired_rate_degs) * scaler * scaler, rate_rads * scaler * scaler, dt, limit_I);
 
-    if (underspeed) {
+    if (freeze_i) {
         // when underspeed we lock the integrator
         rate_pid.set_integrator(old_I);
     }
@@ -227,7 +227,7 @@ float AP_FW_Controller::run_rate_control(float desired_rate_degs, float scaler)
         reset_input_shaping_deg(get_measured_angle_deg(), desired_rate_degs);
 
         // run rate control with no input shaping
-        return run_rate_control(desired_rate_degs, scaler, false, false);
+        return run_rate_control(desired_rate_degs, scaler, false, false, false);
     }
 
     // Apply input shaping to desired rate
@@ -252,7 +252,7 @@ float AP_FW_Controller::run_rate_control(float desired_rate_degs, float scaler)
     rate_target_degs += accel_target_degss * dt;
 
     // Run rate controller
-    return run_rate_control(rate_target_degs, scaler, false, false);
+    return run_rate_control(rate_target_degs, scaler, false, false, false);
 }
 
 // Reset I term

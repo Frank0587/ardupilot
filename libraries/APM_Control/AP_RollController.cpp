@@ -220,7 +220,7 @@ bool AP_RollController::should_apply_rate_limits() const
  Function returns an equivalent aileron deflection in centi-degrees in the range from -4500 to 4500
  A positive demand is up
 */
-float AP_RollController::run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool ground_mode)
+float AP_RollController::run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode)
 {
     /*
       prevent indecision in the roll controller when target roll is
@@ -243,5 +243,5 @@ float AP_RollController::run_axis_rate_control(float desired_rate_degs, float sc
     // in_recovery flag is only valid for single loop, clear it
     in_recovery = false;
 
-    return run_rate_control(desired_rate_degs, scaler, disable_integrator, ground_mode);
+    return run_rate_control(desired_rate_degs, scaler, disable_integrator, freeze_integrator, ground_mode);
 }
