@@ -1,0 +1,42 @@
+SITL
+
+eigene SITL-SW kann man..
+
+1) in Docker bauen und starten:
+https://ardupilot.org/dev/docs/sitl-on-windows-wsl.html
+
+   $ cd ~/ardupilot/ArduCopter
+   $ ../Tools/autotest/sim_vehicle.py --map --console
+(braucht recht lange, ist ein Linux-runnable, genutzte Ports sind in VSC sichtbar)
+
+2) von GitHub bauen lassen, ergibt eine Windows-Exe
+https://ardupilot.org/dev/docs/sitl-with-realflight.html#mp-sitl-custom-code
+
+   In your GITHUB repository (not local) push your branch to it
+   Under ACTIONS in your web GITHUB repo, select Cygwin Build, and the select branch 
+   you pushed that you want the sim to use.
+   Download and unzip its build aritfacts and select the ArduXXX.elf.exe file for 
+   the vehicle type and rename it, eliminating the .elf portion to a plain .exe file 
+   and place in your Documents/Mission Planner/sitl folder in place of the existing 
+   file, if present.
+   
+   Start the Mission Planner vehicle sim for the appropriate vehicle with 
+   the “do not download” checkbox ticked and flightaxis selected as above.
+
+
+   Nutzung:
+   - im Sender "Gamecontroller": als Joystick-Advanced 
+   Tx16S          -> Joystick -> SITL 
+   Ch1 - Ail      -> X        -> X  - RC1
+   Ch2 - Elv      -> Y        -> Y  - RC2
+   Ch3 - Thr      -> Z        -> Z  - RC3
+   Ch4 - Rud      -> rotX     -> Rx - RC4
+   Ch5 - S1(Flap) -> rotY     -> Ry - RC7
+   Ch6 - 6S(Mode) -> rotZ     -> Rz - RC6
+   Ch7 - S2(Chmb) -> Dial     -> Slider2 - RC8
+   Ch8 - LS(free) -> Slider   -> Slider1 - no
+
+   - Es werden nur die Ch 1-8 als Analog werte übergeben, 
+   - in der SITL-Joystick Konfiguration können auch nur die RC1-RC8 mit analog belegt werden
+   - RCin: Min/Max/Trim müssen alle auf default stehen
+   - Servo: Kanalzuordnung muss 1234=AETR (Ail, Ele, Thr, Rud) sein, sonst greift physikalisches Model nicht
