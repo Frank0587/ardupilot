@@ -6,7 +6,7 @@ docker
 // Image erzeugen (nur einmal nötig)
    > docker build . -t ardupilot
 // Container starten
-   > docker run --rm -it -v v:/git/ardupilot:/ardupilot ardupilot:latest
+   > docker run -it -v v:/git/ardupilot:/ardupilot ardupilot:latest
 // Remote-VSC aus VSC starten und bash nutzen
    start the remote VSC out of VSC (by [><] button > to running container) -> darin bash:
 // git im container initialisieren / Index aufbauen
