@@ -47,14 +47,17 @@ kommt es zu Fehlern (Docker-Desktop>Builds..):
    +++ $'\r'
    /mnt/c/Users/david/Desktop/ardupilot/Tools/completion/completion.bash: line 2: $'\r': command not found
 
-Ursache sind die \r\n Zeilenende von Windows, satt Unix \r
+Ursache sind die \r\n (CRLF) Zeilenende von Windows, satt Unix \n (LF)
 Abhilfe 1 (Vorschlag von ArduPilot): den Git-Cone Befehl aus dem Docker-image (Unix) aufrufen.
 Abhilfe 2: 
-   - für Editor: in VSCode die Standard-Endung auf LF setzen (settings > file.eol)
+   - für Editor: in VSCode die Standard-Endung auf LF setzen (settings > files:eol)
    - für Files von git:
-      > git config core.autocrlf false    # gilt nur für aktuellen clone
+      > git config core.autocrlf false    # gilt nur für aktuelles repository auf diesem clone
       > git rm --cached -r .              # Don’t forget the dot at the end
       > git reset --hard
+      - im ArduPilot und in modules/waf gemacht
+
+(diese Umstellungen auch im Docker-Image machen)
 
 ---------------------------------------------------
 
