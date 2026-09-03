@@ -133,6 +133,7 @@ public:
     friend class GCS_MAVLINK_Plane;
     friend class Parameters;
     friend class ParametersG2;
+    friend class ParametersSP;
     friend class AP_Arming_Plane;
     friend class QuadPlane;
     friend class QAutoTune;
@@ -197,6 +198,7 @@ private:
     // Global parameters are all contained within the 'g' and 'g2' classes.
     Parameters g;
     ParametersG2 g2;
+    ParametersSP sp;
 
     // mapping between input channels
     RCMapper rcmap;
@@ -208,6 +210,8 @@ private:
     RC_Channel *channel_rudder;
     RC_Channel *channel_flap;
     RC_Channel *channel_airbrake;
+    RC_Channel *channel_ktw;        // KTW = SCRIPTING_1
+    RC_Channel *channel_camber;     // CAMBER = SCRIPTING_2    
 
     // scaled roll limit based on pitch
     int32_t roll_limit_cd;
@@ -1178,6 +1182,8 @@ private:
     float get_auto_flap_speed() const;
     void set_servos_flaps(void);
     void dspoiler_update(void);
+    void fullhouse_update(void);
+    void ktw_update(void);
     void airbrake_update(void);
     void landing_neutral_control_surface_servos(void);
     void servos_output(void);
