@@ -16,7 +16,7 @@ public:
 private:
     AP_Float _roll_ff;
 
-    float run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool ground_mode) override;
+    float run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode) override;
 
     // Return true if the airspeed should be considered as under speed
     bool is_underspeed() const override;

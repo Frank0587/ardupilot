@@ -177,7 +177,7 @@ AP_GPS_UBLOX::_request_next_config(void)
     switch (_next_message++) {
 
     case STEP_START:    // init value, and wait min 3sec for driver
-        if (state.status == AP_GPS::GPS_Status::NO_GPS){
+        if (state.status == AP_GPS_FixType::NO_GPS){
             CFG_Debug("waiting for GPS driver...");
             _next_message--;
         }

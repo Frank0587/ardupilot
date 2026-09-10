@@ -595,9 +595,12 @@ bool RC_Channel::has_override() const
 float RC_Channel::stick_mixing(const float servo_in)
 {
     float ch_inf = (float)(radio_in - radio_trim);
+    float mix_end = 500.0f * rc()._dir_mix_end / 100.0f; 
+    mix_end = constrain_float(mix_end, 10.0f, 500.0f);  // avoid divide by zero
+    
     ch_inf = fabsf(ch_inf);
-    ch_inf = MIN(ch_inf, 400.0f);
-    ch_inf = ((400.0f - ch_inf) / 400.0f);
+    ch_inf = MIN(ch_inf, mix_end);
+    ch_inf = ((mix_end - ch_inf) / mix_end);
 
     float servo_out = servo_in;
     servo_out *= ch_inf;
