@@ -274,7 +274,7 @@ float AP_PitchController::get_rate_target_offset_degs() const
 
 // Function returns an equivalent elevator deflection in centi-degrees in the range from -4500 to 4500
 // A positive demand is up
-float AP_PitchController::run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool ground_mode)
+float AP_PitchController::run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode)
 {
     // Invert desired if vehicle is inverted.
     if (is_inverted()) {
@@ -301,5 +301,5 @@ float AP_PitchController::run_axis_rate_control(float desired_rate_degs, float s
         desired_rate_degs *= (1 - roll_prop);
     }
 
-    return run_rate_control(desired_rate_degs, scaler, disable_integrator, ground_mode);
+    return run_rate_control(desired_rate_degs, scaler, disable_integrator, freeze_integrator, ground_mode);
 }

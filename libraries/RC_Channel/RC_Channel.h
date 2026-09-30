@@ -808,6 +808,7 @@ private:
     AP_Int32  _options;
     AP_Int32  _protocols;
     AP_Float _fs_timeout;
+    AP_Int8  _dir_mix_end;
 
     // set to true if we see overrides or other RC input
     bool _has_ever_seen_rc_input;
