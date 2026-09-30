@@ -179,10 +179,11 @@ float Plane::stabilize_roll_get_roll_out()
 #endif
 
     bool disable_integrator = false;
+    bool freeze_integrator = false;
     if (control_mode == &mode_stabilize && channel_roll->get_control_in() != 0) {
-        disable_integrator = true;
+        freeze_integrator = true;
     }
-    return rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, speed_scaler, disable_integrator,
+    return rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, speed_scaler, disable_integrator, freeze_integrator,
                                         ground_mode && !(plane.flight_option_enabled(FlightOptions::DISABLE_GROUND_PID_SUPPRESSION)));
 }
 
@@ -249,8 +250,9 @@ float Plane::stabilize_pitch_get_pitch_out()
 
     int32_t demanded_pitch = nav_pitch_cd + int32_t(g.pitch_trim * 100.0) + SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) * g.kff_throttle_to_pitch;
     bool disable_integrator = false;
+    bool freeze_integrator = false;
     if (control_mode == &mode_stabilize && channel_pitch->get_control_in() != 0) {
-        disable_integrator = true;
+        freeze_integrator = true;
     }
     /* force landing pitch if:
        - flare switch high
@@ -265,7 +267,7 @@ float Plane::stabilize_pitch_get_pitch_out()
         demanded_pitch = landing.get_pitch_cd();
     }
 
-    return pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, speed_scaler, disable_integrator,
+    return pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, speed_scaler, disable_integrator, freeze_integrator,
                                          ground_mode && !(plane.flight_option_enabled(FlightOptions::DISABLE_GROUND_PID_SUPPRESSION)));
 }
 
@@ -528,6 +530,7 @@ int16_t Plane::calc_nav_yaw_coordinated()
 {
     const float speed_scaler = get_speed_scaler();
     bool disable_integrator = false;
+    bool freeze_integrator = false;
     int16_t rudder_in = rudder_input();
 
     int16_t commanded_rudder;
@@ -548,10 +551,10 @@ int16_t Plane::calc_nav_yaw_coordinated()
         using_rate_controller = true;
     } else {
         if (control_mode == &mode_stabilize && rudder_in != 0) {
-            disable_integrator = true;
+            freeze_integrator = true;
         }
 
-        commanded_rudder = yawController.get_servo_out(speed_scaler, disable_integrator);
+        commanded_rudder = yawController.get_servo_out(speed_scaler, disable_integrator, freeze_integrator);
 
         // add in rudder mixing from roll
         commanded_rudder += SRV_Channels::get_output_scaled(SRV_Channel::k_aileron) * g.kff_rudder_mix;

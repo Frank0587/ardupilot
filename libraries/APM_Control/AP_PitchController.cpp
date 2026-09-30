@@ -241,11 +241,11 @@ float AP_PitchController::_get_coordination_rate_offset(const float &aspeed, boo
 // Inputs are:
 // 1) demanded pitch angle in centi-degrees
 // 2) control gain scaler = scaling_speed / aspeed
-// 3) boolean which is true when stabilise mode is active
-// 4) minimum FBW airspeed (metres/sec)
-// 5) maximum FBW airspeed (metres/sec)
+// 3) boolean which set the I-part to zero (when stabilized mode is active, until v23)
+// 4) boolean which freeze the I-part (when stabilized mode is active, since v24)
+// 5) boolean which is true when on ground
 //
-float AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool disable_integrator, bool ground_mode)
+float AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode)
 {
     // Calculate offset to pitch rate demand required to maintain pitch angle whilst banking
     // Calculate ideal turn rate from bank angle and airspeed assuming a level coordinated turn
@@ -300,7 +300,7 @@ float AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool di
         desired_rate *= (1 - roll_prop);
     }
 
-    return _get_rate_out(desired_rate, scaler, disable_integrator, aspeed, ground_mode);
+    return _get_rate_out(desired_rate, scaler, disable_integrator, freeze_integrator, aspeed, ground_mode);
 }
 
 /*

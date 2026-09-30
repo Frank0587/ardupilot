@@ -13,7 +13,7 @@ public:
     CLASS_NO_COPY(AP_FW_Controller);
 
     float get_rate_out(float desired_rate, float scaler);
-    virtual float get_servo_out(int32_t angle_err, float scaler, bool disable_integrator, bool ground_mode) = 0;
+    virtual float get_servo_out(int32_t angle_err, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode) = 0;
 
     // setup a one loop FF scale multiplier. This replaces any previous scale applied
     // so should only be used when only one source of scaling is needed
@@ -55,7 +55,7 @@ protected:
 
     AP_PIDInfo _pid_info;
 
-    float _get_rate_out(float desired_rate, float scaler, bool disable_integrator, float aspeed, bool ground_mode);
+    float _get_rate_out(float desired_rate, float scaler, bool disable_integrator, bool freeze_integrator, float aspeed, bool ground_mode);
 
     virtual bool is_underspeed(const float aspeed) const = 0;
 

@@ -185,7 +185,7 @@ AP_YawController::AP_YawController(const AP_FixedWing &parms)
     rate_pid.set_slew_limit_scale(45);
 }
 
-int32_t AP_YawController::get_servo_out(float scaler, bool disable_integrator)
+int32_t AP_YawController::get_servo_out(float scaler, bool disable_integrator, bool freeze_integrator)
 {
     uint32_t tnow = AP_HAL::millis();
     uint32_t dt = tnow - _last_t;
