@@ -412,10 +412,12 @@ public:
         // external projects.  See the SCRIPTING_1 range instead if
         // you are writing a Lua script.
 
-#if AP_SCRIPTING_ENABLED
+#if AP_SCRIPTING_ENABLED +1   // allow SCRIPTING Inputs for SP variants
         // inputs for the use of onboard lua scripting
         SCRIPTING_1 =        300,
+        KTW         =        SCRIPTING_1,       // special use for KTW control
         SCRIPTING_2 =        301,
+        CAMBER      =        SCRIPTING_2,       // special use for camber control
         SCRIPTING_3 =        302,
         SCRIPTING_4 =        303,
         SCRIPTING_5 =        304,
