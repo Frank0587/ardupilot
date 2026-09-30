@@ -7,7 +7,7 @@
 #include "ap_version.h"
 
 // SP-Master-branch
-#define THISFIRMWARE "ArduPlane V4.8.0-SP-v11"
+#define THISFIRMWARE "ArduPlane V4.8.0-SP-v12"
 
 // the following line is parsed by the autotest scripts
 #define FIRMWARE_VERSION 4,8,0,FIRMWARE_VERSION_TYPE_DEV
