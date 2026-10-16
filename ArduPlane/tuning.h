@@ -78,6 +78,8 @@ private:
         TUNING_PIT_FF =                       57,
 
         TUNING_Q_FWD_THR =                    58,
+        TUNING_STAB_PITCH_DOWN =              59,
+        TUNING_PITCH_TRIM =                   60,
     };
 
     /*
@@ -94,9 +96,10 @@ private:
         TUNING_SET_RATE_PITCHDP =            8,
         TUNING_SET_RATE_ROLLDP =             9,
         TUNING_SET_RATE_YAWDP =             10,
-        TUNING_SET_DP_ROLL_PITCH =          11,
-        TUNING_SET_PIDFF_ROLL =             12,
-        TUNING_SET_PIDFF_PITCH =            13,
+        TUNING_SET_PITCH_LEVEL =            11,
+        TUNING_SET_DP_ROLL_PITCH =          12,
+        TUNING_SET_PIDFF_ROLL =             13,
+        TUNING_SET_PIDFF_PITCH =            14,
     };
 
     AP_Float *get_param_pointer(uint8_t parm) override;
@@ -115,6 +118,7 @@ private:
     static const uint8_t tuning_set_rate_pitchDP[];
     static const uint8_t tuning_set_rate_rollDP[];
     static const uint8_t tuning_set_rate_yawDP[];
+    static const uint8_t tuning_set_pitch_level[];
     static const uint8_t tuning_set_dp_roll_pitch[];
     static const uint8_t tuning_set_pidff_roll[];
     static const uint8_t tuning_set_pidff_pitch[];
