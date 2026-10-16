@@ -97,6 +97,8 @@ enum class Axis {
 Axis test_axis = Axis::Roll;
 bool ground_mode = false;
 bool disable_integrator = false;
+bool freeze_integrator = false;
+
 
 // Calculate the airspeed scaler based on airspeed and the configured param
 // Method from `Plane::calc_speed_scaler`
@@ -248,13 +250,13 @@ void loop(void)
     switch (test_axis) {
         case Axis::Roll:
             angle_error_cd = nav_angle_cd - ahrs.roll_sensor;
-            output = roll_control.get_servo_out(angle_error_cd, speed_scaler, disable_integrator, ground_mode);
+            output = roll_control.get_servo_out(angle_error_cd, speed_scaler, disable_integrator, freeze_integrator, ground_mode);
             info = &roll_control.get_pid_info();
             break;
 
         case Axis::Pitch:
             angle_error_cd = nav_angle_cd - ahrs.pitch_sensor;
-            output = pitch_control.get_servo_out(angle_error_cd, speed_scaler, disable_integrator, ground_mode);
+            output = pitch_control.get_servo_out(angle_error_cd, speed_scaler, disable_integrator, freeze_integrator, ground_mode);
             info = &pitch_control.get_pid_info();
             break;
     }
