@@ -1457,6 +1457,13 @@ const AP_Param::GroupInfo ParametersSP::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("FLHS_FLP_EL_MX", 15, ParametersSP, fullhs_flap_elev_mix, 0),
 
+    // @Param: FLTMODE_STAB2
+    // @DisplayName: Mode Position for Stabilization Aileron Manual
+    // @Description: Position of Mode switch to modify the stabilized mode for manual aileron control
+    // @Values: 0:disable, 1:Position 1, 2:Position 2, 3:Position 3, 4:Position 4, 5:Position 5, 6:Position 6
+    // @User: Advanced
+    AP_GROUPINFO("FLTMODE_STAB2", 16, ParametersSP, modePos_manual_ail, 0),
+
     AP_GROUPEND
 };
 
