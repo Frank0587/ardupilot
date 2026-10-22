@@ -128,6 +128,14 @@
       <Increment>1</Increment>
       <User>Standard</User>
     </LGR_SLEWRATE>
+    <RC_DIR_MIX_END>
+      <DisplayName>End of the mixing zone when direct stick mix</DisplayName>
+      <Description>When direct stick mixing is used (e.g. stabilized mode) the controller output is mixed to the result up to this stick input level, over this level only the the stick input is used. Default is 80%.</Description>
+      <Range>5 100</Range>
+      <Units>%</Units>
+      <Increment>1</Increment>
+      <User>Standard</User>
+    </RC_DIR_MIX_END>
     <RC1_OPTION2>
       <DisplayName>RC input option2, activated when Input switch set to low</DisplayName>
       <Description>2nd Function assigned to this RC channel. You can use a 3pos switch to activate two different functions. OPTION at HIGH and OPTION2 at LOW position.</Description>

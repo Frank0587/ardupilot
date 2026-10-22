@@ -13,7 +13,7 @@ public:
     CLASS_NO_COPY(AP_FW_Controller);
 
     // Run angle controller
-    float run_angle_control(int32_t desired_angle_cd, float scaler, bool disable_integrator, bool ground_mode);
+    float run_angle_control(int32_t desired_angle_cd, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode);
 
     // Run pure rate control
     float run_rate_control(float desired_rate_degs, float scaler);
@@ -74,9 +74,9 @@ protected:
 
     AP_PIDInfo _pid_info;
 
-    virtual float run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool ground_mode) = 0;
+    virtual float run_axis_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode) = 0;
 
-    float run_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool ground_mode);
+    float run_rate_control(float desired_rate_degs, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode);
 
     // Return true if the airspeed should be considered as under speed
     virtual bool is_underspeed() const = 0;
