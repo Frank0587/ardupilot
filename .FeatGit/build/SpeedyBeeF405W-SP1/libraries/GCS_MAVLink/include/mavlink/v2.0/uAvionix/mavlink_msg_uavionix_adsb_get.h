@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE UAVIONIX_ADSB_GET PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_UAVIONIX_ADSB_GET 10006
 
 
@@ -44,7 +46,7 @@ typedef struct __mavlink_uavionix_adsb_get_t {
  * @param ReqMessageId  Message ID to request. Supports any message in this 10000-10099 range
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_get_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavionix_adsb_get_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t ReqMessageId)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -73,7 +75,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_get_pack(uint8_t system_id, uin
  * @param ReqMessageId  Message ID to request. Supports any message in this 10000-10099 range
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint32_t ReqMessageId)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -92,7 +94,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_status(uint8_t system_
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN, 0);
 #endif
 }
 
@@ -105,7 +107,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_status(uint8_t system_
  * @param ReqMessageId  Message ID to request. Supports any message in this 10000-10099 range
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t ReqMessageId)
 {
@@ -133,7 +135,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_get_pack_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param uavionix_adsb_get C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_get_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavionix_adsb_get_t* uavionix_adsb_get)
+static inline uint16_t mavlink_msg_uavionix_adsb_get_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavionix_adsb_get_t* uavionix_adsb_get)
 {
     return mavlink_msg_uavionix_adsb_get_pack(system_id, component_id, msg, uavionix_adsb_get->ReqMessageId);
 }
@@ -147,7 +149,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_get_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param uavionix_adsb_get C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_get_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavionix_adsb_get_t* uavionix_adsb_get)
+static inline uint16_t mavlink_msg_uavionix_adsb_get_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavionix_adsb_get_t* uavionix_adsb_get)
 {
     return mavlink_msg_uavionix_adsb_get_pack_chan(system_id, component_id, chan, msg, uavionix_adsb_get->ReqMessageId);
 }
@@ -161,7 +163,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_get_encode_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param uavionix_adsb_get C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_get_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_uavionix_adsb_get_t* uavionix_adsb_get)
+static inline uint16_t mavlink_msg_uavionix_adsb_get_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_uavionix_adsb_get_t* uavionix_adsb_get)
 {
     return mavlink_msg_uavionix_adsb_get_pack_status(system_id, component_id, _status, msg,  uavionix_adsb_get->ReqMessageId);
 }
@@ -205,7 +207,7 @@ static inline void mavlink_msg_uavionix_adsb_get_send_struct(mavlink_channel_t c
 
 #if MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -252,9 +254,10 @@ static inline void mavlink_msg_uavionix_adsb_get_decode(const mavlink_message_t*
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     uavionix_adsb_get->ReqMessageId = mavlink_msg_uavionix_adsb_get_get_ReqMessageId(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN? msg->len : MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN;
-        memset(uavionix_adsb_get, 0, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN ? msg->len : MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN;
+    memset(uavionix_adsb_get, 0, MAVLINK_MSG_ID_UAVIONIX_ADSB_GET_LEN);
     memcpy(uavionix_adsb_get, _MAV_PAYLOAD(msg), len);
 #endif
 }

@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE SIM_STATE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_SIM_STATE 108
 
 
@@ -9,17 +11,17 @@ typedef struct __mavlink_sim_state_t {
  float q2; /*<  True attitude quaternion component 2, x (0 in null-rotation)*/
  float q3; /*<  True attitude quaternion component 3, y (0 in null-rotation)*/
  float q4; /*<  True attitude quaternion component 4, z (0 in null-rotation)*/
- float roll; /*<  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs*/
- float pitch; /*<  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs*/
- float yaw; /*<  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs*/
+ float roll; /*< [rad] Attitude roll expressed as Euler angles, not recommended except for human-readable outputs*/
+ float pitch; /*< [rad] Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs*/
+ float yaw; /*< [rad] Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs*/
  float xacc; /*< [m/s/s] X acceleration*/
  float yacc; /*< [m/s/s] Y acceleration*/
  float zacc; /*< [m/s/s] Z acceleration*/
  float xgyro; /*< [rad/s] Angular speed around X axis*/
  float ygyro; /*< [rad/s] Angular speed around Y axis*/
  float zgyro; /*< [rad/s] Angular speed around Z axis*/
- float lat; /*< [deg] Latitude*/
- float lon; /*< [deg] Longitude*/
+ float lat; /*< [deg] Latitude (lower precision). Both this and the lat_int field should be set.*/
+ float lon; /*< [deg] Longitude (lower precision). Both this and the lon_int field should be set.*/
  float alt; /*< [m] Altitude*/
  float std_dev_horz; /*<  Horizontal position standard deviation*/
  float std_dev_vert; /*<  Vertical position standard deviation*/
@@ -111,17 +113,17 @@ typedef struct __mavlink_sim_state_t {
  * @param q2  True attitude quaternion component 2, x (0 in null-rotation)
  * @param q3  True attitude quaternion component 3, y (0 in null-rotation)
  * @param q4  True attitude quaternion component 4, z (0 in null-rotation)
- * @param roll  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
- * @param pitch  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
- * @param yaw  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
+ * @param roll [rad] Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
+ * @param pitch [rad] Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
+ * @param yaw [rad] Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
  * @param xacc [m/s/s] X acceleration
  * @param yacc [m/s/s] Y acceleration
  * @param zacc [m/s/s] Z acceleration
  * @param xgyro [rad/s] Angular speed around X axis
  * @param ygyro [rad/s] Angular speed around Y axis
  * @param zgyro [rad/s] Angular speed around Z axis
- * @param lat [deg] Latitude
- * @param lon [deg] Longitude
+ * @param lat [deg] Latitude (lower precision). Both this and the lat_int field should be set.
+ * @param lon [deg] Longitude (lower precision). Both this and the lon_int field should be set.
  * @param alt [m] Altitude
  * @param std_dev_horz  Horizontal position standard deviation
  * @param std_dev_vert  Vertical position standard deviation
@@ -132,7 +134,7 @@ typedef struct __mavlink_sim_state_t {
  * @param lon_int [degE7] Longitude (higher precision). If 0, recipients should use the lon field value (otherwise this field is preferred).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sim_state_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd, int32_t lat_int, int32_t lon_int)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -206,17 +208,17 @@ static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t com
  * @param q2  True attitude quaternion component 2, x (0 in null-rotation)
  * @param q3  True attitude quaternion component 3, y (0 in null-rotation)
  * @param q4  True attitude quaternion component 4, z (0 in null-rotation)
- * @param roll  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
- * @param pitch  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
- * @param yaw  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
+ * @param roll [rad] Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
+ * @param pitch [rad] Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
+ * @param yaw [rad] Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
  * @param xacc [m/s/s] X acceleration
  * @param yacc [m/s/s] Y acceleration
  * @param zacc [m/s/s] Z acceleration
  * @param xgyro [rad/s] Angular speed around X axis
  * @param ygyro [rad/s] Angular speed around Y axis
  * @param zgyro [rad/s] Angular speed around Z axis
- * @param lat [deg] Latitude
- * @param lon [deg] Longitude
+ * @param lat [deg] Latitude (lower precision). Both this and the lat_int field should be set.
+ * @param lon [deg] Longitude (lower precision). Both this and the lon_int field should be set.
  * @param alt [m] Altitude
  * @param std_dev_horz  Horizontal position standard deviation
  * @param std_dev_vert  Vertical position standard deviation
@@ -227,7 +229,7 @@ static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t com
  * @param lon_int [degE7] Longitude (higher precision). If 0, recipients should use the lon field value (otherwise this field is preferred).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sim_state_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd, int32_t lat_int, int32_t lon_int)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -290,7 +292,7 @@ static inline uint16_t mavlink_msg_sim_state_pack_status(uint8_t system_id, uint
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SIM_STATE_MIN_LEN, MAVLINK_MSG_ID_SIM_STATE_LEN, MAVLINK_MSG_ID_SIM_STATE_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SIM_STATE_MIN_LEN, MAVLINK_MSG_ID_SIM_STATE_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SIM_STATE_MIN_LEN, MAVLINK_MSG_ID_SIM_STATE_LEN, 0);
 #endif
 }
 
@@ -304,17 +306,17 @@ static inline uint16_t mavlink_msg_sim_state_pack_status(uint8_t system_id, uint
  * @param q2  True attitude quaternion component 2, x (0 in null-rotation)
  * @param q3  True attitude quaternion component 3, y (0 in null-rotation)
  * @param q4  True attitude quaternion component 4, z (0 in null-rotation)
- * @param roll  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
- * @param pitch  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
- * @param yaw  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
+ * @param roll [rad] Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
+ * @param pitch [rad] Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
+ * @param yaw [rad] Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
  * @param xacc [m/s/s] X acceleration
  * @param yacc [m/s/s] Y acceleration
  * @param zacc [m/s/s] Z acceleration
  * @param xgyro [rad/s] Angular speed around X axis
  * @param ygyro [rad/s] Angular speed around Y axis
  * @param zgyro [rad/s] Angular speed around Z axis
- * @param lat [deg] Latitude
- * @param lon [deg] Longitude
+ * @param lat [deg] Latitude (lower precision). Both this and the lat_int field should be set.
+ * @param lon [deg] Longitude (lower precision). Both this and the lon_int field should be set.
  * @param alt [m] Altitude
  * @param std_dev_horz  Horizontal position standard deviation
  * @param std_dev_vert  Vertical position standard deviation
@@ -325,7 +327,7 @@ static inline uint16_t mavlink_msg_sim_state_pack_status(uint8_t system_id, uint
  * @param lon_int [degE7] Longitude (higher precision). If 0, recipients should use the lon field value (otherwise this field is preferred).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sim_state_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float q1,float q2,float q3,float q4,float roll,float pitch,float yaw,float xacc,float yacc,float zacc,float xgyro,float ygyro,float zgyro,float lat,float lon,float alt,float std_dev_horz,float std_dev_vert,float vn,float ve,float vd,int32_t lat_int,int32_t lon_int)
 {
@@ -397,7 +399,7 @@ static inline uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+static inline uint16_t mavlink_msg_sim_state_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack(system_id, component_id, msg, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd, sim_state->lat_int, sim_state->lon_int);
 }
@@ -411,7 +413,7 @@ static inline uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+static inline uint16_t mavlink_msg_sim_state_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack_chan(system_id, component_id, chan, msg, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd, sim_state->lat_int, sim_state->lon_int);
 }
@@ -425,7 +427,7 @@ static inline uint16_t mavlink_msg_sim_state_encode_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+static inline uint16_t mavlink_msg_sim_state_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack_status(system_id, component_id, _status, msg,  sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd, sim_state->lat_int, sim_state->lon_int);
 }
@@ -438,17 +440,17 @@ static inline uint16_t mavlink_msg_sim_state_encode_status(uint8_t system_id, ui
  * @param q2  True attitude quaternion component 2, x (0 in null-rotation)
  * @param q3  True attitude quaternion component 3, y (0 in null-rotation)
  * @param q4  True attitude quaternion component 4, z (0 in null-rotation)
- * @param roll  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
- * @param pitch  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
- * @param yaw  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
+ * @param roll [rad] Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
+ * @param pitch [rad] Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
+ * @param yaw [rad] Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
  * @param xacc [m/s/s] X acceleration
  * @param yacc [m/s/s] Y acceleration
  * @param zacc [m/s/s] Z acceleration
  * @param xgyro [rad/s] Angular speed around X axis
  * @param ygyro [rad/s] Angular speed around Y axis
  * @param zgyro [rad/s] Angular speed around Z axis
- * @param lat [deg] Latitude
- * @param lon [deg] Longitude
+ * @param lat [deg] Latitude (lower precision). Both this and the lat_int field should be set.
+ * @param lon [deg] Longitude (lower precision). Both this and the lon_int field should be set.
  * @param alt [m] Altitude
  * @param std_dev_horz  Horizontal position standard deviation
  * @param std_dev_vert  Vertical position standard deviation
@@ -535,7 +537,7 @@ static inline void mavlink_msg_sim_state_send_struct(mavlink_channel_t chan, con
 
 #if MAVLINK_MSG_ID_SIM_STATE_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -649,7 +651,7 @@ static inline float mavlink_msg_sim_state_get_q4(const mavlink_message_t* msg)
 /**
  * @brief Get field roll from sim_state message
  *
- * @return  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
+ * @return [rad] Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
  */
 static inline float mavlink_msg_sim_state_get_roll(const mavlink_message_t* msg)
 {
@@ -659,7 +661,7 @@ static inline float mavlink_msg_sim_state_get_roll(const mavlink_message_t* msg)
 /**
  * @brief Get field pitch from sim_state message
  *
- * @return  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
+ * @return [rad] Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
  */
 static inline float mavlink_msg_sim_state_get_pitch(const mavlink_message_t* msg)
 {
@@ -669,7 +671,7 @@ static inline float mavlink_msg_sim_state_get_pitch(const mavlink_message_t* msg
 /**
  * @brief Get field yaw from sim_state message
  *
- * @return  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
+ * @return [rad] Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
  */
 static inline float mavlink_msg_sim_state_get_yaw(const mavlink_message_t* msg)
 {
@@ -739,7 +741,7 @@ static inline float mavlink_msg_sim_state_get_zgyro(const mavlink_message_t* msg
 /**
  * @brief Get field lat from sim_state message
  *
- * @return [deg] Latitude
+ * @return [deg] Latitude (lower precision). Both this and the lat_int field should be set.
  */
 static inline float mavlink_msg_sim_state_get_lat(const mavlink_message_t* msg)
 {
@@ -749,7 +751,7 @@ static inline float mavlink_msg_sim_state_get_lat(const mavlink_message_t* msg)
 /**
  * @brief Get field lon from sim_state message
  *
- * @return [deg] Longitude
+ * @return [deg] Longitude (lower precision). Both this and the lon_int field should be set.
  */
 static inline float mavlink_msg_sim_state_get_lon(const mavlink_message_t* msg)
 {
@@ -868,9 +870,10 @@ static inline void mavlink_msg_sim_state_decode(const mavlink_message_t* msg, ma
     sim_state->vd = mavlink_msg_sim_state_get_vd(msg);
     sim_state->lat_int = mavlink_msg_sim_state_get_lat_int(msg);
     sim_state->lon_int = mavlink_msg_sim_state_get_lon_int(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_SIM_STATE_LEN? msg->len : MAVLINK_MSG_ID_SIM_STATE_LEN;
-        memset(sim_state, 0, MAVLINK_MSG_ID_SIM_STATE_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_SIM_STATE_LEN ? msg->len : MAVLINK_MSG_ID_SIM_STATE_LEN;
+    memset(sim_state, 0, MAVLINK_MSG_ID_SIM_STATE_LEN);
     memcpy(sim_state, _MAV_PAYLOAD(msg), len);
 #endif
 }

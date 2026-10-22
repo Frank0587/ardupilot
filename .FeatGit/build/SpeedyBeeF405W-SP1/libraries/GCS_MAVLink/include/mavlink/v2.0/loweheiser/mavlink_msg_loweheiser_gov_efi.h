@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE LOWEHEISER_GOV_EFI PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI 10151
 
 
@@ -17,7 +19,7 @@ typedef struct __mavlink_loweheiser_gov_efi_t {
  float generator_temp; /*< [degC] The temperature of the mechanical motor, fuel cell core or generator.*/
  float efi_batt; /*< [V]  EFI Supply Voltage.*/
  float efi_rpm; /*< [rpm] Motor RPM.*/
- float efi_pw; /*< [ms] Injector pulse-width in miliseconds.*/
+ float efi_pw; /*< [ms] Injector pulse-width in milliseconds.*/
  float efi_fuel_flow; /*<  Fuel flow rate in litres/hour.*/
  float efi_fuel_consumed; /*< [l] Fuel consumed.*/
  float efi_baro; /*< [kPa] Atmospheric pressure.*/
@@ -119,7 +121,7 @@ typedef struct __mavlink_loweheiser_gov_efi_t {
  * @param generator_temp [degC] The temperature of the mechanical motor, fuel cell core or generator.
  * @param efi_batt [V]  EFI Supply Voltage.
  * @param efi_rpm [rpm] Motor RPM.
- * @param efi_pw [ms] Injector pulse-width in miliseconds.
+ * @param efi_pw [ms] Injector pulse-width in milliseconds.
  * @param efi_fuel_flow  Fuel flow rate in litres/hour.
  * @param efi_fuel_consumed [l] Fuel consumed.
  * @param efi_baro [kPa] Atmospheric pressure.
@@ -132,7 +134,7 @@ typedef struct __mavlink_loweheiser_gov_efi_t {
  * @param efi_status  EFI status.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                float volt_batt, float curr_batt, float curr_gen, float curr_rot, float fuel_level, float throttle, uint32_t runtime, int32_t until_maintenance, float rectifier_temp, float generator_temp, float efi_batt, float efi_rpm, float efi_pw, float efi_fuel_flow, float efi_fuel_consumed, float efi_baro, float efi_mat, float efi_clt, float efi_tps, float efi_exhaust_gas_temperature, uint8_t efi_index, uint16_t generator_status, uint16_t efi_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -214,7 +216,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack(uint8_t system_id, ui
  * @param generator_temp [degC] The temperature of the mechanical motor, fuel cell core or generator.
  * @param efi_batt [V]  EFI Supply Voltage.
  * @param efi_rpm [rpm] Motor RPM.
- * @param efi_pw [ms] Injector pulse-width in miliseconds.
+ * @param efi_pw [ms] Injector pulse-width in milliseconds.
  * @param efi_fuel_flow  Fuel flow rate in litres/hour.
  * @param efi_fuel_consumed [l] Fuel consumed.
  * @param efi_baro [kPa] Atmospheric pressure.
@@ -227,7 +229,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack(uint8_t system_id, ui
  * @param efi_status  EFI status.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                float volt_batt, float curr_batt, float curr_gen, float curr_rot, float fuel_level, float throttle, uint32_t runtime, int32_t until_maintenance, float rectifier_temp, float generator_temp, float efi_batt, float efi_rpm, float efi_pw, float efi_fuel_flow, float efi_fuel_consumed, float efi_baro, float efi_mat, float efi_clt, float efi_tps, float efi_exhaust_gas_temperature, uint8_t efi_index, uint16_t generator_status, uint16_t efi_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -290,7 +292,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_status(uint8_t system
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_MIN_LEN, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_MIN_LEN, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_MIN_LEN, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN, 0);
 #endif
 }
 
@@ -312,7 +314,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_status(uint8_t system
  * @param generator_temp [degC] The temperature of the mechanical motor, fuel cell core or generator.
  * @param efi_batt [V]  EFI Supply Voltage.
  * @param efi_rpm [rpm] Motor RPM.
- * @param efi_pw [ms] Injector pulse-width in miliseconds.
+ * @param efi_pw [ms] Injector pulse-width in milliseconds.
  * @param efi_fuel_flow  Fuel flow rate in litres/hour.
  * @param efi_fuel_consumed [l] Fuel consumed.
  * @param efi_baro [kPa] Atmospheric pressure.
@@ -325,7 +327,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_status(uint8_t system
  * @param efi_status  EFI status.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float volt_batt,float curr_batt,float curr_gen,float curr_rot,float fuel_level,float throttle,uint32_t runtime,int32_t until_maintenance,float rectifier_temp,float generator_temp,float efi_batt,float efi_rpm,float efi_pw,float efi_fuel_flow,float efi_fuel_consumed,float efi_baro,float efi_mat,float efi_clt,float efi_tps,float efi_exhaust_gas_temperature,uint8_t efi_index,uint16_t generator_status,uint16_t efi_status)
 {
@@ -397,7 +399,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param loweheiser_gov_efi C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_loweheiser_gov_efi_t* loweheiser_gov_efi)
+static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_loweheiser_gov_efi_t* loweheiser_gov_efi)
 {
     return mavlink_msg_loweheiser_gov_efi_pack(system_id, component_id, msg, loweheiser_gov_efi->volt_batt, loweheiser_gov_efi->curr_batt, loweheiser_gov_efi->curr_gen, loweheiser_gov_efi->curr_rot, loweheiser_gov_efi->fuel_level, loweheiser_gov_efi->throttle, loweheiser_gov_efi->runtime, loweheiser_gov_efi->until_maintenance, loweheiser_gov_efi->rectifier_temp, loweheiser_gov_efi->generator_temp, loweheiser_gov_efi->efi_batt, loweheiser_gov_efi->efi_rpm, loweheiser_gov_efi->efi_pw, loweheiser_gov_efi->efi_fuel_flow, loweheiser_gov_efi->efi_fuel_consumed, loweheiser_gov_efi->efi_baro, loweheiser_gov_efi->efi_mat, loweheiser_gov_efi->efi_clt, loweheiser_gov_efi->efi_tps, loweheiser_gov_efi->efi_exhaust_gas_temperature, loweheiser_gov_efi->efi_index, loweheiser_gov_efi->generator_status, loweheiser_gov_efi->efi_status);
 }
@@ -411,7 +413,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param loweheiser_gov_efi C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_loweheiser_gov_efi_t* loweheiser_gov_efi)
+static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_loweheiser_gov_efi_t* loweheiser_gov_efi)
 {
     return mavlink_msg_loweheiser_gov_efi_pack_chan(system_id, component_id, chan, msg, loweheiser_gov_efi->volt_batt, loweheiser_gov_efi->curr_batt, loweheiser_gov_efi->curr_gen, loweheiser_gov_efi->curr_rot, loweheiser_gov_efi->fuel_level, loweheiser_gov_efi->throttle, loweheiser_gov_efi->runtime, loweheiser_gov_efi->until_maintenance, loweheiser_gov_efi->rectifier_temp, loweheiser_gov_efi->generator_temp, loweheiser_gov_efi->efi_batt, loweheiser_gov_efi->efi_rpm, loweheiser_gov_efi->efi_pw, loweheiser_gov_efi->efi_fuel_flow, loweheiser_gov_efi->efi_fuel_consumed, loweheiser_gov_efi->efi_baro, loweheiser_gov_efi->efi_mat, loweheiser_gov_efi->efi_clt, loweheiser_gov_efi->efi_tps, loweheiser_gov_efi->efi_exhaust_gas_temperature, loweheiser_gov_efi->efi_index, loweheiser_gov_efi->generator_status, loweheiser_gov_efi->efi_status);
 }
@@ -425,7 +427,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param loweheiser_gov_efi C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_loweheiser_gov_efi_t* loweheiser_gov_efi)
+static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_loweheiser_gov_efi_t* loweheiser_gov_efi)
 {
     return mavlink_msg_loweheiser_gov_efi_pack_status(system_id, component_id, _status, msg,  loweheiser_gov_efi->volt_batt, loweheiser_gov_efi->curr_batt, loweheiser_gov_efi->curr_gen, loweheiser_gov_efi->curr_rot, loweheiser_gov_efi->fuel_level, loweheiser_gov_efi->throttle, loweheiser_gov_efi->runtime, loweheiser_gov_efi->until_maintenance, loweheiser_gov_efi->rectifier_temp, loweheiser_gov_efi->generator_temp, loweheiser_gov_efi->efi_batt, loweheiser_gov_efi->efi_rpm, loweheiser_gov_efi->efi_pw, loweheiser_gov_efi->efi_fuel_flow, loweheiser_gov_efi->efi_fuel_consumed, loweheiser_gov_efi->efi_baro, loweheiser_gov_efi->efi_mat, loweheiser_gov_efi->efi_clt, loweheiser_gov_efi->efi_tps, loweheiser_gov_efi->efi_exhaust_gas_temperature, loweheiser_gov_efi->efi_index, loweheiser_gov_efi->generator_status, loweheiser_gov_efi->efi_status);
 }
@@ -446,7 +448,7 @@ static inline uint16_t mavlink_msg_loweheiser_gov_efi_encode_status(uint8_t syst
  * @param generator_temp [degC] The temperature of the mechanical motor, fuel cell core or generator.
  * @param efi_batt [V]  EFI Supply Voltage.
  * @param efi_rpm [rpm] Motor RPM.
- * @param efi_pw [ms] Injector pulse-width in miliseconds.
+ * @param efi_pw [ms] Injector pulse-width in milliseconds.
  * @param efi_fuel_flow  Fuel flow rate in litres/hour.
  * @param efi_fuel_consumed [l] Fuel consumed.
  * @param efi_baro [kPa] Atmospheric pressure.
@@ -535,7 +537,7 @@ static inline void mavlink_msg_loweheiser_gov_efi_send_struct(mavlink_channel_t 
 
 #if MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -729,7 +731,7 @@ static inline float mavlink_msg_loweheiser_gov_efi_get_efi_rpm(const mavlink_mes
 /**
  * @brief Get field efi_pw from loweheiser_gov_efi message
  *
- * @return [ms] Injector pulse-width in miliseconds.
+ * @return [ms] Injector pulse-width in milliseconds.
  */
 static inline float mavlink_msg_loweheiser_gov_efi_get_efi_pw(const mavlink_message_t* msg)
 {
@@ -868,9 +870,10 @@ static inline void mavlink_msg_loweheiser_gov_efi_decode(const mavlink_message_t
     loweheiser_gov_efi->generator_status = mavlink_msg_loweheiser_gov_efi_get_generator_status(msg);
     loweheiser_gov_efi->efi_status = mavlink_msg_loweheiser_gov_efi_get_efi_status(msg);
     loweheiser_gov_efi->efi_index = mavlink_msg_loweheiser_gov_efi_get_efi_index(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN? msg->len : MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN;
-        memset(loweheiser_gov_efi, 0, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN ? msg->len : MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN;
+    memset(loweheiser_gov_efi, 0, MAVLINK_MSG_ID_LOWEHEISER_GOV_EFI_LEN);
     memcpy(loweheiser_gov_efi, _MAV_PAYLOAD(msg), len);
 #endif
 }

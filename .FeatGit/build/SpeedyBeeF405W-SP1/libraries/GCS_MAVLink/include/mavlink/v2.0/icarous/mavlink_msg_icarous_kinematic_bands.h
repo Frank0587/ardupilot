@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE ICAROUS_KINEMATIC_BANDS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS 42001
 
 
@@ -104,7 +106,7 @@ typedef struct __mavlink_icarous_kinematic_bands_t {
  * @param max5 [deg] max angle (degrees)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                int8_t numBands, uint8_t type1, float min1, float max1, uint8_t type2, float min2, float max2, uint8_t type3, float min3, float max3, uint8_t type4, float min4, float max4, uint8_t type5, float min5, float max5)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -178,7 +180,7 @@ static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack(uint8_t system_i
  * @param max5 [deg] max angle (degrees)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                int8_t numBands, uint8_t type1, float min1, float max1, uint8_t type2, float min2, float max2, uint8_t type3, float min3, float max3, uint8_t type4, float min4, float max4, uint8_t type5, float min5, float max5)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -227,7 +229,7 @@ static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_status(uint8_t s
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN, 0);
 #endif
 }
 
@@ -255,7 +257,7 @@ static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_status(uint8_t s
  * @param max5 [deg] max angle (degrees)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    int8_t numBands,uint8_t type1,float min1,float max1,uint8_t type2,float min2,float max2,uint8_t type3,float min3,float max3,uint8_t type4,float min4,float max4,uint8_t type5,float min5,float max5)
 {
@@ -313,7 +315,7 @@ static inline uint16_t mavlink_msg_icarous_kinematic_bands_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param icarous_kinematic_bands C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_icarous_kinematic_bands_t* icarous_kinematic_bands)
+static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_icarous_kinematic_bands_t* icarous_kinematic_bands)
 {
     return mavlink_msg_icarous_kinematic_bands_pack(system_id, component_id, msg, icarous_kinematic_bands->numBands, icarous_kinematic_bands->type1, icarous_kinematic_bands->min1, icarous_kinematic_bands->max1, icarous_kinematic_bands->type2, icarous_kinematic_bands->min2, icarous_kinematic_bands->max2, icarous_kinematic_bands->type3, icarous_kinematic_bands->min3, icarous_kinematic_bands->max3, icarous_kinematic_bands->type4, icarous_kinematic_bands->min4, icarous_kinematic_bands->max4, icarous_kinematic_bands->type5, icarous_kinematic_bands->min5, icarous_kinematic_bands->max5);
 }
@@ -327,7 +329,7 @@ static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param icarous_kinematic_bands C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_icarous_kinematic_bands_t* icarous_kinematic_bands)
+static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_icarous_kinematic_bands_t* icarous_kinematic_bands)
 {
     return mavlink_msg_icarous_kinematic_bands_pack_chan(system_id, component_id, chan, msg, icarous_kinematic_bands->numBands, icarous_kinematic_bands->type1, icarous_kinematic_bands->min1, icarous_kinematic_bands->max1, icarous_kinematic_bands->type2, icarous_kinematic_bands->min2, icarous_kinematic_bands->max2, icarous_kinematic_bands->type3, icarous_kinematic_bands->min3, icarous_kinematic_bands->max3, icarous_kinematic_bands->type4, icarous_kinematic_bands->min4, icarous_kinematic_bands->max4, icarous_kinematic_bands->type5, icarous_kinematic_bands->min5, icarous_kinematic_bands->max5);
 }
@@ -341,7 +343,7 @@ static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode_chan(uint8_t s
  * @param msg The MAVLink message to compress the data into
  * @param icarous_kinematic_bands C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_icarous_kinematic_bands_t* icarous_kinematic_bands)
+static inline uint16_t mavlink_msg_icarous_kinematic_bands_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_icarous_kinematic_bands_t* icarous_kinematic_bands)
 {
     return mavlink_msg_icarous_kinematic_bands_pack_status(system_id, component_id, _status, msg,  icarous_kinematic_bands->numBands, icarous_kinematic_bands->type1, icarous_kinematic_bands->min1, icarous_kinematic_bands->max1, icarous_kinematic_bands->type2, icarous_kinematic_bands->min2, icarous_kinematic_bands->max2, icarous_kinematic_bands->type3, icarous_kinematic_bands->min3, icarous_kinematic_bands->max3, icarous_kinematic_bands->type4, icarous_kinematic_bands->min4, icarous_kinematic_bands->max4, icarous_kinematic_bands->type5, icarous_kinematic_bands->min5, icarous_kinematic_bands->max5);
 }
@@ -430,7 +432,7 @@ static inline void mavlink_msg_icarous_kinematic_bands_send_struct(mavlink_chann
 
 #if MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -672,9 +674,10 @@ static inline void mavlink_msg_icarous_kinematic_bands_decode(const mavlink_mess
     icarous_kinematic_bands->type3 = mavlink_msg_icarous_kinematic_bands_get_type3(msg);
     icarous_kinematic_bands->type4 = mavlink_msg_icarous_kinematic_bands_get_type4(msg);
     icarous_kinematic_bands->type5 = mavlink_msg_icarous_kinematic_bands_get_type5(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN? msg->len : MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN;
-        memset(icarous_kinematic_bands, 0, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN ? msg->len : MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN;
+    memset(icarous_kinematic_bands, 0, MAVLINK_MSG_ID_ICAROUS_KINEMATIC_BANDS_LEN);
     memcpy(icarous_kinematic_bands, _MAV_PAYLOAD(msg), len);
 #endif
 }

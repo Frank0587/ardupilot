@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE SENS_BATMON PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_SENS_BATMON 8010
 
 
@@ -100,7 +102,7 @@ typedef struct __mavlink_sens_batmon_t {
  * @param cellvoltage6 [mV] Battery pack cell 6 voltage
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sens_batmon_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t SoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -171,7 +173,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t c
  * @param cellvoltage6 [mV] Battery pack cell 6 voltage
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_batmon_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sens_batmon_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t SoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -218,7 +220,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack_status(uint8_t system_id, ui
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, MAVLINK_MSG_ID_SENS_BATMON_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, 0);
 #endif
 }
 
@@ -245,7 +247,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack_status(uint8_t system_id, ui
  * @param cellvoltage6 [mV] Battery pack cell 6 voltage
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t batmon_timestamp,float temperature,uint16_t voltage,int16_t current,uint8_t SoC,uint16_t batterystatus,uint16_t serialnumber,uint32_t safetystatus,uint32_t operationstatus,uint16_t cellvoltage1,uint16_t cellvoltage2,uint16_t cellvoltage3,uint16_t cellvoltage4,uint16_t cellvoltage5,uint16_t cellvoltage6)
 {
@@ -301,7 +303,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param sens_batmon C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_batmon_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
+static inline uint16_t mavlink_msg_sens_batmon_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
 {
     return mavlink_msg_sens_batmon_pack(system_id, component_id, msg, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->SoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
 }
@@ -315,7 +317,7 @@ static inline uint16_t mavlink_msg_sens_batmon_encode(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param sens_batmon C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_batmon_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
+static inline uint16_t mavlink_msg_sens_batmon_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
 {
     return mavlink_msg_sens_batmon_pack_chan(system_id, component_id, chan, msg, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->SoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
 }
@@ -329,7 +331,7 @@ static inline uint16_t mavlink_msg_sens_batmon_encode_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param sens_batmon C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_batmon_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
+static inline uint16_t mavlink_msg_sens_batmon_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
 {
     return mavlink_msg_sens_batmon_pack_status(system_id, component_id, _status, msg,  sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->SoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
 }
@@ -415,7 +417,7 @@ static inline void mavlink_msg_sens_batmon_send_struct(mavlink_channel_t chan, c
 
 #if MAVLINK_MSG_ID_SENS_BATMON_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -644,9 +646,10 @@ static inline void mavlink_msg_sens_batmon_decode(const mavlink_message_t* msg, 
     sens_batmon->cellvoltage5 = mavlink_msg_sens_batmon_get_cellvoltage5(msg);
     sens_batmon->cellvoltage6 = mavlink_msg_sens_batmon_get_cellvoltage6(msg);
     sens_batmon->SoC = mavlink_msg_sens_batmon_get_SoC(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_SENS_BATMON_LEN? msg->len : MAVLINK_MSG_ID_SENS_BATMON_LEN;
-        memset(sens_batmon, 0, MAVLINK_MSG_ID_SENS_BATMON_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_SENS_BATMON_LEN ? msg->len : MAVLINK_MSG_ID_SENS_BATMON_LEN;
+    memset(sens_batmon, 0, MAVLINK_MSG_ID_SENS_BATMON_LEN);
     memcpy(sens_batmon, _MAV_PAYLOAD(msg), len);
 #endif
 }

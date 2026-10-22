@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE AIRLINK_AUTH PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_AIRLINK_AUTH 52000
 
 
@@ -49,7 +51,7 @@ typedef struct __mavlink_airlink_auth_t {
  * @param password  Password
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_airlink_auth_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_airlink_auth_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                const char *login, const char *password)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -81,7 +83,7 @@ static inline uint16_t mavlink_msg_airlink_auth_pack(uint8_t system_id, uint8_t 
  * @param password  Password
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_airlink_auth_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_airlink_auth_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                const char *login, const char *password)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -102,7 +104,7 @@ static inline uint16_t mavlink_msg_airlink_auth_pack_status(uint8_t system_id, u
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AIRLINK_AUTH_MIN_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AIRLINK_AUTH_MIN_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AIRLINK_AUTH_MIN_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_LEN, 0);
 #endif
 }
 
@@ -116,7 +118,7 @@ static inline uint16_t mavlink_msg_airlink_auth_pack_status(uint8_t system_id, u
  * @param password  Password
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_airlink_auth_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_airlink_auth_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const char *login,const char *password)
 {
@@ -146,7 +148,7 @@ static inline uint16_t mavlink_msg_airlink_auth_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param airlink_auth C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_airlink_auth_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_airlink_auth_t* airlink_auth)
+static inline uint16_t mavlink_msg_airlink_auth_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_airlink_auth_t* airlink_auth)
 {
     return mavlink_msg_airlink_auth_pack(system_id, component_id, msg, airlink_auth->login, airlink_auth->password);
 }
@@ -160,7 +162,7 @@ static inline uint16_t mavlink_msg_airlink_auth_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param airlink_auth C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_airlink_auth_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_airlink_auth_t* airlink_auth)
+static inline uint16_t mavlink_msg_airlink_auth_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_airlink_auth_t* airlink_auth)
 {
     return mavlink_msg_airlink_auth_pack_chan(system_id, component_id, chan, msg, airlink_auth->login, airlink_auth->password);
 }
@@ -174,7 +176,7 @@ static inline uint16_t mavlink_msg_airlink_auth_encode_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param airlink_auth C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_airlink_auth_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_airlink_auth_t* airlink_auth)
+static inline uint16_t mavlink_msg_airlink_auth_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_airlink_auth_t* airlink_auth)
 {
     return mavlink_msg_airlink_auth_pack_status(system_id, component_id, _status, msg,  airlink_auth->login, airlink_auth->password);
 }
@@ -221,7 +223,7 @@ static inline void mavlink_msg_airlink_auth_send_struct(mavlink_channel_t chan, 
 
 #if MAVLINK_MSG_ID_AIRLINK_AUTH_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -281,9 +283,10 @@ static inline void mavlink_msg_airlink_auth_decode(const mavlink_message_t* msg,
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_airlink_auth_get_login(msg, airlink_auth->login);
     mavlink_msg_airlink_auth_get_password(msg, airlink_auth->password);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_AIRLINK_AUTH_LEN? msg->len : MAVLINK_MSG_ID_AIRLINK_AUTH_LEN;
-        memset(airlink_auth, 0, MAVLINK_MSG_ID_AIRLINK_AUTH_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_AIRLINK_AUTH_LEN ? msg->len : MAVLINK_MSG_ID_AIRLINK_AUTH_LEN;
+    memset(airlink_auth, 0, MAVLINK_MSG_ID_AIRLINK_AUTH_LEN);
     memcpy(airlink_auth, _MAV_PAYLOAD(msg), len);
 #endif
 }

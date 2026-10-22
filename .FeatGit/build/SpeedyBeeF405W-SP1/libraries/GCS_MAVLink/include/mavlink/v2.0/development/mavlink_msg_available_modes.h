@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE AVAILABLE_MODES PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_AVAILABLE_MODES 435
 
 
@@ -64,7 +66,7 @@ typedef struct __mavlink_available_modes_t {
  * @param mode_name  Name of custom mode, with null termination character. Should be omitted for standard modes.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_available_modes_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_available_modes_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t number_modes, uint8_t mode_index, uint8_t standard_mode, uint32_t custom_mode, uint32_t properties, const char *mode_name)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -106,7 +108,7 @@ static inline uint16_t mavlink_msg_available_modes_pack(uint8_t system_id, uint8
  * @param mode_name  Name of custom mode, with null termination character. Should be omitted for standard modes.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_available_modes_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_available_modes_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t number_modes, uint8_t mode_index, uint8_t standard_mode, uint32_t custom_mode, uint32_t properties, const char *mode_name)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -133,7 +135,7 @@ static inline uint16_t mavlink_msg_available_modes_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AVAILABLE_MODES_MIN_LEN, MAVLINK_MSG_ID_AVAILABLE_MODES_LEN, MAVLINK_MSG_ID_AVAILABLE_MODES_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AVAILABLE_MODES_MIN_LEN, MAVLINK_MSG_ID_AVAILABLE_MODES_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AVAILABLE_MODES_MIN_LEN, MAVLINK_MSG_ID_AVAILABLE_MODES_LEN, 0);
 #endif
 }
 
@@ -151,7 +153,7 @@ static inline uint16_t mavlink_msg_available_modes_pack_status(uint8_t system_id
  * @param mode_name  Name of custom mode, with null termination character. Should be omitted for standard modes.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_available_modes_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_available_modes_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t number_modes,uint8_t mode_index,uint8_t standard_mode,uint32_t custom_mode,uint32_t properties,const char *mode_name)
 {
@@ -187,7 +189,7 @@ static inline uint16_t mavlink_msg_available_modes_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param available_modes C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_available_modes_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_available_modes_t* available_modes)
+static inline uint16_t mavlink_msg_available_modes_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_available_modes_t* available_modes)
 {
     return mavlink_msg_available_modes_pack(system_id, component_id, msg, available_modes->number_modes, available_modes->mode_index, available_modes->standard_mode, available_modes->custom_mode, available_modes->properties, available_modes->mode_name);
 }
@@ -201,7 +203,7 @@ static inline uint16_t mavlink_msg_available_modes_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param available_modes C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_available_modes_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_available_modes_t* available_modes)
+static inline uint16_t mavlink_msg_available_modes_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_available_modes_t* available_modes)
 {
     return mavlink_msg_available_modes_pack_chan(system_id, component_id, chan, msg, available_modes->number_modes, available_modes->mode_index, available_modes->standard_mode, available_modes->custom_mode, available_modes->properties, available_modes->mode_name);
 }
@@ -215,7 +217,7 @@ static inline uint16_t mavlink_msg_available_modes_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param available_modes C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_available_modes_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_available_modes_t* available_modes)
+static inline uint16_t mavlink_msg_available_modes_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_available_modes_t* available_modes)
 {
     return mavlink_msg_available_modes_pack_status(system_id, component_id, _status, msg,  available_modes->number_modes, available_modes->mode_index, available_modes->standard_mode, available_modes->custom_mode, available_modes->properties, available_modes->mode_name);
 }
@@ -272,7 +274,7 @@ static inline void mavlink_msg_available_modes_send_struct(mavlink_channel_t cha
 
 #if MAVLINK_MSG_ID_AVAILABLE_MODES_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -382,9 +384,10 @@ static inline void mavlink_msg_available_modes_decode(const mavlink_message_t* m
     available_modes->mode_index = mavlink_msg_available_modes_get_mode_index(msg);
     available_modes->standard_mode = mavlink_msg_available_modes_get_standard_mode(msg);
     mavlink_msg_available_modes_get_mode_name(msg, available_modes->mode_name);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_AVAILABLE_MODES_LEN? msg->len : MAVLINK_MSG_ID_AVAILABLE_MODES_LEN;
-        memset(available_modes, 0, MAVLINK_MSG_ID_AVAILABLE_MODES_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_AVAILABLE_MODES_LEN ? msg->len : MAVLINK_MSG_ID_AVAILABLE_MODES_LEN;
+    memset(available_modes, 0, MAVLINK_MSG_ID_AVAILABLE_MODES_LEN);
     memcpy(available_modes, _MAV_PAYLOAD(msg), len);
 #endif
 }
