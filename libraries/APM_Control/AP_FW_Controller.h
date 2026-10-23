@@ -19,7 +19,11 @@ public:
     // so should only be used when only one source of scaling is needed
     void set_ff_scale(float _ff_scale) { ff_scale = _ff_scale; }
 
+    // Reset I term
     void reset_I();
+
+    // Reset controller
+    void reset();
 
     /*
       reduce the integrator, used when we have a low scale factor in a quadplane hover
