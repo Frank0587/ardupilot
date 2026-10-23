@@ -630,6 +630,9 @@ public:
     AP_Int8 ktw_position_free;
     AP_Int8 ktw_slewrate;
 
+    // others
+    AP_Int8 modePos_manual_ail;
+
     // just to make compilation easier when all things are compiled out...
     uint8_t unused_integer;
 

@@ -119,6 +119,12 @@ void RC_Channel_Plane::mode_switch_changed(modeswitch_pos_t new_pos)
         return;
     }
 
+    // set manual aileron modifier for stabilized mode, when the mode switch is in the configured position
+    // parameter values: 0..disable, pos 1..6
+    if(plane.sp.modePos_manual_ail.get() != 0){
+        plane.sp_manual_ail = (plane.sp.modePos_manual_ail.get() == new_pos+1);
+    }
+
     plane.set_mode_by_number((Mode::Number)plane.flight_modes[new_pos].get(), ModeReason::RC_COMMAND);
 }
 
