@@ -1,0 +1,12 @@
+# SpeedyBeeF405W-SP1 < SpeedyBeeF405WING
+# SP-version of SpeedyBeeF405WING
+
+include ../SpeedyBeeF405WING/hwdef.dat
+
+# activate Landing Gear for Lentus
+undef AP_LANDINGGEAR_ENABLED
+define AP_LANDINGGEAR_ENABLED 1
+
+# disable Quadplane for flash space
+undef HAL_QUADPLANE_ENABLED
+define HAL_QUADPLANE_ENABLED 0

@@ -80,7 +80,11 @@ LASTLOG.TXT
 Make.dep
 Thumbs.db
 autotest.lck
-build
+build_*
+build/*
+!build/SpeedyBeeF405W*
+build/SpeedyBeeF405W*/*
+!build/SpeedyBeeF405W*/hwdef.h
 launch-settings.json
 /renode/
 cmake_install.cmake
