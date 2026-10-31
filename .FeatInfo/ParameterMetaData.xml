@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Params>
+	<ArduPlane>
+		<FLHS_ENABLE>
+			<DisplayName>Full house glider (FLSH) configuration instead of Differencial Spoiler (DSPOILER)</DisplayName>
+			<Description>if set to 1, use the FLSH parameter to control a full house glider (4 surfaces, Aileron, camber, Flap/crow)</Description>
+			<Range>0 1</Range>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_ENABLE>
+		<FLHS_FLP_IN_D>
+			<DisplayName>Full house glider flaps inner down weight</DisplayName>
+			<Description>This is amount of down deflection applied to the two inner surfaces for flap function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_FLP_IN_D>
+		<FLHS_FLP_OUT_U>
+			<DisplayName>Full house glider flaps outer up weight</DisplayName>
+			<Description>This is amount of up deflection applied to the two outer surfaces for flap function (crow). It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_FLP_OUT_U>
+		<FLHS_CMB_IN_D>
+			<DisplayName>Full house glider camber inner down weight</DisplayName>
+			<Description>This is amount of down deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_CMB_IN_D>
+		<FLHS_CMB_IN_U>
+			<DisplayName>Full house glider camber inner up weight</DisplayName>
+			<Description>This is amount of up deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_CMB_IN_U>
+		<FLHS_CMB_OUT_D>
+			<DisplayName>Full house glider camber outer down weight</DisplayName>
+			<Description>This is amount of down deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_CMB_OUT_D>
+		<FLHS_CMB_OUT_U>
+			<DisplayName>Full house glider camber outer up weight</DisplayName>
+			<Description>This is amount of up deflection applied to the two outer surfaces for camber function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_CMB_OUT_U>
+		<FLHS_AIL_IN_D>
+			<DisplayName>Full house glider aileron inner down weight</DisplayName>
+			<Description>This is amount of down deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_AIL_IN_D>
+		<FLHS_AIL_IN_U>
+			<DisplayName>Full house glider aileron inner up weight</DisplayName>
+			<Description>This is amount of up deflection applied to the two inner surfaces for aileron function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_AIL_IN_U>
+		<FLHS_AIL_OUT_D>
+			<DisplayName>Full house glider aileron outer down weight</DisplayName>
+			<Description>This is amount of down deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_AIL_OUT_D>
+		<FLHS_AIL_OUT_U>
+			<DisplayName>Full house glider aileron outer up weight</DisplayName>
+			<Description>This is amount of up deflection applied to the two outer surfaces for aileron function. It is a number from 0 to 100.</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_AIL_OUT_U>
+
+		<KTW_POS_UP>
+			<DisplayName>upper position of KTW for automaic throttle</DisplayName>
+			<Description>This is the position of the KTW servo for activating the motor. (servo movement +/-100)</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</KTW_POS_UP>
+		<KTW_POS_FREE>
+			<DisplayName>lowest position of KTW for free running motor</DisplayName>
+			<Description>This is the lowest position of the KTW servo, that the motor is enabled. (servo movement +/-100)</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</KTW_POS_FREE>
+		<KTW_SLEW>
+			<DisplayName>slew rate of the KTW servo</DisplayName>
+			<Description>this is the (maximum) speed of the KTW servo (%/sec for the full movement)</Description>
+			<Range>0 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</KTW_SLEW>
+	</ArduPlane>
+</Params>
