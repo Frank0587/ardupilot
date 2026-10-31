@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE UAVCAN_NODE_STATUS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_UAVCAN_NODE_STATUS 310
 
 
@@ -64,7 +66,7 @@ typedef struct __mavlink_uavcan_node_status_t {
  * @param vendor_specific_status_code  Vendor-specific status information.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavcan_node_status_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint32_t uptime_sec, uint8_t health, uint8_t mode, uint8_t sub_mode, uint16_t vendor_specific_status_code)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -108,7 +110,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_pack(uint8_t system_id, ui
  * @param vendor_specific_status_code  Vendor-specific status information.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavcan_node_status_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t time_usec, uint32_t uptime_sec, uint8_t health, uint8_t mode, uint8_t sub_mode, uint16_t vendor_specific_status_code)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -137,7 +139,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_pack_status(uint8_t system
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN, 0);
 #endif
 }
 
@@ -155,7 +157,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_pack_status(uint8_t system
  * @param vendor_specific_status_code  Vendor-specific status information.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_uavcan_node_status_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint32_t uptime_sec,uint8_t health,uint8_t mode,uint8_t sub_mode,uint16_t vendor_specific_status_code)
 {
@@ -193,7 +195,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
+static inline uint16_t mavlink_msg_uavcan_node_status_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
 {
     return mavlink_msg_uavcan_node_status_pack(system_id, component_id, msg, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode, uavcan_node_status->vendor_specific_status_code);
 }
@@ -207,7 +209,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
+static inline uint16_t mavlink_msg_uavcan_node_status_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
 {
     return mavlink_msg_uavcan_node_status_pack_chan(system_id, component_id, chan, msg, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode, uavcan_node_status->vendor_specific_status_code);
 }
@@ -221,7 +223,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_encode_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
+static inline uint16_t mavlink_msg_uavcan_node_status_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
 {
     return mavlink_msg_uavcan_node_status_pack_status(system_id, component_id, _status, msg,  uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode, uavcan_node_status->vendor_specific_status_code);
 }
@@ -280,7 +282,7 @@ static inline void mavlink_msg_uavcan_node_status_send_struct(mavlink_channel_t 
 
 #if MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -392,9 +394,10 @@ static inline void mavlink_msg_uavcan_node_status_decode(const mavlink_message_t
     uavcan_node_status->health = mavlink_msg_uavcan_node_status_get_health(msg);
     uavcan_node_status->mode = mavlink_msg_uavcan_node_status_get_mode(msg);
     uavcan_node_status->sub_mode = mavlink_msg_uavcan_node_status_get_sub_mode(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN? msg->len : MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN;
-        memset(uavcan_node_status, 0, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN ? msg->len : MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN;
+    memset(uavcan_node_status, 0, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN);
     memcpy(uavcan_node_status, _MAV_PAYLOAD(msg), len);
 #endif
 }

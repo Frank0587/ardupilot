@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE GPS_RTCM_DATA PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_GPS_RTCM_DATA 233
 
 
@@ -52,7 +54,7 @@ typedef struct __mavlink_gps_rtcm_data_t {
  * @param data  RTCM message (may be fragmented)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps_rtcm_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_gps_rtcm_data_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t flags, uint8_t len, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -85,7 +87,7 @@ static inline uint16_t mavlink_msg_gps_rtcm_data_pack(uint8_t system_id, uint8_t
  * @param data  RTCM message (may be fragmented)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps_rtcm_data_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_gps_rtcm_data_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t flags, uint8_t len, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -106,7 +108,7 @@ static inline uint16_t mavlink_msg_gps_rtcm_data_pack_status(uint8_t system_id, 
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_GPS_RTCM_DATA_MIN_LEN, MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN, MAVLINK_MSG_ID_GPS_RTCM_DATA_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_GPS_RTCM_DATA_MIN_LEN, MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_GPS_RTCM_DATA_MIN_LEN, MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN, 0);
 #endif
 }
 
@@ -121,7 +123,7 @@ static inline uint16_t mavlink_msg_gps_rtcm_data_pack_status(uint8_t system_id, 
  * @param data  RTCM message (may be fragmented)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps_rtcm_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_gps_rtcm_data_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t flags,uint8_t len,const uint8_t *data)
 {
@@ -151,7 +153,7 @@ static inline uint16_t mavlink_msg_gps_rtcm_data_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param gps_rtcm_data C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps_rtcm_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps_rtcm_data_t* gps_rtcm_data)
+static inline uint16_t mavlink_msg_gps_rtcm_data_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps_rtcm_data_t* gps_rtcm_data)
 {
     return mavlink_msg_gps_rtcm_data_pack(system_id, component_id, msg, gps_rtcm_data->flags, gps_rtcm_data->len, gps_rtcm_data->data);
 }
@@ -165,7 +167,7 @@ static inline uint16_t mavlink_msg_gps_rtcm_data_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param gps_rtcm_data C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps_rtcm_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps_rtcm_data_t* gps_rtcm_data)
+static inline uint16_t mavlink_msg_gps_rtcm_data_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps_rtcm_data_t* gps_rtcm_data)
 {
     return mavlink_msg_gps_rtcm_data_pack_chan(system_id, component_id, chan, msg, gps_rtcm_data->flags, gps_rtcm_data->len, gps_rtcm_data->data);
 }
@@ -179,7 +181,7 @@ static inline uint16_t mavlink_msg_gps_rtcm_data_encode_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param gps_rtcm_data C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps_rtcm_data_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_gps_rtcm_data_t* gps_rtcm_data)
+static inline uint16_t mavlink_msg_gps_rtcm_data_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_gps_rtcm_data_t* gps_rtcm_data)
 {
     return mavlink_msg_gps_rtcm_data_pack_status(system_id, component_id, _status, msg,  gps_rtcm_data->flags, gps_rtcm_data->len, gps_rtcm_data->data);
 }
@@ -227,7 +229,7 @@ static inline void mavlink_msg_gps_rtcm_data_send_struct(mavlink_channel_t chan,
 
 #if MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -298,9 +300,10 @@ static inline void mavlink_msg_gps_rtcm_data_decode(const mavlink_message_t* msg
     gps_rtcm_data->flags = mavlink_msg_gps_rtcm_data_get_flags(msg);
     gps_rtcm_data->len = mavlink_msg_gps_rtcm_data_get_len(msg);
     mavlink_msg_gps_rtcm_data_get_data(msg, gps_rtcm_data->data);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN? msg->len : MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN;
-        memset(gps_rtcm_data, 0, MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN ? msg->len : MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN;
+    memset(gps_rtcm_data, 0, MAVLINK_MSG_ID_GPS_RTCM_DATA_LEN);
     memcpy(gps_rtcm_data, _MAV_PAYLOAD(msg), len);
 #endif
 }

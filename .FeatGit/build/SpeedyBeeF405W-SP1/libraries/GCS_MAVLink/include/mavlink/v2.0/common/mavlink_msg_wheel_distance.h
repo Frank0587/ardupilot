@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE WHEEL_DISTANCE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_WHEEL_DISTANCE 9000
 
 
@@ -52,7 +54,7 @@ typedef struct __mavlink_wheel_distance_t {
  * @param distance [m] Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wheel_distance_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_wheel_distance_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t count, const double *distance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -85,7 +87,7 @@ static inline uint16_t mavlink_msg_wheel_distance_pack(uint8_t system_id, uint8_
  * @param distance [m] Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wheel_distance_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_wheel_distance_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t count, const double *distance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -106,7 +108,7 @@ static inline uint16_t mavlink_msg_wheel_distance_pack_status(uint8_t system_id,
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN, 0);
 #endif
 }
 
@@ -121,7 +123,7 @@ static inline uint16_t mavlink_msg_wheel_distance_pack_status(uint8_t system_id,
  * @param distance [m] Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint8_t count,const double *distance)
 {
@@ -151,7 +153,7 @@ static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param wheel_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wheel_distance_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
+static inline uint16_t mavlink_msg_wheel_distance_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
 {
     return mavlink_msg_wheel_distance_pack(system_id, component_id, msg, wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
 }
@@ -165,7 +167,7 @@ static inline uint16_t mavlink_msg_wheel_distance_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param wheel_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wheel_distance_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
+static inline uint16_t mavlink_msg_wheel_distance_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
 {
     return mavlink_msg_wheel_distance_pack_chan(system_id, component_id, chan, msg, wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
 }
@@ -179,7 +181,7 @@ static inline uint16_t mavlink_msg_wheel_distance_encode_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param wheel_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wheel_distance_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
+static inline uint16_t mavlink_msg_wheel_distance_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
 {
     return mavlink_msg_wheel_distance_pack_status(system_id, component_id, _status, msg,  wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
 }
@@ -227,7 +229,7 @@ static inline void mavlink_msg_wheel_distance_send_struct(mavlink_channel_t chan
 
 #if MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -298,9 +300,10 @@ static inline void mavlink_msg_wheel_distance_decode(const mavlink_message_t* ms
     wheel_distance->time_usec = mavlink_msg_wheel_distance_get_time_usec(msg);
     mavlink_msg_wheel_distance_get_distance(msg, wheel_distance->distance);
     wheel_distance->count = mavlink_msg_wheel_distance_get_count(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN? msg->len : MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN;
-        memset(wheel_distance, 0, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN ? msg->len : MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN;
+    memset(wheel_distance, 0, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN);
     memcpy(wheel_distance, _MAV_PAYLOAD(msg), len);
 #endif
 }

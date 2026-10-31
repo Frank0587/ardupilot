@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE ARRAY_TEST_0 PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_ARRAY_TEST_0 17150
 
 
@@ -63,7 +65,7 @@ typedef struct __mavlink_array_test_0_t {
  * @param ar_u32  Value array
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_array_test_0_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_array_test_0_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t v1, const int8_t *ar_i8, const uint8_t *ar_u8, const uint16_t *ar_u16, const uint32_t *ar_u32)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -102,7 +104,7 @@ static inline uint16_t mavlink_msg_array_test_0_pack(uint8_t system_id, uint8_t 
  * @param ar_u32  Value array
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_array_test_0_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_array_test_0_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t v1, const int8_t *ar_i8, const uint8_t *ar_u8, const uint16_t *ar_u16, const uint32_t *ar_u32)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -127,7 +129,7 @@ static inline uint16_t mavlink_msg_array_test_0_pack_status(uint8_t system_id, u
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ARRAY_TEST_0_MIN_LEN, MAVLINK_MSG_ID_ARRAY_TEST_0_LEN, MAVLINK_MSG_ID_ARRAY_TEST_0_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ARRAY_TEST_0_MIN_LEN, MAVLINK_MSG_ID_ARRAY_TEST_0_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ARRAY_TEST_0_MIN_LEN, MAVLINK_MSG_ID_ARRAY_TEST_0_LEN, 0);
 #endif
 }
 
@@ -144,7 +146,7 @@ static inline uint16_t mavlink_msg_array_test_0_pack_status(uint8_t system_id, u
  * @param ar_u32  Value array
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_array_test_0_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_array_test_0_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t v1,const int8_t *ar_i8,const uint8_t *ar_u8,const uint16_t *ar_u16,const uint32_t *ar_u32)
 {
@@ -178,7 +180,7 @@ static inline uint16_t mavlink_msg_array_test_0_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param array_test_0 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_array_test_0_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_array_test_0_t* array_test_0)
+static inline uint16_t mavlink_msg_array_test_0_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_array_test_0_t* array_test_0)
 {
     return mavlink_msg_array_test_0_pack(system_id, component_id, msg, array_test_0->v1, array_test_0->ar_i8, array_test_0->ar_u8, array_test_0->ar_u16, array_test_0->ar_u32);
 }
@@ -192,7 +194,7 @@ static inline uint16_t mavlink_msg_array_test_0_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param array_test_0 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_array_test_0_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_array_test_0_t* array_test_0)
+static inline uint16_t mavlink_msg_array_test_0_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_array_test_0_t* array_test_0)
 {
     return mavlink_msg_array_test_0_pack_chan(system_id, component_id, chan, msg, array_test_0->v1, array_test_0->ar_i8, array_test_0->ar_u8, array_test_0->ar_u16, array_test_0->ar_u32);
 }
@@ -206,7 +208,7 @@ static inline uint16_t mavlink_msg_array_test_0_encode_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param array_test_0 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_array_test_0_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_array_test_0_t* array_test_0)
+static inline uint16_t mavlink_msg_array_test_0_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_array_test_0_t* array_test_0)
 {
     return mavlink_msg_array_test_0_pack_status(system_id, component_id, _status, msg,  array_test_0->v1, array_test_0->ar_i8, array_test_0->ar_u8, array_test_0->ar_u16, array_test_0->ar_u32);
 }
@@ -260,7 +262,7 @@ static inline void mavlink_msg_array_test_0_send_struct(mavlink_channel_t chan, 
 
 #if MAVLINK_MSG_ID_ARRAY_TEST_0_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -357,9 +359,10 @@ static inline void mavlink_msg_array_test_0_decode(const mavlink_message_t* msg,
     array_test_0->v1 = mavlink_msg_array_test_0_get_v1(msg);
     mavlink_msg_array_test_0_get_ar_i8(msg, array_test_0->ar_i8);
     mavlink_msg_array_test_0_get_ar_u8(msg, array_test_0->ar_u8);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ARRAY_TEST_0_LEN? msg->len : MAVLINK_MSG_ID_ARRAY_TEST_0_LEN;
-        memset(array_test_0, 0, MAVLINK_MSG_ID_ARRAY_TEST_0_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_ARRAY_TEST_0_LEN ? msg->len : MAVLINK_MSG_ID_ARRAY_TEST_0_LEN;
+    memset(array_test_0, 0, MAVLINK_MSG_ID_ARRAY_TEST_0_LEN);
     memcpy(array_test_0, _MAV_PAYLOAD(msg), len);
 #endif
 }

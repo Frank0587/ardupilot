@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE QSHOT_STATUS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_QSHOT_STATUS 60020
 
 
@@ -48,7 +50,8 @@ typedef struct __mavlink_qshot_status_t {
  * @param shot_state  Current state in the shot. States are specific to the selected shot mode.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_qshot_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_qshot_status_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint16_t mode, uint16_t shot_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -80,7 +83,7 @@ static inline uint16_t mavlink_msg_qshot_status_pack(uint8_t system_id, uint8_t 
  * @param shot_state  Current state in the shot. States are specific to the selected shot mode.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_qshot_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_qshot_status_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint16_t mode, uint16_t shot_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +104,7 @@ static inline uint16_t mavlink_msg_qshot_status_pack_status(uint8_t system_id, u
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_QSHOT_STATUS_MIN_LEN, MAVLINK_MSG_ID_QSHOT_STATUS_LEN, MAVLINK_MSG_ID_QSHOT_STATUS_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_QSHOT_STATUS_MIN_LEN, MAVLINK_MSG_ID_QSHOT_STATUS_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_QSHOT_STATUS_MIN_LEN, MAVLINK_MSG_ID_QSHOT_STATUS_LEN, 0);
 #endif
 }
 
@@ -115,7 +118,8 @@ static inline uint16_t mavlink_msg_qshot_status_pack_status(uint8_t system_id, u
  * @param shot_state  Current state in the shot. States are specific to the selected shot mode.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_qshot_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_qshot_status_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint16_t mode,uint16_t shot_state)
 {
@@ -145,7 +149,8 @@ static inline uint16_t mavlink_msg_qshot_status_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param qshot_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_qshot_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_qshot_status_t* qshot_status)
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_qshot_status_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_qshot_status_t* qshot_status)
 {
     return mavlink_msg_qshot_status_pack(system_id, component_id, msg, qshot_status->mode, qshot_status->shot_state);
 }
@@ -159,7 +164,8 @@ static inline uint16_t mavlink_msg_qshot_status_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param qshot_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_qshot_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_qshot_status_t* qshot_status)
+MAVLINK_WIP
+static inline uint16_t mavlink_msg_qshot_status_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_qshot_status_t* qshot_status)
 {
     return mavlink_msg_qshot_status_pack_chan(system_id, component_id, chan, msg, qshot_status->mode, qshot_status->shot_state);
 }
@@ -173,7 +179,7 @@ static inline uint16_t mavlink_msg_qshot_status_encode_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param qshot_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_qshot_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_qshot_status_t* qshot_status)
+static inline uint16_t mavlink_msg_qshot_status_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_qshot_status_t* qshot_status)
 {
     return mavlink_msg_qshot_status_pack_status(system_id, component_id, _status, msg,  qshot_status->mode, qshot_status->shot_state);
 }
@@ -187,6 +193,7 @@ static inline uint16_t mavlink_msg_qshot_status_encode_status(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
+MAVLINK_WIP
 static inline void mavlink_msg_qshot_status_send(mavlink_channel_t chan, uint16_t mode, uint16_t shot_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -209,6 +216,7 @@ static inline void mavlink_msg_qshot_status_send(mavlink_channel_t chan, uint16_
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
+MAVLINK_WIP
 static inline void mavlink_msg_qshot_status_send_struct(mavlink_channel_t chan, const mavlink_qshot_status_t* qshot_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -220,12 +228,13 @@ static inline void mavlink_msg_qshot_status_send_struct(mavlink_channel_t chan, 
 
 #if MAVLINK_MSG_ID_QSHOT_STATUS_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
+MAVLINK_WIP
 static inline void mavlink_msg_qshot_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint16_t mode, uint16_t shot_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -254,6 +263,7 @@ static inline void mavlink_msg_qshot_status_send_buf(mavlink_message_t *msgbuf, 
  *
  * @return  Current shot mode.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_qshot_status_get_mode(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  0);
@@ -264,6 +274,7 @@ static inline uint16_t mavlink_msg_qshot_status_get_mode(const mavlink_message_t
  *
  * @return  Current state in the shot. States are specific to the selected shot mode.
  */
+MAVLINK_WIP
 static inline uint16_t mavlink_msg_qshot_status_get_shot_state(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg,  2);
@@ -275,14 +286,16 @@ static inline uint16_t mavlink_msg_qshot_status_get_shot_state(const mavlink_mes
  * @param msg The message to decode
  * @param qshot_status C-struct to decode the message contents into
  */
+MAVLINK_WIP
 static inline void mavlink_msg_qshot_status_decode(const mavlink_message_t* msg, mavlink_qshot_status_t* qshot_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     qshot_status->mode = mavlink_msg_qshot_status_get_mode(msg);
     qshot_status->shot_state = mavlink_msg_qshot_status_get_shot_state(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_QSHOT_STATUS_LEN? msg->len : MAVLINK_MSG_ID_QSHOT_STATUS_LEN;
-        memset(qshot_status, 0, MAVLINK_MSG_ID_QSHOT_STATUS_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_QSHOT_STATUS_LEN ? msg->len : MAVLINK_MSG_ID_QSHOT_STATUS_LEN;
+    memset(qshot_status, 0, MAVLINK_MSG_ID_QSHOT_STATUS_LEN);
     memcpy(qshot_status, _MAV_PAYLOAD(msg), len);
 #endif
 }

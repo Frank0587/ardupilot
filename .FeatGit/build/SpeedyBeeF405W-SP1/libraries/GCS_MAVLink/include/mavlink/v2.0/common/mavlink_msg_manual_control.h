@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE MANUAL_CONTROL PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_MANUAL_CONTROL 69
 
 MAVPACKED(
@@ -104,8 +106,8 @@ typedef struct __mavlink_manual_control_t {
  * @param aux6  Aux continuous input field 6. Normalized in the range [-1000,1000]. Purpose defined by recipient. Valid data if bit 7 of enabled_extensions field is set. 0 if bit 7 is unset.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
+static inline uint16_t mavlink_msg_manual_control_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_CONTROL_LEN];
@@ -114,7 +116,7 @@ static inline uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_
     _mav_put_int16_t(buf, 4, z);
     _mav_put_int16_t(buf, 6, r);
     _mav_put_uint16_t(buf, 8, buttons);
-    _mav_put_uint8_t(buf, 10, target);
+    _mav_put_uint8_t(buf, 10, mavlink_msg_target_field(target));
     _mav_put_uint16_t(buf, 11, buttons2);
     _mav_put_uint8_t(buf, 13, enabled_extensions);
     _mav_put_int16_t(buf, 14, s);
@@ -134,7 +136,7 @@ static inline uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_
     packet.z = z;
     packet.r = r;
     packet.buttons = buttons;
-    packet.target = target;
+    packet.target = mavlink_msg_target_field(target);
     packet.buttons2 = buttons2;
     packet.enabled_extensions = enabled_extensions;
     packet.s = s;
@@ -150,7 +152,7 @@ static inline uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_MANUAL_CONTROL;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    return mavlink_finalize_message_target(msg, system_id, component_id, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 }
 
 /**
@@ -178,8 +180,8 @@ static inline uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_
  * @param aux6  Aux continuous input field 6. Normalized in the range [-1000,1000]. Purpose defined by recipient. Valid data if bit 7 of enabled_extensions field is set. 0 if bit 7 is unset.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_manual_control_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
+static inline uint16_t mavlink_msg_manual_control_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint32_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_CONTROL_LEN];
@@ -188,7 +190,7 @@ static inline uint16_t mavlink_msg_manual_control_pack_status(uint8_t system_id,
     _mav_put_int16_t(buf, 4, z);
     _mav_put_int16_t(buf, 6, r);
     _mav_put_uint16_t(buf, 8, buttons);
-    _mav_put_uint8_t(buf, 10, target);
+    _mav_put_uint8_t(buf, 10, mavlink_msg_target_field(target));
     _mav_put_uint16_t(buf, 11, buttons2);
     _mav_put_uint8_t(buf, 13, enabled_extensions);
     _mav_put_int16_t(buf, 14, s);
@@ -208,7 +210,7 @@ static inline uint16_t mavlink_msg_manual_control_pack_status(uint8_t system_id,
     packet.z = z;
     packet.r = r;
     packet.buttons = buttons;
-    packet.target = target;
+    packet.target = mavlink_msg_target_field(target);
     packet.buttons2 = buttons2;
     packet.enabled_extensions = enabled_extensions;
     packet.s = s;
@@ -225,9 +227,9 @@ static inline uint16_t mavlink_msg_manual_control_pack_status(uint8_t system_id,
 
     msg->msgid = MAVLINK_MSG_ID_MANUAL_CONTROL;
 #if MAVLINK_CRC_EXTRA
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    return mavlink_finalize_message_buffer_target(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN);
+    return mavlink_finalize_message_buffer_target(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, 0, target);
 #endif
 }
 
@@ -255,9 +257,9 @@ static inline uint16_t mavlink_msg_manual_control_pack_status(uint8_t system_id,
  * @param aux6  Aux continuous input field 6. Normalized in the range [-1000,1000]. Purpose defined by recipient. Valid data if bit 7 of enabled_extensions field is set. 0 if bit 7 is unset.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_manual_control_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target,int16_t x,int16_t y,int16_t z,int16_t r,uint16_t buttons,uint16_t buttons2,uint8_t enabled_extensions,int16_t s,int16_t t,int16_t aux1,int16_t aux2,int16_t aux3,int16_t aux4,int16_t aux5,int16_t aux6)
+                                   uint32_t target,int16_t x,int16_t y,int16_t z,int16_t r,uint16_t buttons,uint16_t buttons2,uint8_t enabled_extensions,int16_t s,int16_t t,int16_t aux1,int16_t aux2,int16_t aux3,int16_t aux4,int16_t aux5,int16_t aux6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_CONTROL_LEN];
@@ -266,7 +268,7 @@ static inline uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, u
     _mav_put_int16_t(buf, 4, z);
     _mav_put_int16_t(buf, 6, r);
     _mav_put_uint16_t(buf, 8, buttons);
-    _mav_put_uint8_t(buf, 10, target);
+    _mav_put_uint8_t(buf, 10, mavlink_msg_target_field(target));
     _mav_put_uint16_t(buf, 11, buttons2);
     _mav_put_uint8_t(buf, 13, enabled_extensions);
     _mav_put_int16_t(buf, 14, s);
@@ -286,7 +288,7 @@ static inline uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, u
     packet.z = z;
     packet.r = r;
     packet.buttons = buttons;
-    packet.target = target;
+    packet.target = mavlink_msg_target_field(target);
     packet.buttons2 = buttons2;
     packet.enabled_extensions = enabled_extensions;
     packet.s = s;
@@ -302,7 +304,7 @@ static inline uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_MANUAL_CONTROL;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    return mavlink_finalize_message_chan_target(msg, system_id, component_id, chan, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 }
 
 /**
@@ -313,7 +315,7 @@ static inline uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param manual_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_manual_control_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
+static inline uint16_t mavlink_msg_manual_control_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
 {
     return mavlink_msg_manual_control_pack(system_id, component_id, msg, manual_control->target, manual_control->x, manual_control->y, manual_control->z, manual_control->r, manual_control->buttons, manual_control->buttons2, manual_control->enabled_extensions, manual_control->s, manual_control->t, manual_control->aux1, manual_control->aux2, manual_control->aux3, manual_control->aux4, manual_control->aux5, manual_control->aux6);
 }
@@ -327,7 +329,7 @@ static inline uint16_t mavlink_msg_manual_control_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param manual_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_manual_control_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
+static inline uint16_t mavlink_msg_manual_control_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
 {
     return mavlink_msg_manual_control_pack_chan(system_id, component_id, chan, msg, manual_control->target, manual_control->x, manual_control->y, manual_control->z, manual_control->r, manual_control->buttons, manual_control->buttons2, manual_control->enabled_extensions, manual_control->s, manual_control->t, manual_control->aux1, manual_control->aux2, manual_control->aux3, manual_control->aux4, manual_control->aux5, manual_control->aux6);
 }
@@ -341,7 +343,7 @@ static inline uint16_t mavlink_msg_manual_control_encode_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param manual_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_manual_control_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
+static inline uint16_t mavlink_msg_manual_control_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
 {
     return mavlink_msg_manual_control_pack_status(system_id, component_id, _status, msg,  manual_control->target, manual_control->x, manual_control->y, manual_control->z, manual_control->r, manual_control->buttons, manual_control->buttons2, manual_control->enabled_extensions, manual_control->s, manual_control->t, manual_control->aux1, manual_control->aux2, manual_control->aux3, manual_control->aux4, manual_control->aux5, manual_control->aux6);
 }
@@ -369,7 +371,7 @@ static inline uint16_t mavlink_msg_manual_control_encode_status(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
+static inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint32_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_CONTROL_LEN];
@@ -378,7 +380,7 @@ static inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8
     _mav_put_int16_t(buf, 4, z);
     _mav_put_int16_t(buf, 6, r);
     _mav_put_uint16_t(buf, 8, buttons);
-    _mav_put_uint8_t(buf, 10, target);
+    _mav_put_uint8_t(buf, 10, mavlink_msg_target_field(target));
     _mav_put_uint16_t(buf, 11, buttons2);
     _mav_put_uint8_t(buf, 13, enabled_extensions);
     _mav_put_int16_t(buf, 14, s);
@@ -390,7 +392,7 @@ static inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8
     _mav_put_int16_t(buf, 26, aux5);
     _mav_put_int16_t(buf, 28, aux6);
 
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, buf, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, buf, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 #else
     mavlink_manual_control_t packet;
     packet.x = x;
@@ -398,7 +400,7 @@ static inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8
     packet.z = z;
     packet.r = r;
     packet.buttons = buttons;
-    packet.target = target;
+    packet.target = mavlink_msg_target_field(target);
     packet.buttons2 = buttons2;
     packet.enabled_extensions = enabled_extensions;
     packet.s = s;
@@ -410,7 +412,7 @@ static inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8
     packet.aux5 = aux5;
     packet.aux6 = aux6;
 
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, (const char *)&packet, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, (const char *)&packet, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 #endif
 }
 
@@ -430,13 +432,13 @@ static inline void mavlink_msg_manual_control_send_struct(mavlink_channel_t chan
 
 #if MAVLINK_MSG_ID_MANUAL_CONTROL_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
+static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons, uint16_t buttons2, uint8_t enabled_extensions, int16_t s, int16_t t, int16_t aux1, int16_t aux2, int16_t aux3, int16_t aux4, int16_t aux5, int16_t aux6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -445,7 +447,7 @@ static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf
     _mav_put_int16_t(buf, 4, z);
     _mav_put_int16_t(buf, 6, r);
     _mav_put_uint16_t(buf, 8, buttons);
-    _mav_put_uint8_t(buf, 10, target);
+    _mav_put_uint8_t(buf, 10, mavlink_msg_target_field(target));
     _mav_put_uint16_t(buf, 11, buttons2);
     _mav_put_uint8_t(buf, 13, enabled_extensions);
     _mav_put_int16_t(buf, 14, s);
@@ -457,7 +459,7 @@ static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf
     _mav_put_int16_t(buf, 26, aux5);
     _mav_put_int16_t(buf, 28, aux6);
 
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, buf, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, buf, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 #else
     mavlink_manual_control_t *packet = (mavlink_manual_control_t *)msgbuf;
     packet->x = x;
@@ -465,7 +467,7 @@ static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf
     packet->z = z;
     packet->r = r;
     packet->buttons = buttons;
-    packet->target = target;
+    packet->target = mavlink_msg_target_field(target);
     packet->buttons2 = buttons2;
     packet->enabled_extensions = enabled_extensions;
     packet->s = s;
@@ -477,7 +479,7 @@ static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf
     packet->aux5 = aux5;
     packet->aux6 = aux6;
 
-    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, (const char *)packet, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC);
+    _mav_finalize_message_chan_send_target(chan, MAVLINK_MSG_ID_MANUAL_CONTROL, (const char *)packet, MAVLINK_MSG_ID_MANUAL_CONTROL_MIN_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, MAVLINK_MSG_ID_MANUAL_CONTROL_CRC, target);
 #endif
 }
 #endif
@@ -486,16 +488,6 @@ static inline void mavlink_msg_manual_control_send_buf(mavlink_message_t *msgbuf
 
 // MESSAGE MANUAL_CONTROL UNPACKING
 
-
-/**
- * @brief Get field target from manual_control message
- *
- * @return  The system to be controlled.
- */
-static inline uint8_t mavlink_msg_manual_control_get_target(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint8_t(msg,  10);
-}
 
 /**
  * @brief Get field x from manual_control message
@@ -661,7 +653,7 @@ static inline void mavlink_msg_manual_control_decode(const mavlink_message_t* ms
     manual_control->z = mavlink_msg_manual_control_get_z(msg);
     manual_control->r = mavlink_msg_manual_control_get_r(msg);
     manual_control->buttons = mavlink_msg_manual_control_get_buttons(msg);
-    manual_control->target = mavlink_msg_manual_control_get_target(msg);
+    manual_control->target = _MAV_RETURN_uint8_t(msg, 10);
     manual_control->buttons2 = mavlink_msg_manual_control_get_buttons2(msg);
     manual_control->enabled_extensions = mavlink_msg_manual_control_get_enabled_extensions(msg);
     manual_control->s = mavlink_msg_manual_control_get_s(msg);
@@ -672,9 +664,14 @@ static inline void mavlink_msg_manual_control_decode(const mavlink_message_t* ms
     manual_control->aux4 = mavlink_msg_manual_control_get_aux4(msg);
     manual_control->aux5 = mavlink_msg_manual_control_get_aux5(msg);
     manual_control->aux6 = mavlink_msg_manual_control_get_aux6(msg);
+    if (msg->incompat_flags & MAVLINK_IFLAG_TARGET32) {
+        // This uint8_t field cannot retain a wide target. The sentinel is NOT reserved.
+        // For routing use mavlink_msg_get_target_sysid(msg, mavlink_get_msg_entry(msg->msgid)).
+        // To relay after edits, pass that full target to _pack*(); _encode*() loses it.
+        manual_control->target = mavlink_msg_target_field(msg->target_sysid);
+    }
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_MANUAL_CONTROL_LEN? msg->len : MAVLINK_MSG_ID_MANUAL_CONTROL_LEN;
-        memset(manual_control, 0, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN);
-    memcpy(manual_control, _MAV_PAYLOAD(msg), len);
+    mavlink_msg_decode_target(msg, manual_control, MAVLINK_MSG_ID_MANUAL_CONTROL_LEN, 10);
 #endif
 }
