@@ -112,6 +112,14 @@ const AP_Param::GroupInfo RC_Channels::var_info[] = {
     // @Units: s
     AP_GROUPINFO("_FS_TIMEOUT", 35, RC_CHANNELS_SUBCLASS, _fs_timeout, 1.0),
 
+    // @Param: _DIR_MIX_END
+    // @DisplayName: End of the mixing zone when direct stick mix
+    // @Description: when direct stick mixing is used (e.g. stabilized mode) the controller output is mixed to the result up to this stick input level, over this level only the the stick input is used. Default is 80%.
+    // @User: Standard
+    // @Range: 5 100
+    // @Units: %
+    AP_GROUPINFO("_DIR_MIX_END", 36, RC_CHANNELS_SUBCLASS, _dir_mix_end, 80),
+
     AP_GROUPEND
 };
 
