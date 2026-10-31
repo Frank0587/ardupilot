@@ -204,6 +204,7 @@ void RC_Channel_Plane::init_aux_function(const RC_Channel::AUX_FUNC ch_option,
 #if AP_PLANE_CUSTOMCONTROL_ENABLED
     case AUX_FUNC::CUSTOM_CONTROLLER:
 #endif // AP_PLANE_CUSTOMCONTROL_ENABLED
+    case AUX_FUNC::SP_MANUAL_AIL:
         run_aux_function(ch_option, ch_flag, AuxFuncTrigger::Source::INIT, ch_in);
         break;
 
@@ -312,6 +313,10 @@ bool RC_Channel_Plane::do_aux_function(const AuxFuncTrigger &trigger)
     case AUX_FUNC::SP_KTW:
     case AUX_FUNC::SP_CAMBER:
         break; // input labels, nothing to do
+
+    case AUX_FUNC::SP_MANUAL_AIL:
+        plane.sp_manual_ail = (ch_flag == AuxSwitchPos::HIGH);
+        break;
 
 #if HAL_QUADPLANE_ENABLED
     case AUX_FUNC::Q_ASSIST:

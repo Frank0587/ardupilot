@@ -28012,6 +28012,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28168,6 +28169,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28324,6 +28326,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28480,6 +28483,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28636,6 +28640,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28792,6 +28797,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28948,6 +28954,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29104,6 +29111,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29260,6 +29268,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29416,6 +29425,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29572,6 +29582,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29728,6 +29739,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29884,6 +29896,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -30040,6 +30053,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -30196,6 +30210,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -30352,6 +30367,7 @@
           <value code="79">RunCam OSD Control</value>
           <value code="250">KTW</value>
           <value code="251">Camber</value>
+          <value code="252">Manual Ail in Stabilization</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
