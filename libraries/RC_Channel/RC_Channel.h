@@ -412,6 +412,7 @@ public:
 
         SP_KTW         =        250,       // special use for KTW control
         SP_CAMBER      =        251,       // special use for camber control
+        SP_MANUAL_AIL  =        252,       // manual ailerons in STABILIZE mode
 
 #if AP_SCRIPTING_ENABLED
         // inputs for the use of onboard lua scripting

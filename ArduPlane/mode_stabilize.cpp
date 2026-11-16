@@ -16,7 +16,12 @@ void ModeStabilize::update()
 
 void ModeStabilize::run()
 {
-    plane.stabilize_roll();
+    if (plane.sp_manual_ail) {
+        SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.roll_in_expo(false));
+        plane.rollController.reset();
+    } else {
+        plane.stabilize_roll();
+    }
     plane.stabilize_pitch();
     stabilize_stick_mixing_direct();
     plane.stabilize_yaw();

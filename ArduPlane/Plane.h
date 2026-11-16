@@ -258,6 +258,7 @@ private:
     // Training mode
     bool training_manual_roll;  // user has manual roll control
     bool training_manual_pitch; // user has manual pitch control
+    bool sp_manual_ail;
 
     // should throttle be pass-thru in guided?
     bool guided_throttle_passthru;
