@@ -170,7 +170,6 @@ static constexpr ubx_config_list config_MB_Rover_uart2[] = {
  * M10 specific configuration                                        *
  * Use B1C not B1 for Beidou on M10 to allow solid 5Hz,              *
  * disable Glonass, enable QZSS                                      *
- **********************************************************************/
 static constexpr ubx_config_list config_M10[] = {
     { AP::UBXConfigKey::CFG_SIGNAL_BDS_ENA,       1 },
     { AP::UBXConfigKey::CFG_SIGNAL_BDS_B1_ENA,    0 },
@@ -181,6 +180,7 @@ static constexpr ubx_config_list config_M10[] = {
     { AP::UBXConfigKey::CFG_SIGNAL_QZSS_L1S_ENA,  1 },
     { AP::UBXConfigKey::CFG_NAVSPG_DYNMODEL,       8 },  // Air < 4g
 };
+ **********************************************************************/
 
 /**********************************************************************
  * L5 override configuration                                          *
