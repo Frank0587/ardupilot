@@ -189,10 +189,11 @@ bool AP_RollController::is_underspeed(const float aspeed) const
  Inputs are:
  1) demanded bank angle in centi-degrees
  2) control gain scaler = scaling_speed / aspeed
- 3) boolean which is true when stabilise mode is active
- 4) minimum FBW airspeed (metres/sec)
+ 3) boolean which set the I-part to zero (when stabilized mode is active, until v23)
+ 4) boolean which freeze the I-part (when stabilized mode is active, since v24)
+ 5) boolean which is true when on ground
 */
-float AP_RollController::get_servo_out(int32_t angle_err, float scaler, bool disable_integrator, bool ground_mode)
+float AP_RollController::get_servo_out(int32_t angle_err, float scaler, bool disable_integrator, bool freeze_integrator, bool ground_mode)
 {
     if (gains.tau < 0.05f) {
         gains.tau.set(0.05f);
@@ -233,7 +234,7 @@ float AP_RollController::get_servo_out(int32_t angle_err, float scaler, bool dis
     // the in_recovery flag is single loop only
     in_recovery = false;
 
-    return _get_rate_out(desired_rate, scaler, disable_integrator, get_airspeed(), ground_mode);
+    return _get_rate_out(desired_rate, scaler, disable_integrator, freeze_integrator, get_airspeed(), ground_mode);
 }
 
 /*
