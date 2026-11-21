@@ -26,7 +26,7 @@
 extern const AP_HAL::HAL& hal;
 
 // debug CFGv2 configuration
-#define UBLOX_CFGV2_DEBUGGING 0
+#define UBLOX_CFGV2_DEBUGGING 1
 
 #if UBLOX_CFGV2_DEBUGGING
 #if defined(HAL_BUILD_AP_PERIPH)
