@@ -2,5 +2,9 @@
    "files.eol": "\n",
    
    // Exclude all files from workspace, enabling IntelliSense support for open files only 
-   "python.analysis.exclude": ["**"],
+   "python.analysis.exclude": [
+      "**"
+   ],
+   "cmake.ignoreCMakeListsMissing": true,
+   "C_Cpp.default.compilerPath": "v:\\Embedded\\gcc-arm-none-eabi-10-2020-q4-major\\bin\\arm-none-eabi-gcc.exe",
 }

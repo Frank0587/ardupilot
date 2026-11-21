@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE AVSS_PRS_SYS_STATUS PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS 60050
 
 
@@ -60,7 +62,7 @@ typedef struct __mavlink_avss_prs_sys_status_t {
  * @param charge_status  PRS battery charge statuses
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_avss_prs_sys_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_avss_prs_sys_status_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint32_t error_status, uint32_t battery_status, uint8_t arm_status, uint8_t charge_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +103,7 @@ static inline uint16_t mavlink_msg_avss_prs_sys_status_pack(uint8_t system_id, u
  * @param charge_status  PRS battery charge statuses
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint32_t error_status, uint32_t battery_status, uint8_t arm_status, uint8_t charge_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -128,7 +130,7 @@ static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_status(uint8_t syste
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_MIN_LEN, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_MIN_LEN, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_MIN_LEN, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN, 0);
 #endif
 }
 
@@ -145,7 +147,7 @@ static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_status(uint8_t syste
  * @param charge_status  PRS battery charge statuses
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,uint32_t error_status,uint32_t battery_status,uint8_t arm_status,uint8_t charge_status)
 {
@@ -181,7 +183,7 @@ static inline uint16_t mavlink_msg_avss_prs_sys_status_pack_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param avss_prs_sys_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_avss_prs_sys_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_avss_prs_sys_status_t* avss_prs_sys_status)
+static inline uint16_t mavlink_msg_avss_prs_sys_status_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_avss_prs_sys_status_t* avss_prs_sys_status)
 {
     return mavlink_msg_avss_prs_sys_status_pack(system_id, component_id, msg, avss_prs_sys_status->time_boot_ms, avss_prs_sys_status->error_status, avss_prs_sys_status->battery_status, avss_prs_sys_status->arm_status, avss_prs_sys_status->charge_status);
 }
@@ -195,7 +197,7 @@ static inline uint16_t mavlink_msg_avss_prs_sys_status_encode(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param avss_prs_sys_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_avss_prs_sys_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_avss_prs_sys_status_t* avss_prs_sys_status)
+static inline uint16_t mavlink_msg_avss_prs_sys_status_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_avss_prs_sys_status_t* avss_prs_sys_status)
 {
     return mavlink_msg_avss_prs_sys_status_pack_chan(system_id, component_id, chan, msg, avss_prs_sys_status->time_boot_ms, avss_prs_sys_status->error_status, avss_prs_sys_status->battery_status, avss_prs_sys_status->arm_status, avss_prs_sys_status->charge_status);
 }
@@ -209,7 +211,7 @@ static inline uint16_t mavlink_msg_avss_prs_sys_status_encode_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param avss_prs_sys_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_avss_prs_sys_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_avss_prs_sys_status_t* avss_prs_sys_status)
+static inline uint16_t mavlink_msg_avss_prs_sys_status_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_avss_prs_sys_status_t* avss_prs_sys_status)
 {
     return mavlink_msg_avss_prs_sys_status_pack_status(system_id, component_id, _status, msg,  avss_prs_sys_status->time_boot_ms, avss_prs_sys_status->error_status, avss_prs_sys_status->battery_status, avss_prs_sys_status->arm_status, avss_prs_sys_status->charge_status);
 }
@@ -265,7 +267,7 @@ static inline void mavlink_msg_avss_prs_sys_status_send_struct(mavlink_channel_t
 
 #if MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -364,9 +366,10 @@ static inline void mavlink_msg_avss_prs_sys_status_decode(const mavlink_message_
     avss_prs_sys_status->battery_status = mavlink_msg_avss_prs_sys_status_get_battery_status(msg);
     avss_prs_sys_status->arm_status = mavlink_msg_avss_prs_sys_status_get_arm_status(msg);
     avss_prs_sys_status->charge_status = mavlink_msg_avss_prs_sys_status_get_charge_status(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN? msg->len : MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN;
-        memset(avss_prs_sys_status, 0, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN ? msg->len : MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN;
+    memset(avss_prs_sys_status, 0, MAVLINK_MSG_ID_AVSS_PRS_SYS_STATUS_LEN);
     memcpy(avss_prs_sys_status, _MAV_PAYLOAD(msg), len);
 #endif
 }

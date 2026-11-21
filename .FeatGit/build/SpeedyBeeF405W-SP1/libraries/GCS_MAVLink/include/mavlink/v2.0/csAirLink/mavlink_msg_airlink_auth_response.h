@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE AIRLINK_AUTH_RESPONSE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE 52001
 
 
@@ -44,7 +46,7 @@ typedef struct __mavlink_airlink_auth_response_t {
  * @param resp_type  Response type
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_airlink_auth_response_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_airlink_auth_response_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint8_t resp_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -73,7 +75,7 @@ static inline uint16_t mavlink_msg_airlink_auth_response_pack(uint8_t system_id,
  * @param resp_type  Response type
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_airlink_auth_response_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_airlink_auth_response_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint8_t resp_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -92,7 +94,7 @@ static inline uint16_t mavlink_msg_airlink_auth_response_pack_status(uint8_t sys
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_MIN_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_MIN_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_MIN_LEN, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN, 0);
 #endif
 }
 
@@ -105,7 +107,7 @@ static inline uint16_t mavlink_msg_airlink_auth_response_pack_status(uint8_t sys
  * @param resp_type  Response type
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_airlink_auth_response_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_airlink_auth_response_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t resp_type)
 {
@@ -133,7 +135,7 @@ static inline uint16_t mavlink_msg_airlink_auth_response_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param airlink_auth_response C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_airlink_auth_response_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_airlink_auth_response_t* airlink_auth_response)
+static inline uint16_t mavlink_msg_airlink_auth_response_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_airlink_auth_response_t* airlink_auth_response)
 {
     return mavlink_msg_airlink_auth_response_pack(system_id, component_id, msg, airlink_auth_response->resp_type);
 }
@@ -147,7 +149,7 @@ static inline uint16_t mavlink_msg_airlink_auth_response_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param airlink_auth_response C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_airlink_auth_response_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_airlink_auth_response_t* airlink_auth_response)
+static inline uint16_t mavlink_msg_airlink_auth_response_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_airlink_auth_response_t* airlink_auth_response)
 {
     return mavlink_msg_airlink_auth_response_pack_chan(system_id, component_id, chan, msg, airlink_auth_response->resp_type);
 }
@@ -161,7 +163,7 @@ static inline uint16_t mavlink_msg_airlink_auth_response_encode_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param airlink_auth_response C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_airlink_auth_response_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_airlink_auth_response_t* airlink_auth_response)
+static inline uint16_t mavlink_msg_airlink_auth_response_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_airlink_auth_response_t* airlink_auth_response)
 {
     return mavlink_msg_airlink_auth_response_pack_status(system_id, component_id, _status, msg,  airlink_auth_response->resp_type);
 }
@@ -205,7 +207,7 @@ static inline void mavlink_msg_airlink_auth_response_send_struct(mavlink_channel
 
 #if MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -252,9 +254,10 @@ static inline void mavlink_msg_airlink_auth_response_decode(const mavlink_messag
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     airlink_auth_response->resp_type = mavlink_msg_airlink_auth_response_get_resp_type(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN? msg->len : MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN;
-        memset(airlink_auth_response, 0, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN ? msg->len : MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN;
+    memset(airlink_auth_response, 0, MAVLINK_MSG_ID_AIRLINK_AUTH_RESPONSE_LEN);
     memcpy(airlink_auth_response, _MAV_PAYLOAD(msg), len);
 #endif
 }

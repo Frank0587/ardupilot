@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE PARAM_EXT_VALUE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_PARAM_EXT_VALUE 322
 
 
@@ -61,7 +63,7 @@ typedef struct __mavlink_param_ext_value_t {
  * @param param_index  Index of this parameter
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ext_value_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_param_ext_value_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                const char *param_id, const char *param_value, uint8_t param_type, uint16_t param_count, uint16_t param_index)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -100,7 +102,7 @@ static inline uint16_t mavlink_msg_param_ext_value_pack(uint8_t system_id, uint8
  * @param param_index  Index of this parameter
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ext_value_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_param_ext_value_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                const char *param_id, const char *param_value, uint8_t param_type, uint16_t param_count, uint16_t param_index)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -125,7 +127,7 @@ static inline uint16_t mavlink_msg_param_ext_value_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN, 0);
 #endif
 }
 
@@ -142,7 +144,7 @@ static inline uint16_t mavlink_msg_param_ext_value_pack_status(uint8_t system_id
  * @param param_index  Index of this parameter
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const char *param_id,const char *param_value,uint8_t param_type,uint16_t param_count,uint16_t param_index)
 {
@@ -176,7 +178,7 @@ static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param param_ext_value C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ext_value_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
+static inline uint16_t mavlink_msg_param_ext_value_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
 {
     return mavlink_msg_param_ext_value_pack(system_id, component_id, msg, param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
 }
@@ -190,7 +192,7 @@ static inline uint16_t mavlink_msg_param_ext_value_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param param_ext_value C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ext_value_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
+static inline uint16_t mavlink_msg_param_ext_value_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
 {
     return mavlink_msg_param_ext_value_pack_chan(system_id, component_id, chan, msg, param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
 }
@@ -204,7 +206,7 @@ static inline uint16_t mavlink_msg_param_ext_value_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param param_ext_value C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ext_value_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
+static inline uint16_t mavlink_msg_param_ext_value_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
 {
     return mavlink_msg_param_ext_value_pack_status(system_id, component_id, _status, msg,  param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
 }
@@ -258,7 +260,7 @@ static inline void mavlink_msg_param_ext_value_send_struct(mavlink_channel_t cha
 
 #if MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -355,9 +357,10 @@ static inline void mavlink_msg_param_ext_value_decode(const mavlink_message_t* m
     mavlink_msg_param_ext_value_get_param_id(msg, param_ext_value->param_id);
     mavlink_msg_param_ext_value_get_param_value(msg, param_ext_value->param_value);
     param_ext_value->param_type = mavlink_msg_param_ext_value_get_param_type(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN? msg->len : MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN;
-        memset(param_ext_value, 0, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN ? msg->len : MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN;
+    memset(param_ext_value, 0, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN);
     memcpy(param_ext_value, _MAV_PAYLOAD(msg), len);
 #endif
 }
