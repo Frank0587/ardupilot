@@ -86,28 +86,28 @@
 #define UBLOX_MODULE_LEN 9
 #define UBLOX_PROTVER_LEN 8
 
-#define CONFIG_RATE_NAV      (1<<0)
-#define CONFIG_RATE_POSLLH   (1<<1)
-#define CONFIG_RATE_STATUS   (1<<2)
-#define CONFIG_RATE_SOL      (1<<3)
-#define CONFIG_RATE_VELNED   (1<<4)
-#define CONFIG_RATE_DOP      (1<<5)
-#define CONFIG_RATE_MON_HW   (1<<6)
-#define CONFIG_RATE_MON_HW2  (1<<7)
-#define CONFIG_RATE_RAW      (1<<8)
-#define CONFIG_VERSION       (1<<9)
-#define CONFIG_NAV_SETTINGS  (1<<10)
-#define CONFIG_GNSS          (1<<11)
-#define CONFIG_SBAS          (1<<12)
-#define CONFIG_RATE_PVT      (1<<13)
-#define CONFIG_TP5           (1<<14)
-#define CONFIG_RATE_TIMEGPS  (1<<15)
-#define CONFIG_TMODE_MODE    (1<<16)
-#define CONFIG_RTK_MOVBASE   (1<<17)
-#define CONFIG_TIM_TM2       (1<<18)
-#define CONFIG_F9_M10        (1<<19)
-#define CONFIG_L5            (1<<20)
-#define CONFIG_LAST          (1<<21) // this must always be the last bit
+#define CONFIG_RATE_NAV      (1<<0)  // 0x000001
+#define CONFIG_RATE_POSLLH   (1<<1)  // 0x000002
+#define CONFIG_RATE_STATUS   (1<<2)  // 0x000004
+#define CONFIG_RATE_SOL      (1<<3)  // 0x000008
+#define CONFIG_RATE_VELNED   (1<<4)  // 0x000010
+#define CONFIG_RATE_DOP      (1<<5)  // 0x000020
+#define CONFIG_RATE_MON_HW   (1<<6)  // 0x000040
+#define CONFIG_RATE_MON_HW2  (1<<7)  // 0x000080
+#define CONFIG_RATE_RAW      (1<<8)  // 0x000100
+#define CONFIG_VERSION       (1<<9)  // 0x000200
+#define CONFIG_NAV_SETTINGS  (1<<10) // 0x000400
+#define CONFIG_GNSS          (1<<11) // 0x000800
+#define CONFIG_SBAS          (1<<12) // 0x001000
+#define CONFIG_RATE_PVT      (1<<13) // 0x002000
+#define CONFIG_TP5           (1<<14) // 0x004000
+#define CONFIG_RATE_TIMEGPS  (1<<15) // 0x008000
+#define CONFIG_TMODE_MODE    (1<<16) // 0x010000
+#define CONFIG_RTK_MOVBASE   (1<<17) // 0x020000
+#define CONFIG_TIM_TM2       (1<<18) // 0x040000
+#define CONFIG_F9_M10        (1<<19) // 0x080000
+#define CONFIG_L5            (1<<20) // 0x100000
+#define CONFIG_LAST          (1<<21) // 0x200000 - this must always be the last bit
 
 // = 0x000017
 #define CONFIG_REQUIRED_INITIAL (CONFIG_RATE_NAV | CONFIG_RATE_POSLLH | CONFIG_RATE_STATUS | CONFIG_RATE_VELNED)
@@ -115,7 +115,7 @@
 // = 0x001FFF
 #define CONFIG_ALL (CONFIG_RATE_NAV | CONFIG_RATE_POSLLH | CONFIG_RATE_STATUS | CONFIG_RATE_SOL | CONFIG_RATE_VELNED \
                     | CONFIG_RATE_DOP | CONFIG_RATE_MON_HW | CONFIG_RATE_MON_HW2 | CONFIG_RATE_RAW | CONFIG_VERSION \
-                    | CONFIG_NAV_SETTINGS | CONFIG_GNSS | CONFIG_SBAS)
+                    | CONFIG_NAV_SETTINGS | CONFIG_GNSS | CONFIG_SBAS) 
 
 //Configuration Sub-Sections
 #define SAVE_CFG_IO     (1<<0)
@@ -832,33 +832,33 @@ private:
     };
 
     enum config_step {
-        STEP_START = 0, // init, wait for driver
-        STEP_POLL_SVINFO, // poll svinfo
-        STEP_VERSION,   
-        STEP_PVT,
-        STEP_NAV_RATE, // poll NAV rate
-        STEP_SOL,
-        STEP_PORT,
-        STEP_STATUS,
-        STEP_POSLLH,
-        STEP_VELNED,
-        STEP_TIMEGPS,
-        STEP_POLL_SBAS, // poll SBAS
-        STEP_POLL_NAV, // poll NAV settings
-        STEP_POLL_GNSS, // poll GNSS
-        STEP_POLL_TP5, // poll TP5
-        STEP_TMODE, // set TMODE-MODE
-        STEP_DOP,
-        STEP_MON_HW,
-        STEP_MON_HW2,
-        STEP_RAW,
-        STEP_RAWX,
-        STEP_RTK_MOVBASE, // setup moving baseline
-        STEP_TIM_TM2,
-        STEP_F9_M10,
-        STEP_F9_M10_VALIDATE,
-        STEP_L5,
-        STEP_LAST
+        STEP_START = 0,             // (0) init, wait for driver
+        STEP_POLL_SVINFO,           // (1) poll svinfo
+        STEP_VERSION,               // (2) poll version
+        STEP_PVT,                   // (3) poll PVT
+        STEP_NAV_RATE,              // (4) poll NAV rate
+        STEP_SOL,                   // (5) poll SOL
+        STEP_PORT,                  // (6) poll port
+        STEP_STATUS,                // (7) poll status
+        STEP_POSLLH,                // (8) poll POSLLH
+        STEP_VELNED,                // (9) poll VELNED
+        STEP_TIMEGPS,               // (10) poll TIMEGPS
+        STEP_POLL_SBAS,             // (11) poll SBAS
+        STEP_POLL_NAV,              // (12) poll NAV settings
+        STEP_POLL_GNSS,             // (13) poll GNSS
+        STEP_POLL_TP5,              // (14) poll TP5
+        STEP_TMODE,                 // (15) set TMODE-MODE
+        STEP_DOP,                   // (16) poll DOP
+        STEP_MON_HW,                // (17) poll MON_HW
+        STEP_MON_HW2,               // (18) poll MON_HW2
+        STEP_RAW,                   // (19) poll RAW
+        STEP_RAWX,                  // (20) poll RAWX
+        STEP_RTK_MOVBASE,           // (21) setup moving baseline
+        STEP_TIM_TM2,               // (22) poll TIM_TM2
+        STEP_F9_M10,                // (23) configure F9/M10
+        STEP_F9_M10_VALIDATE,       // (24) validate F9/M10
+        STEP_L5,                    // (25) poll L5
+        STEP_LAST                   // (26) end of configuration steps
     };
 
     // Packet checksum accumulators

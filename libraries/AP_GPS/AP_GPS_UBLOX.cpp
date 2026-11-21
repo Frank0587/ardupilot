@@ -1565,7 +1565,7 @@ AP_GPS_UBLOX::_parse_gps(void)
 
     switch (_msg_id) {
     case MSG_POSLLH:
-        Debug("MSG_POSLLH next_fix=%u", next_fix);
+        Debug("MSG_POSLLH next_fix=%u", (unsigned)next_fix);
         if (havePvtMsg) {
             _unconfigured_messages |= CONFIG_RATE_POSLLH;
             break;
