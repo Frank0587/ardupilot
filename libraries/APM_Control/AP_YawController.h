@@ -19,7 +19,7 @@ public:
     bool rate_control_enabled(void) const { return _rate_enable != 0; }
 
     // get actuator output for sideslip and yaw damping control
-    int32_t get_servo_out(float scaler, bool disable_integrator);
+    int32_t get_servo_out(float scaler, bool disable_integrator, bool freeze_integrator);
 
     // get actuator output for direct rate control
     // desired_rate is in deg/sec. scaler is the surface speed scaler
