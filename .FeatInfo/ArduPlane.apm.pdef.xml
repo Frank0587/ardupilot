@@ -28010,6 +28010,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28164,6 +28166,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28318,6 +28322,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28472,6 +28478,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28626,6 +28634,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28780,6 +28790,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -28934,6 +28946,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29088,6 +29102,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29242,6 +29258,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29396,6 +29414,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29550,6 +29570,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29704,6 +29726,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -29858,6 +29882,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -30012,6 +30038,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -30166,6 +30194,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -30320,6 +30350,8 @@
           <value code="64">Reverse Throttle</value>
           <value code="78">RunCam Control</value>
           <value code="79">RunCam OSD Control</value>
+          <value code="250">KTW</value>
+          <value code="251">Camber</value>
           <value code="300">Scripting1</value>
           <value code="309">Scripting10</value>
           <value code="310">Scripting11</value>
@@ -35316,6 +35348,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -35494,6 +35527,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -35672,6 +35706,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -35850,6 +35885,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -36028,6 +36064,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -36206,6 +36243,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -36384,6 +36422,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -36562,6 +36601,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -36740,6 +36780,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -36918,6 +36959,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -37096,6 +37138,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -37274,6 +37317,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -37452,6 +37496,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -37630,6 +37675,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -37808,6 +37854,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -37986,6 +38033,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -38164,6 +38212,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -38342,6 +38391,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -38520,6 +38570,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -38698,6 +38749,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -38876,6 +38928,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -39054,6 +39107,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -39232,6 +39286,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -39410,6 +39465,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -39588,6 +39644,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -39766,6 +39823,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -39944,6 +40002,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -40122,6 +40181,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -40300,6 +40360,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -40478,6 +40539,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -40656,6 +40718,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
@@ -40834,6 +40897,7 @@
           <value code="28">Gripper</value>
           <value code="26">GroundSteering</value>
           <value code="67">Ignition</value>
+          <value code="190">KTW servo</value>
           <value code="29">LandingGear</value>
           <value code="33">Motor1</value>
           <value code="83">Motor10</value>
