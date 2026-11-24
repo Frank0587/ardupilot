@@ -218,7 +218,7 @@ AP_GPS_UBLOX::_request_next_config(void)
         break;
     case STEP_POLL_GNSS:
         if (last_configured_gnss != params.gnss_mode) {
-            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "u-blox gnss update: 0x%02x -> 0x%02x", uint(last_configured_gnss), uint(params.gnss_mode));
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "u-blox gnss update: 0x%02x -> 0x%02x", (unsigned)last_configured_gnss, (unsigned)params.gnss_mode);
             if (supports_F9_config()) {
                 _unconfigured_messages |= CONFIG_F9_M10;
                 break;
@@ -1428,7 +1428,7 @@ AP_GPS_UBLOX::_parse_gps(void)
 bool
 AP_GPS_UBLOX::_parse_gps(void)
 {
-    if (_legacy_cfg_supported && !gps.option_set(AP_GPS::ForceUBXConfigV2)) {
+    if ((_legacy_cfg_supported && !gps.option_set(AP_GPS::ForceUBXConfigV2)) || _legacy_cfg_only ) {
         if (!_legacy_config_update()) {
             return false;
         }
