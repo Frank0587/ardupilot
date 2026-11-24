@@ -151,6 +151,8 @@ void RC_Channel_Plane::init_aux_function(const RC_Channel::AUX_FUNC ch_option,
     case AUX_FUNC::TAKEOFF:
     case AUX_FUNC::FBWA:
     case AUX_FUNC::AIRBRAKE:
+    case AUX_FUNC::SP_KTW:
+    case AUX_FUNC::SP_CAMBER:
 #if HAL_QUADPLANE_ENABLED
     case AUX_FUNC::QRTL:
     case AUX_FUNC::QSTABILIZE:
@@ -304,6 +306,8 @@ bool RC_Channel_Plane::do_aux_function(const AuxFuncTrigger &trigger)
     case AUX_FUNC::FLAP:
     case AUX_FUNC::FBWA_TAILDRAGGER:
     case AUX_FUNC::AIRBRAKE:
+    case AUX_FUNC::SP_KTW:
+    case AUX_FUNC::SP_CAMBER:
         break; // input labels, nothing to do
 
 #if HAL_QUADPLANE_ENABLED
