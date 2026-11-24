@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE UAVCAN_NODE_INFO PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_UAVCAN_NODE_INFO 311
 
 
@@ -77,7 +79,7 @@ typedef struct __mavlink_uavcan_node_info_t {
  * @param sw_vcs_commit  Version control system (VCS) revision identifier (e.g. git short commit hash). 0 if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -128,7 +130,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint
  * @param sw_vcs_commit  Version control system (VCS) revision identifier (e.g. git short commit hash). 0 if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavcan_node_info_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -161,7 +163,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack_status(uint8_t system_i
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN, 0);
 #endif
 }
 
@@ -182,7 +184,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack_status(uint8_t system_i
  * @param sw_vcs_commit  Version control system (VCS) revision identifier (e.g. git short commit hash). 0 if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint32_t uptime_sec,const char *name,uint8_t hw_version_major,uint8_t hw_version_minor,const uint8_t *hw_unique_id,uint8_t sw_version_major,uint8_t sw_version_minor,uint32_t sw_vcs_commit)
 {
@@ -224,7 +226,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_info C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
+static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
     return mavlink_msg_uavcan_node_info_pack(system_id, component_id, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
@@ -238,7 +240,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_info C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
+static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
     return mavlink_msg_uavcan_node_info_pack_chan(system_id, component_id, chan, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
@@ -252,7 +254,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_info C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
+static inline uint16_t mavlink_msg_uavcan_node_info_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
     return mavlink_msg_uavcan_node_info_pack_status(system_id, component_id, _status, msg,  uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
@@ -318,7 +320,7 @@ static inline void mavlink_msg_uavcan_node_info_send_struct(mavlink_channel_t ch
 
 #if MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -467,9 +469,10 @@ static inline void mavlink_msg_uavcan_node_info_decode(const mavlink_message_t* 
     mavlink_msg_uavcan_node_info_get_hw_unique_id(msg, uavcan_node_info->hw_unique_id);
     uavcan_node_info->sw_version_major = mavlink_msg_uavcan_node_info_get_sw_version_major(msg);
     uavcan_node_info->sw_version_minor = mavlink_msg_uavcan_node_info_get_sw_version_minor(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN? msg->len : MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN;
-        memset(uavcan_node_info, 0, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN ? msg->len : MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN;
+    memset(uavcan_node_info, 0, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN);
     memcpy(uavcan_node_info, _MAV_PAYLOAD(msg), len);
 #endif
 }

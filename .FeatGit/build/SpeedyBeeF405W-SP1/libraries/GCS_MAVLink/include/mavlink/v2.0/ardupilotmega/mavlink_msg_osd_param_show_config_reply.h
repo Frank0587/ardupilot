@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE OSD_PARAM_SHOW_CONFIG_REPLY PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY 11036
 
 
@@ -68,7 +70,7 @@ typedef struct __mavlink_osd_param_show_config_reply_t {
  * @param increment  OSD parameter increment.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint32_t request_id, uint8_t result, const char *param_id, uint8_t config_type, float min_value, float max_value, float increment)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -113,7 +115,7 @@ static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack(uint8_t syst
  * @param increment  OSD parameter increment.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint32_t request_id, uint8_t result, const char *param_id, uint8_t config_type, float min_value, float max_value, float increment)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -142,7 +144,7 @@ static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_status(uint8
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_MIN_LEN, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_MIN_LEN, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_MIN_LEN, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN, 0);
 #endif
 }
 
@@ -161,7 +163,7 @@ static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_status(uint8
  * @param increment  OSD parameter increment.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t request_id,uint8_t result,const char *param_id,uint8_t config_type,float min_value,float max_value,float increment)
 {
@@ -199,7 +201,7 @@ static inline uint16_t mavlink_msg_osd_param_show_config_reply_pack_chan(uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param osd_param_show_config_reply C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_osd_param_show_config_reply_t* osd_param_show_config_reply)
+static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_osd_param_show_config_reply_t* osd_param_show_config_reply)
 {
     return mavlink_msg_osd_param_show_config_reply_pack(system_id, component_id, msg, osd_param_show_config_reply->request_id, osd_param_show_config_reply->result, osd_param_show_config_reply->param_id, osd_param_show_config_reply->config_type, osd_param_show_config_reply->min_value, osd_param_show_config_reply->max_value, osd_param_show_config_reply->increment);
 }
@@ -213,7 +215,7 @@ static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode(uint8_t sy
  * @param msg The MAVLink message to compress the data into
  * @param osd_param_show_config_reply C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_osd_param_show_config_reply_t* osd_param_show_config_reply)
+static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_osd_param_show_config_reply_t* osd_param_show_config_reply)
 {
     return mavlink_msg_osd_param_show_config_reply_pack_chan(system_id, component_id, chan, msg, osd_param_show_config_reply->request_id, osd_param_show_config_reply->result, osd_param_show_config_reply->param_id, osd_param_show_config_reply->config_type, osd_param_show_config_reply->min_value, osd_param_show_config_reply->max_value, osd_param_show_config_reply->increment);
 }
@@ -227,7 +229,7 @@ static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode_chan(uint8
  * @param msg The MAVLink message to compress the data into
  * @param osd_param_show_config_reply C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_osd_param_show_config_reply_t* osd_param_show_config_reply)
+static inline uint16_t mavlink_msg_osd_param_show_config_reply_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_osd_param_show_config_reply_t* osd_param_show_config_reply)
 {
     return mavlink_msg_osd_param_show_config_reply_pack_status(system_id, component_id, _status, msg,  osd_param_show_config_reply->request_id, osd_param_show_config_reply->result, osd_param_show_config_reply->param_id, osd_param_show_config_reply->config_type, osd_param_show_config_reply->min_value, osd_param_show_config_reply->max_value, osd_param_show_config_reply->increment);
 }
@@ -287,7 +289,7 @@ static inline void mavlink_msg_osd_param_show_config_reply_send_struct(mavlink_c
 
 #if MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -410,9 +412,10 @@ static inline void mavlink_msg_osd_param_show_config_reply_decode(const mavlink_
     osd_param_show_config_reply->result = mavlink_msg_osd_param_show_config_reply_get_result(msg);
     mavlink_msg_osd_param_show_config_reply_get_param_id(msg, osd_param_show_config_reply->param_id);
     osd_param_show_config_reply->config_type = mavlink_msg_osd_param_show_config_reply_get_config_type(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN? msg->len : MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN;
-        memset(osd_param_show_config_reply, 0, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN ? msg->len : MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN;
+    memset(osd_param_show_config_reply, 0, MAVLINK_MSG_ID_OSD_PARAM_SHOW_CONFIG_REPLY_LEN);
     memcpy(osd_param_show_config_reply, _MAV_PAYLOAD(msg), len);
 #endif
 }
