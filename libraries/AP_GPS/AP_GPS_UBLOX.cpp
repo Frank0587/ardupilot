@@ -38,7 +38,7 @@
 #endif
 
 
-#define UBLOX_DEBUGGING 0
+#define UBLOX_DEBUGGING 1
 #define UBLOX_FAKE_3DLOCK 0
 #ifndef CONFIGURE_PPS_PIN
 #define CONFIGURE_PPS_PIN 0
@@ -52,10 +52,10 @@
 #define UBLOX_MB_DEBUGGING 0
 
 // debug VALGET/VALSET configuration
-#define UBLOX_CFG_DEBUGGING 0
+#define UBLOX_CFG_DEBUGGING 1
 
 // debug CFGv2 configuration
-#define UBLOX_CFGV2_DEBUGGING 0
+#define UBLOX_CFGV2_DEBUGGING 1
 
 extern const AP_HAL::HAL& hal;
 
