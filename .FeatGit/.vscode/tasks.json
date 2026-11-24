@@ -1,0 +1,41 @@
+{
+   // see also:  C:\Users\sp\AppData\Roaming\Code\User\tasks.json
+    
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "ArduPilot: clean",
+         "type": "shell",
+         "command": "./waf clean",
+         "problemMatcher": []
+      },
+      {
+         "label": "ArduPilot: config SpeedyBeeF405WING",
+         "type": "shell",
+         "command": "./waf configure --board=SpeedyBeeF405WING",
+         "problemMatcher": []
+      },
+      {
+         "label": "ArduPilot: config SpeedyBeeF405W-SP1",
+         "type": "shell",
+         "command": "./waf configure --board=SpeedyBeeF405W-SP1",
+         "problemMatcher": []
+      },
+      {
+         "label": "ArduPilot: create SpeedyBeeF405W-SP1 Bootblock",
+         "type": "shell",
+         "command": " $ Tools/scripts/build_bootloaders.py SpeedyBeeF405W-SP1",
+         "problemMatcher": []
+      },
+      {
+         "label": "ArduPilot: build plane",
+         "type": "shell",
+         "command": "./waf plane",
+         "problemMatcher": [],
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         }
+      }
+   ]
+}
