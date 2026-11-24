@@ -156,3 +156,12 @@ void AP_FW_Controller::autotune_start(void)
     }
 }
 
+// Reset controller
+void AP_FW_Controller::reset()
+{
+    // Reset PID
+    rate_pid.reset_I();
+    rate_pid.reset_filter();
+    _last_out = 0.0;
+
+}
