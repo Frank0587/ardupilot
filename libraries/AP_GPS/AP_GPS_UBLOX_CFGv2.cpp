@@ -45,37 +45,37 @@ AP_GPS_UBLOX_CFGv2::UBXPackedCfg* AP_GPS_UBLOX_CFGv2::_override_common_cfg[GPS_M
 bool AP_GPS_UBLOX_CFGv2::_module_reset[GPS_MAX_INSTANCES] = {};
 
 const char* const AP_GPS_UBLOX_CFGv2::CONSTELLATION_NAMES[] = {
-    "GPS",   // 0
-    "SBAS",  // 1
-    "GAL",   // 2
-    "BDS",   // 3
-    "",      // 4 (IMES, unused)
-    "QZSS",  // 5
-    "",      // 6 (GLO, unused)
-    "NAVIC", // 7
+    "GPS",  // 0 (0x01) GPS
+    "SB",   // 1 (0x02) SBAS
+    "GA",   // 2 (0x04) GAL
+    "BD",   // 3 (0x08) BDS
+    "IM",   // 4 (0x10) IMES, unused
+    "QZ",   // 5 (0x20) QZSS
+    "GL",   // 6 (0x40) GLO, unused
+    "NA",   // 7 (0x80) NAVIC
 };
 
 const char* const AP_GPS_UBLOX_CFGv2::SIGNAL_NAMES[] = {
-    "GPS_L1CA",   // 0
-    "GPS_L2C",    // 1
-    "GPS_L5",     // 2
-    "SBAS_L1CA",  // 3
-    "GAL_E1",     // 4
-    "GAL_E5A",    // 5
-    "GAL_E5B",    // 6
-    "GAL_E6",     // 7
-    "BDS_B1",     // 8
-    "BDS_B1C",    // 9
-    "BDS_B2",     // 10
-    "BDS_B2A",    // 11
-    "BDS_B3",     // 12
-    "QZSS_L1CA",  // 13
-    "QZSS_L1S",   // 14
-    "QZSS_L2C",   // 15
-    "QZSS_L5",    // 16
-    "GLO_L1",     // 17
-    "GLO_L2",     // 18
-    "NAVIC_L5",   // 19
+    "GP_L1CA",   //  0 (0x000001) GPS
+    "GP_L2C",    //  1 (0x000002)
+    "GP_L5",     //  2 (0x000004)
+    "SB_L1CA",   //  3 (0x000008) SBAS
+    "GA_E1",     //  4 (0x000010) GAL
+    "GA_E5A",    //  5 (0x000020)
+    "GA_E5B",    //  6 (0x000040)
+    "GA_E6",     //  7 (0x000080)
+    "BD_B1",     //  8 (0x000100) BDS
+    "BD_B1C",    //  9 (0x000200)
+    "BD_B2",     // 10 (0x000400)
+    "BD_B2A",    // 11 (0x000800)
+    "BD_B3",     // 12 (0x001000)
+    "QZ_L1CA",   // 13 (0x002000) QZSS
+    "QZ_L1S",    // 14 (0x004000)
+    "QZ_L2C",    // 15 (0x008000)
+    "QZ_L5",     // 16 (0x010000)
+    "GL_L1",     // 17 (0x020000) GLO
+    "GL_L2",     // 18 (0x040000)
+    "NA_L5",     // 19 (0x080000) NAVIC
 };
 
 AP_GPS_UBLOX_CFGv2::AP_GPS_UBLOX_CFGv2(AP_GPS_UBLOX &_ubx_backend)
@@ -89,6 +89,13 @@ AP_GPS_UBLOX_CFGv2::AP_GPS_UBLOX_CFGv2(AP_GPS_UBLOX &_ubx_backend)
 
 void AP_GPS_UBLOX_CFGv2::update()
 {
+    // restart configuration if desired constellation set has changed
+    const uint8_t desired_gnss = (uint8_t)ubx_backend.params.gnss_mode;
+    if (desired_gnss != 0 && desired_gnss != enabled_gnss && curr_state == States::CONFIGURED) {
+        curr_state = States::IDENTIFY_SIGNALS;
+        _last_request_time = 0; // immediate action
+    }
+
     // If legacy config is supported and ForceUBXConfigV2 is not set, don't use CFGv2
     if (skip_cfgv2() || curr_state == States::CONFIGURED) {
         // Legacy config should be used instead, exit CFGv2
@@ -315,9 +322,8 @@ bool AP_GPS_UBLOX_CFGv2::_identify_module()
             GCS_SEND_TEXT(MAV_SEVERITY_WARNING,
                         "GPS %u: u-blox protocol too old for CFG-VALGET/VALSET",
                         unsigned(ubx_backend.state.instance) + 1);
-            // we cannot proceed with configuration
-            curr_state = States::FAILED;
-            return false;
+            // legacy config should be used instead, exit CFGv2
+            ubx_backend._legacy_cfg_only = true;
         }
         if (protver >= 40.00f) {
             // protocol version 40.00 and above only support CFG-VALGET/VALSET
@@ -707,7 +713,7 @@ void AP_GPS_UBLOX_CFGv2::_parse_signal_kv(ConfigKey key, uint64_t value, uint8_t
 void AP_GPS_UBLOX_CFGv2::_publish_supported_constellations()
 {
     char buf[100] = {};
-    snprintf(buf, sizeof(buf), "GPS %d: GNSS: ", ubx_backend.state.instance + 1);
+    snprintf(buf, sizeof(buf), "GPS %d: GNSS=0x%02x: ", ubx_backend.state.instance + 1, enabled_gnss);
     // UBLOX_GNSS indexes are 0..7 (with 4 unused for IMES), and we track GNSS in 8-bit masks
     for (uint8_t i = 0; i < 8; i++) {
         if (!(supported_gnss & (1U << i))) { continue; }
@@ -722,7 +728,7 @@ void AP_GPS_UBLOX_CFGv2::_publish_supported_constellations()
 
     // Print enabled signal names
     buf[0] = '\0';
-    snprintf(buf, sizeof(buf), "GPS %d: Sigs: ", ubx_backend.state.instance + 1);
+    snprintf(buf, sizeof(buf), "GPS %d: Sigs=0x%06x: ", ubx_backend.state.instance + 1, (unsigned int)(enabled_signals));
     const size_t prefix_len = strlen(buf);
     for (uint8_t i = 0; i < ARRAY_SIZE(SIGNAL_NAMES); i++) {
         if (SIGNAL_NAMES[i][0] == '\0') { continue; }
@@ -731,7 +737,7 @@ void AP_GPS_UBLOX_CFGv2::_publish_supported_constellations()
         if (strlen(buf) + needed >= sizeof(buf)) {
             GCS_SEND_TEXT(MAV_SEVERITY_INFO, "%s", buf);
             buf[0] = '\0';
-            snprintf(buf, sizeof(buf), "GPS %d: +Sigs: ", ubx_backend.state.instance + 1);
+            snprintf(buf, sizeof(buf), "GPS %d: +Sigs=0x%06x: ", ubx_backend.state.instance + 1, (unsigned int)(enabled_signals));
         }
         snprintf(buf + strlen(buf), sizeof(buf) - strlen(buf), "%s ", SIGNAL_NAMES[i]);
     }
@@ -745,30 +751,89 @@ void AP_GPS_UBLOX_CFGv2::_publish_supported_constellations()
 bool AP_GPS_UBLOX_CFGv2::_send_gnss_cfg()
 {
     const uint8_t desired_gnss = (uint8_t)ubx_backend.params.gnss_mode;
-    if (desired_gnss == 0 || desired_gnss == enabled_gnss) {
+    if (desired_gnss == 0) {
         return false;
     }
 
     // mask off unsupported constellations
     const uint8_t effective_gnss = desired_gnss & supported_gnss;
 
-    if (effective_gnss == enabled_gnss) {
+    uint32_t desired_signals = enabled_signals;
+    auto set_signal_for_gnss = [&](uint32_t gnss_idx, uint32_t signal_idx, bool doIfEnabled, bool doIfDisabled) {
+        const uint32_t gnss_mask = 1U << gnss_idx;
+        const uint32_t signal_mask = 1U << signal_idx;
+
+        if (((effective_gnss & gnss_mask) != 0 && doIfEnabled) ||
+            ((effective_gnss & gnss_mask) == 0 && doIfDisabled)) {
+            desired_signals |= signal_mask;
+        } else {
+            desired_signals &= ~signal_mask;
+        }
+    };
+
+    // Apply the legacy M10 band profile; preserve other modules' band settings.
+    switch (ubx_backend._hardware_generation) {  //module is set for F10/F20/X20 only, so use hardware generation instead
+        case AP_GPS_UBLOX::UBLOX_M10:
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_GPS, GPS_L1CA_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_SBAS, SBAS_L1CA_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_GAL, GAL_E1_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_BDS, BDS_B1_SIG, false, false);  // disable BDS B1 for M10 always
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_BDS, BDS_B1C_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_QZSS, QZSS_L1CA_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_QZSS, QZSS_L1S_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_GLO, GLO_L1_SIG, true, false);
+            set_signal_for_gnss(AP_GPS_UBLOX::GNSS_NAVIC, NAVIC_L5_SIG, true, false);
+            break;
+        default:
+            break;
+    }
+
+    Debug("GNSS: supported=0x%02x, enabled=0x%02x, desired=0x%02x",
+          supported_gnss,
+          enabled_gnss,
+          desired_gnss);
+
+    Debug("Signals: supported=0x%06x, enabled=0x%06x, desired=0x%06x",
+        (unsigned int)supported_signals,
+        (unsigned int)enabled_signals,
+        (unsigned int)desired_signals);
+
+    if (effective_gnss == enabled_gnss && desired_signals == enabled_signals) {
         return false;
     }
 
-    // build packed config with constellation enable/disable keys
-    // each entry is 4-byte key + 1-byte value = 5 bytes, 7 constellations max
-    uint8_t packed_buf[7 * 5] = {};
+    // build packed config with constellation and signal enable keys
+    uint8_t packed_buf[(AP_GPS_UBLOX::GNSS_LAST + SIGNALS_LAST) * 5] = {};
     UBXPackedCfg packed_cfg(packed_buf, sizeof(packed_buf));
+    bool packed_ok = true;
 
     #define PUSH_GNSS(NAME, INDEX) \
         { \
             const uint8_t curr_val = (enabled_gnss & (1U << AP_GPS_UBLOX::GNSS_##NAME)) ? 1U : 0U; \
             const uint8_t desired_val = (effective_gnss & (1U << AP_GPS_UBLOX::GNSS_##NAME)) ? 1U : 0U; \
-            packed_cfg.push<ConfigKey::CFG_SIGNAL_##NAME##_ENA>(curr_val, desired_val); \
+            packed_ok &= packed_cfg.push<ConfigKey::CFG_SIGNAL_##NAME##_ENA>(curr_val, desired_val); \
         }
     UBLOX_GNSS(PUSH_GNSS)
     #undef PUSH_GNSS
+
+    #define PUSH_SIGNAL(NAME, INDEX) \
+        { \
+            const uint32_t signal_mask = 1U << INDEX; \
+            const uint8_t curr_val = (enabled_signals & signal_mask) ? 1U : 0U; \
+            const uint8_t desired_val = (desired_signals & signal_mask) ? 1U : 0U; \
+            if(curr_val != desired_val) { \
+                packed_ok &= packed_cfg.push<ConfigKey::CFG_SIGNAL_##NAME##_ENA>(curr_val, desired_val); \
+            } \
+        }
+    UBLOX_SIGNALS(PUSH_SIGNAL)
+    #undef PUSH_SIGNAL
+
+    if (!packed_ok) {
+        GCS_SEND_TEXT(MAV_SEVERITY_ERROR,
+                      "GPS %u: failed to pack GNSS configuration",
+                      unsigned(ubx_backend.state.instance) + 1);
+        return false;
+    }
 
     if (packed_cfg.get_size() == 0) {
         return false;
@@ -1298,7 +1363,7 @@ bool AP_GPS_UBLOX_CFGv2::_send_reset(uint16_t navBbrMask, uint8_t resetMode)
 bool AP_GPS_UBLOX_CFGv2::using_legacy_config() const
 {
     // if legacy config is supported and ForceUBXConfigV2 option is not set, use legacy config
-    return ubx_backend._legacy_cfg_supported && !ubx_backend.gps.option_set(AP_GPS::DriverOptions::ForceUBXConfigV2);
+    return (ubx_backend._legacy_cfg_supported && !ubx_backend.gps.option_set(AP_GPS::DriverOptions::ForceUBXConfigV2)) || ubx_backend._legacy_cfg_only;
 }
 
 bool AP_GPS_UBLOX_CFGv2::skip_cfgv2() const
