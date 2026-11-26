@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE ARRAY_TEST_4 PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_ARRAY_TEST_4 17154
 
 
@@ -48,7 +50,7 @@ typedef struct __mavlink_array_test_4_t {
  * @param v  Stub field
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_array_test_4_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_array_test_4_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                const uint32_t *ar_u32, uint8_t v)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -78,7 +80,7 @@ static inline uint16_t mavlink_msg_array_test_4_pack(uint8_t system_id, uint8_t 
  * @param v  Stub field
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_array_test_4_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_array_test_4_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                const uint32_t *ar_u32, uint8_t v)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -97,7 +99,7 @@ static inline uint16_t mavlink_msg_array_test_4_pack_status(uint8_t system_id, u
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ARRAY_TEST_4_MIN_LEN, MAVLINK_MSG_ID_ARRAY_TEST_4_LEN, MAVLINK_MSG_ID_ARRAY_TEST_4_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ARRAY_TEST_4_MIN_LEN, MAVLINK_MSG_ID_ARRAY_TEST_4_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ARRAY_TEST_4_MIN_LEN, MAVLINK_MSG_ID_ARRAY_TEST_4_LEN, 0);
 #endif
 }
 
@@ -111,7 +113,7 @@ static inline uint16_t mavlink_msg_array_test_4_pack_status(uint8_t system_id, u
  * @param v  Stub field
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_array_test_4_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_array_test_4_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const uint32_t *ar_u32,uint8_t v)
 {
@@ -139,7 +141,7 @@ static inline uint16_t mavlink_msg_array_test_4_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param array_test_4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_array_test_4_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_array_test_4_t* array_test_4)
+static inline uint16_t mavlink_msg_array_test_4_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_array_test_4_t* array_test_4)
 {
     return mavlink_msg_array_test_4_pack(system_id, component_id, msg, array_test_4->ar_u32, array_test_4->v);
 }
@@ -153,7 +155,7 @@ static inline uint16_t mavlink_msg_array_test_4_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param array_test_4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_array_test_4_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_array_test_4_t* array_test_4)
+static inline uint16_t mavlink_msg_array_test_4_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_array_test_4_t* array_test_4)
 {
     return mavlink_msg_array_test_4_pack_chan(system_id, component_id, chan, msg, array_test_4->ar_u32, array_test_4->v);
 }
@@ -167,7 +169,7 @@ static inline uint16_t mavlink_msg_array_test_4_encode_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param array_test_4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_array_test_4_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_array_test_4_t* array_test_4)
+static inline uint16_t mavlink_msg_array_test_4_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_array_test_4_t* array_test_4)
 {
     return mavlink_msg_array_test_4_pack_status(system_id, component_id, _status, msg,  array_test_4->ar_u32, array_test_4->v);
 }
@@ -212,7 +214,7 @@ static inline void mavlink_msg_array_test_4_send_struct(mavlink_channel_t chan, 
 
 #if MAVLINK_MSG_ID_ARRAY_TEST_4_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -270,9 +272,10 @@ static inline void mavlink_msg_array_test_4_decode(const mavlink_message_t* msg,
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_array_test_4_get_ar_u32(msg, array_test_4->ar_u32);
     array_test_4->v = mavlink_msg_array_test_4_get_v(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ARRAY_TEST_4_LEN? msg->len : MAVLINK_MSG_ID_ARRAY_TEST_4_LEN;
-        memset(array_test_4, 0, MAVLINK_MSG_ID_ARRAY_TEST_4_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_ARRAY_TEST_4_LEN ? msg->len : MAVLINK_MSG_ID_ARRAY_TEST_4_LEN;
+    memset(array_test_4, 0, MAVLINK_MSG_ID_ARRAY_TEST_4_LEN);
     memcpy(array_test_4, _MAV_PAYLOAD(msg), len);
 #endif
 }

@@ -1,14 +1,21 @@
 {
     "configurations": [
         {
-            "name": "ESP32",
+            "name": "AP@Win",
             "includePath": [
                 "${default}",
-                "${workspaceFolder}/libraries",
-                "${workspaceFolder}/libraries/ap_common/missing",
                 "${workspaceFolder}/build/SpeedyBeeF405W-SP1",
-                "${workspaceFolder}/../../Embedded/arm-linux-gnueabihf/include",
-                "${workspaceFolder}/.FeatGit/build/SpeedyBeeF405W-SP1/libraries/GCS_MAVLink"
+                "${workspaceFolder}/.FeatGit/arm-none-eabi/include/c++/10.2.1",
+                "${workspaceFolder}/.FeatGit/arm-none-eabi/include/c++/10.2.1/arm-none-eabi",
+                "${workspaceFolder}/.FeatGit/lib/gcc/arm-none-eabi/10.2.1/include",
+                "${workspaceFolder}/.FeatGit/lib/gcc/arm-none-eabi/10.2.1/include-fixed",
+                "${workspaceFolder}/.FeatGit/build/picolibc-config/chibios",
+                "${workspaceFolder}/.FeatGit/build/SpeedyBeeF405W-SP1/libraries/GCS_MAVLink",
+                "${workspaceFolder}/modules/Chibios",
+                "${workspaceFolder}/modules/picolibc/libc/machine/arm",
+                "${workspaceFolder}/modules/picolibc/libc/include",
+                "${workspaceFolder}/libraries",
+                "${workspaceFolder}/libraries/ap_common/missing"
             ],
             "defines": [
                 "APM_BUILD_DIRECTORY=APM_BUILD_ArduPlane",
@@ -24,12 +31,18 @@
                 "LUA_32BITS=1",
                 "USE_LIBC_REALLOC=0",
                 "__AP_LINE__=17",
-                "__ARM_PCS_VFP"
+                "__ARM_PCS_VFP",
+                "__cplusplus=201103"
             ],
+            "intelliSenseMode": "gcc-arm",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "compilerPath": "v:\\Embedded\\gcc-arm-none-eabi-10-2020-q4-major\\bin\\arm-none-eabi-gcc.exe",
+            "compileCommands": "${workspaceFolder}/.FeatGit/build/SpeedyBeeF405W-SP1/compile_commands.win.json",
             "browse": {
-                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
-            },
-            "compileCommands": "${workspaceFolder}/build/SpeedyBeeF405W-SP1/compile_commands.json"
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+                "limitSymbolsToIncludedHeaders": true
+            }
         }
     ],
     "version": 4

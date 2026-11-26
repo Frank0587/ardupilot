@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE MISSION_CURRENT PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_MISSION_CURRENT 42
 
 
@@ -56,7 +58,7 @@ typedef struct __mavlink_mission_current_t {
  * @param mission_mode  Vehicle is in a mode that can execute mission items or suspended. 0: Unknown, 1: In mission mode, 2: Suspended (not in mission mode).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_current_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_mission_current_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint16_t seq, uint16_t total, uint8_t mission_state, uint8_t mission_mode)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +96,7 @@ static inline uint16_t mavlink_msg_mission_current_pack(uint8_t system_id, uint8
  * @param mission_mode  Vehicle is in a mode that can execute mission items or suspended. 0: Unknown, 1: In mission mode, 2: Suspended (not in mission mode).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_current_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_mission_current_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint16_t seq, uint16_t total, uint8_t mission_state, uint8_t mission_mode)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -119,7 +121,7 @@ static inline uint16_t mavlink_msg_mission_current_pack_status(uint8_t system_id
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MISSION_CURRENT_MIN_LEN, MAVLINK_MSG_ID_MISSION_CURRENT_LEN, MAVLINK_MSG_ID_MISSION_CURRENT_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MISSION_CURRENT_MIN_LEN, MAVLINK_MSG_ID_MISSION_CURRENT_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_MISSION_CURRENT_MIN_LEN, MAVLINK_MSG_ID_MISSION_CURRENT_LEN, 0);
 #endif
 }
 
@@ -135,7 +137,7 @@ static inline uint16_t mavlink_msg_mission_current_pack_status(uint8_t system_id
  * @param mission_mode  Vehicle is in a mode that can execute mission items or suspended. 0: Unknown, 1: In mission mode, 2: Suspended (not in mission mode).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_current_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_mission_current_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint16_t seq,uint16_t total,uint8_t mission_state,uint8_t mission_mode)
 {
@@ -169,7 +171,7 @@ static inline uint16_t mavlink_msg_mission_current_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param mission_current C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_current_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
+static inline uint16_t mavlink_msg_mission_current_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
 {
     return mavlink_msg_mission_current_pack(system_id, component_id, msg, mission_current->seq, mission_current->total, mission_current->mission_state, mission_current->mission_mode);
 }
@@ -183,7 +185,7 @@ static inline uint16_t mavlink_msg_mission_current_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param mission_current C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_current_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
+static inline uint16_t mavlink_msg_mission_current_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
 {
     return mavlink_msg_mission_current_pack_chan(system_id, component_id, chan, msg, mission_current->seq, mission_current->total, mission_current->mission_state, mission_current->mission_mode);
 }
@@ -197,7 +199,7 @@ static inline uint16_t mavlink_msg_mission_current_encode_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param mission_current C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_current_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
+static inline uint16_t mavlink_msg_mission_current_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
 {
     return mavlink_msg_mission_current_pack_status(system_id, component_id, _status, msg,  mission_current->seq, mission_current->total, mission_current->mission_state, mission_current->mission_mode);
 }
@@ -250,7 +252,7 @@ static inline void mavlink_msg_mission_current_send_struct(mavlink_channel_t cha
 
 #if MAVLINK_MSG_ID_MISSION_CURRENT_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -336,9 +338,10 @@ static inline void mavlink_msg_mission_current_decode(const mavlink_message_t* m
     mission_current->total = mavlink_msg_mission_current_get_total(msg);
     mission_current->mission_state = mavlink_msg_mission_current_get_mission_state(msg);
     mission_current->mission_mode = mavlink_msg_mission_current_get_mission_mode(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_MISSION_CURRENT_LEN? msg->len : MAVLINK_MSG_ID_MISSION_CURRENT_LEN;
-        memset(mission_current, 0, MAVLINK_MSG_ID_MISSION_CURRENT_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_MISSION_CURRENT_LEN ? msg->len : MAVLINK_MSG_ID_MISSION_CURRENT_LEN;
+    memset(mission_current, 0, MAVLINK_MSG_ID_MISSION_CURRENT_LEN);
     memcpy(mission_current, _MAV_PAYLOAD(msg), len);
 #endif
 }

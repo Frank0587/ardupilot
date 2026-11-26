@@ -1,6 +1,8 @@
 #pragma once
 // MESSAGE OBSTACLE_DISTANCE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_OBSTACLE_DISTANCE 330
 
 MAVPACKED(
@@ -76,7 +78,7 @@ typedef struct __mavlink_obstacle_distance_t {
  * @param frame  Coordinate frame of reference for the yaw rotation and offset of the sensor data. Defaults to MAV_FRAME_GLOBAL, which is north aligned. For body-mounted sensors use MAV_FRAME_BODY_FRD, which is vehicle front aligned.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_obstacle_distance_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_obstacle_distance_pack(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t sensor_type, const uint16_t *distances, uint8_t increment, uint16_t min_distance, uint16_t max_distance, float increment_f, float angle_offset, uint8_t frame)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -127,7 +129,7 @@ static inline uint16_t mavlink_msg_obstacle_distance_pack(uint8_t system_id, uin
  * @param frame  Coordinate frame of reference for the yaw rotation and offset of the sensor data. Defaults to MAV_FRAME_GLOBAL, which is north aligned. For body-mounted sensors use MAV_FRAME_BODY_FRD, which is vehicle front aligned.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_obstacle_distance_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_obstacle_distance_pack_status(uint32_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t sensor_type, const uint16_t *distances, uint8_t increment, uint16_t min_distance, uint16_t max_distance, float increment_f, float angle_offset, uint8_t frame)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -160,7 +162,7 @@ static inline uint16_t mavlink_msg_obstacle_distance_pack_status(uint8_t system_
 #if MAVLINK_CRC_EXTRA
     return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_CRC);
 #else
-    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN);
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN, 0);
 #endif
 }
 
@@ -181,7 +183,7 @@ static inline uint16_t mavlink_msg_obstacle_distance_pack_status(uint8_t system_
  * @param frame  Coordinate frame of reference for the yaw rotation and offset of the sensor data. Defaults to MAV_FRAME_GLOBAL, which is north aligned. For body-mounted sensors use MAV_FRAME_BODY_FRD, which is vehicle front aligned.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_obstacle_distance_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_obstacle_distance_pack_chan(uint32_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint8_t sensor_type,const uint16_t *distances,uint8_t increment,uint16_t min_distance,uint16_t max_distance,float increment_f,float angle_offset,uint8_t frame)
 {
@@ -223,7 +225,7 @@ static inline uint16_t mavlink_msg_obstacle_distance_pack_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param obstacle_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_obstacle_distance_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_obstacle_distance_t* obstacle_distance)
+static inline uint16_t mavlink_msg_obstacle_distance_encode(uint32_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_obstacle_distance_t* obstacle_distance)
 {
     return mavlink_msg_obstacle_distance_pack(system_id, component_id, msg, obstacle_distance->time_usec, obstacle_distance->sensor_type, obstacle_distance->distances, obstacle_distance->increment, obstacle_distance->min_distance, obstacle_distance->max_distance, obstacle_distance->increment_f, obstacle_distance->angle_offset, obstacle_distance->frame);
 }
@@ -237,7 +239,7 @@ static inline uint16_t mavlink_msg_obstacle_distance_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param obstacle_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_obstacle_distance_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_obstacle_distance_t* obstacle_distance)
+static inline uint16_t mavlink_msg_obstacle_distance_encode_chan(uint32_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_obstacle_distance_t* obstacle_distance)
 {
     return mavlink_msg_obstacle_distance_pack_chan(system_id, component_id, chan, msg, obstacle_distance->time_usec, obstacle_distance->sensor_type, obstacle_distance->distances, obstacle_distance->increment, obstacle_distance->min_distance, obstacle_distance->max_distance, obstacle_distance->increment_f, obstacle_distance->angle_offset, obstacle_distance->frame);
 }
@@ -251,7 +253,7 @@ static inline uint16_t mavlink_msg_obstacle_distance_encode_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param obstacle_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_obstacle_distance_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_obstacle_distance_t* obstacle_distance)
+static inline uint16_t mavlink_msg_obstacle_distance_encode_status(uint32_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_obstacle_distance_t* obstacle_distance)
 {
     return mavlink_msg_obstacle_distance_pack_status(system_id, component_id, _status, msg,  obstacle_distance->time_usec, obstacle_distance->sensor_type, obstacle_distance->distances, obstacle_distance->increment, obstacle_distance->min_distance, obstacle_distance->max_distance, obstacle_distance->increment_f, obstacle_distance->angle_offset, obstacle_distance->frame);
 }
@@ -317,7 +319,7 @@ static inline void mavlink_msg_obstacle_distance_send_struct(mavlink_channel_t c
 
 #if MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by reusing
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -466,9 +468,10 @@ static inline void mavlink_msg_obstacle_distance_decode(const mavlink_message_t*
     obstacle_distance->increment_f = mavlink_msg_obstacle_distance_get_increment_f(msg);
     obstacle_distance->angle_offset = mavlink_msg_obstacle_distance_get_angle_offset(msg);
     obstacle_distance->frame = mavlink_msg_obstacle_distance_get_frame(msg);
+
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN? msg->len : MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN;
-        memset(obstacle_distance, 0, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN);
+    uint8_t len = msg->len < MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN ? msg->len : MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN;
+    memset(obstacle_distance, 0, MAVLINK_MSG_ID_OBSTACLE_DISTANCE_LEN);
     memcpy(obstacle_distance, _MAV_PAYLOAD(msg), len);
 #endif
 }
