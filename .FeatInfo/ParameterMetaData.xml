@@ -24,6 +24,14 @@
 			<Increment>1</Increment>
 			<User>Advanced</User>
 		</FLHS_FLP_OUT_U>
+		<FLHS_FLP_EL_MX>
+			<DisplayName>Full house glider flaps-elevator mix</DisplayName>
+			<Description>This is amount of elevator deflection when flaps are applied. It is a percentage -100 to 100.</Description>
+			<Range>-100 100</Range>
+			<Units>%</Units>
+			<Increment>1</Increment>
+			<User>Advanced</User>
+		</FLHS_FLP_EL_MX>
 		<FLHS_CMB_IN_D>
 			<DisplayName>Full house glider camber inner down weight</DisplayName>
 			<Description>This is amount of down deflection applied to the two inner surfaces for camber function. It is a number from 0 to 100.</Description>
