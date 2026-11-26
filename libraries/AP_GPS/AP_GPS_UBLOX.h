@@ -913,6 +913,7 @@ private:
 #if AP_GPS_UBLOX_CFGV2_ENABLED
     bool        _legacy_config_update(void);
     bool        _legacy_cfg_supported = true;
+    bool        _legacy_cfg_only      = false;
 #endif
     // used to update fix between status and position packets
     AP_GPS_FixType next_fix { AP_GPS_FixType::NONE };
